@@ -3,9 +3,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .models import Book, BorrowRecord
+from django.contrib import messages
 from .models import Book
-
-
 
 # ---------- HOME (SHOW ALL BOOKS WITHOUT LOGIN) ----------
 def home(request):
@@ -122,15 +121,32 @@ def delete_book(request, book_id):
 # ---------- SIGNUP ----------
 def signup_view(request):
     if request.method == "POST":
-        username = request.POST['username']
+        username = request.POST['username'].strip()
+        email = request.POST['email'].strip()
         password = request.POST['password']
+        password2 = request.POST['password2']
 
-        user = User.objects.create_user(username=username, password=password)
-        user.is_staff = False
-        user.is_superuser = False
+        # Check if username already exists
+        if User.objects.filter(username=username).exists():
+            messages.error(request, "Username already taken. Please choose another.")
+            return render(request, 'signup.html')
+
+        # Check if email already exists
+        if User.objects.filter(email=email).exists():
+            messages.error(request, "Email already registered. Please use another email.")
+            return render(request, 'signup.html')
+
+        # Check if passwords match
+        if password != password2:
+            messages.error(request, "Passwords do not match.")
+            return render(request, 'signup.html')
+
+        # Create the user
+        user = User.objects.create_user(username=username, email=email, password=password)
         user.save()
 
-        return redirect('login')
+        messages.success(request, "Account created successfully! Please login.")
+        return redirect('/login/?signup=1')
 
     return render(request, 'signup.html')
 
@@ -148,7 +164,7 @@ def login_view(request):
         if user:
             login(request, user)
 
-            # If user came from borrow button → go back there
+            # Redirect to the page user came from
             if next_url:
                 return redirect(next_url)
 
@@ -157,9 +173,15 @@ def login_view(request):
                 return redirect('admin_dashboard')
 
             return redirect('home')
+        else:
+            messages.error(request, "Invalid username or password.")
+
+    # Check if redirected from signup
+    signup_success = request.GET.get('signup')
+    if signup_success:
+        messages.success(request, "Account created successfully! Please login.")
 
     return render(request, 'login.html')
-
 
 # ---------- LOGOUT ----------
 def logout_view(request):
@@ -175,7 +197,9 @@ def create_admin(request):
     )
     return redirect('login')
 
+
+# ---------- BOOK DETAIL (LOGIN REQUIRED) ----------
+@login_required(login_url='login')
 def book_detail(request, book_id):
     book = get_object_or_404(Book, id=book_id)
     return render(request, 'book_detail.html', {'book': book})
-
