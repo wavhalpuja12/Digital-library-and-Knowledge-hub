@@ -1,52 +1,263 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
+
 <head>
-<title>Admin Dashboard</title>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f6f8;
+        }
+
+        header {
+            background: #2c3e50;
+            color: #fff;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            font-size: 22px;
+        }
+
+        nav a {
+            color: #fff;
+            margin-left: 20px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            display: flex;
+        }
+
+        .sidebar {
+            width: 220px;
+            background: #34495e;
+            min-height: 100vh;
+            padding-top: 20px;
+        }
+
+        .sidebar a {
+            display: block;
+            color: #ecf0f1;
+            padding: 12px 20px;
+            text-decoration: none;
+        }
+
+        .sidebar a:hover {
+            background: #1abc9c;
+            color: #000;
+        }
+
+        .content {
+            flex: 1;
+            padding: 30px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .card h3 {
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+
+        .card p {
+            font-size: 22px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+            background: #fff;
+        }
+
+        table th,
+        table td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        table th {
+            background: #2c3e50;
+            color: #fff;
+        }
+
+        .btn-delete {
+            background: red;
+            color: white;
+            padding: 6px 12px;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+
+        .btn-delete:hover {
+            opacity: 0.8;
+        }
+
+        .btn-add {
+            background: green;
+            color: white;
+            padding: 8px 15px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .btn-add:hover {
+            opacity: 0.8;
+        }
+
+        footer {
+            background: #2c3e50;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            margin-top: 30px;
+        }
+    </style>
 </head>
 
 <body>
 
-{% include 'navbar.html' %}
+    <header>
+        <h1>📚 Library Management System</h1>
+        <nav>
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'logout' %}">Logout</a>
+        </nav>
+    </header>
 
-<div class="container text-center mt-4">
-<h1>⚙️ Admin Dashboard</h1>
-<p>Manage books and users</p>
+    <div class="container">
 
-<a href="{% url 'add_book' %}" class="btn btn-success">+ Add New Book</a>
-</div>
+        <div class="sidebar">
+            <a href="{% url 'admin_dashboard' %}">Dashboard</a>
+            <a href="{% url 'add_book' %}">Add Book</a>
+            <a href="{% url 'premium_members' %}">Premium Members</a>
+            <a href="#">Users</a>
+            <a href="{% url 'logout' %}">Logout</a>
+        </div>
 
-<div class="container mt-4">
-<table class="table table-bordered">
-<tr>
-<th>Book</th>
-<th>Author</th>
-<th>Status</th>
-<th>Action</th>
-</tr>
+        <div class="content">
 
-{% for book in books %}
-<tr>
-<td>{{ book.title }}</td>
-<td>{{ book.author }}</td>
+            <h2>Admin Dashboard</h2>
+            <br>
 
-<td>
-{% if book.is_availible %}
-Available
-{% else %}
-Borrowed
-{% endif %}
-</td>
+            <a href="{% url 'add_book' %}" class="btn-add">+ Add New Book</a>
 
-<td>
-<a href="{% url 'delete_book' book.id %}" class="btn btn-danger">
-Delete
-</a>
-</td>
-</tr>
-{% endfor %}
-</table>
-</div>
+            <!-- CARDS -->
+            <div class="cards" style="margin-top:20px;">
 
+                <div class="card">
+                    <h3>Total Books</h3>
+                    <p>{{ total_books }}</p>
+                </div>
+
+                <div class="card">
+                    <h3>Issued Books</h3>
+                    <p>{{ issued_books }}</p>
+                </div>
+
+                <div class="card">
+                    <h3>Available Books</h3>
+                    <p>{{ available_books }}</p>
+                </div>
+
+                <div class="card">
+                    <h3>Total Users</h3>
+                    <p>{{ total_users }}</p>
+                </div>
+
+            </div>
+
+            <!-- BOOK LIST -->
+            <h2 style="margin-top:40px;">All Books</h2>
+
+            <table>
+                <tr>
+                    <th>Book</th>
+                    <th>Author</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+
+                {% for book in books %}
+                <tr>
+                    <td>{{ book.title }}</td>
+                    <td>{{ book.author }}</td>
+
+                    <td>
+                        {% if book.is_availible %}
+                        Available
+                        {% else %}
+                        Borrowed
+                        {% endif %}
+                    </td>
+
+                    <td>
+                        <a href="{% url 'delete_book' book.id %}" class="btn-delete">
+                            Delete
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+
+            </table>
+
+            <!-- RECENT ISSUED BOOKS -->
+            <h2 style="margin-top:40px;">Recent Borrow Records</h2>
+
+            <table>
+                <tr>
+                    <th>User</th>
+                    <th>Book</th>
+                </tr>
+
+                {% for record in records|slice:":5" %}
+                <tr>
+                    <td>{{ record.user.username }}</td>
+                    <td>{{ record.book.title }}</td>
+                </tr>
+                {% endfor %}
+
+            </table>
+
+        </div>
+    </div>
+
+    <footer>
+        © 2026 Library Management System | Admin Panel
+    </footer>
+    
 </body>
+
 </html>

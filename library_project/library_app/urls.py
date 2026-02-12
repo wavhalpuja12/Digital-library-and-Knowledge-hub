@@ -20,7 +20,12 @@ urlpatterns = [
     path('logout/', views.logout_view, name='logout'),
 
     # -------- TEMP ADMIN CREATION --------
-    path("create-admin/", views.create_admin, name="create_admin"),
+    # path("create-admin/", views.create_admin, name="create_admin"),
 
     path('book/<int:book_id>/', views.book_detail, name='book_detail'),
+    path('premium-members/', views.premium_members, name='premium_members'),
+    path('upgrade-premium/', views.upgrade_premium, name='upgrade_premium'),
+    path('activate-premium/', views.activate_premium, name='activate_premium'),
+
+
 ]

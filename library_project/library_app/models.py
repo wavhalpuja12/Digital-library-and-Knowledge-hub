@@ -2,15 +2,19 @@ from django.db import models
 from django.contrib.auth.models import User
 from datetime import timedelta
 from django.utils import timezone
+from datetime import date
 
 # ---------------- BOOK MODEL ----------------
 class Book(models.Model):
-    title = models.CharField(max_length=255)
-    author = models.CharField(max_length=255)
-    description = models.TextField(null=True, blank=True)  # <-- add this
+    title = models.CharField(max_length=200)
+    author = models.CharField(max_length=200)
+    description = models.TextField(blank=True, null=True)
+    image = models.ImageField(upload_to='books/', blank=True, null=True)
+    book_pdf = models.FileField(upload_to='pdfs/', blank=True, null=True)
     is_availible = models.BooleanField(default=True)
-    image = models.ImageField(upload_to='book_images/', null=True, blank=True)
-    book_pdf = models.FileField(upload_to='book_pdfs/', null=True, blank=True)  # if not added yet
+
+    # 👑 ADD THIS
+    is_premium = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title
@@ -31,3 +35,11 @@ class BorrowRecord(models.Model):
 
     def __str__(self):
         return f"{self.user.username} borrowed {self.book.title}"
+    
+class Premium(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    purchased_date = models.DateField(auto_now_add=True)
+    expiry_date = models.DateField()
+
+    def is_active(self):
+        return self.expiry_date >= date.today()

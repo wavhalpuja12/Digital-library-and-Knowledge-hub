@@ -107,11 +107,13 @@ body {
 {% endif %}
 
 <div class="card-body text-center">
-<h5>
-<a href="{% url 'book_detail' book.id %}" class="text-decoration-none text-dark">
+<h3>
     {{ book.title }}
-</a>
-</h5>
+    {% if book.is_premium %}
+        <span style="color:gold;">👑 Premium</span>
+    {% endif %}
+</h3>
+
 <p>{{ book.author }}</p>
 
 <a href="{% url 'book_detail' book.id %}" class="btn btn-primary w-100">
