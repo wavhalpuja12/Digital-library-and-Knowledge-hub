@@ -36,7 +36,7 @@ def signup_view(request):
         )
 
         messages.success(request, "Account created successfully! Please login.")
-        return redirect('/login/?signup=1')
+        return redirect('login')
 
     return render(request, 'signup.html')
 
