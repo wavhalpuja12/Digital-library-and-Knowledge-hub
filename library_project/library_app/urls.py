@@ -14,10 +14,6 @@ urlpatterns = [
     path('add-book/', views.add_book, name='add_book'),
     path('delete-book/<int:book_id>/', views.delete_book, name='delete_book'),
 
-    # -------- AUTH URLs --------
-    path('signup/', views.signup_view, name='signup'),
-    path('login/', views.login_view, name='login'),
-    path('logout/', views.logout_view, name='logout'),
 
     # -------- TEMP ADMIN CREATION --------
     # path("create-admin/", views.create_admin, name="create_admin"),
