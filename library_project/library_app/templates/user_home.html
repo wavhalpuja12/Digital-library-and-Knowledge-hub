@@ -1,665 +1,250 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>OpenChapter Clone</title>
-
-    <style>
-        /* ---------------- RESET ---------------- */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: "Inter", system-ui, sans-serif;
-        }
-
-        /* ---------------- ROOT ---------------- */
-        :root {
-            --primary: #4f2df5;
-            --text-dark: #0f172a;
-            --text-muted: #64748b;
-            --bg: #ffffff;
-            --card-bg: #f8fafc;
-            --border: #e5e7eb;
-        }
-
-        /* ---------------- LAYOUT ---------------- */
-        body {
-            background: var(--bg);
-            color: var(--text-dark);
-        }
-
-        .app {
-            display: flex;
-        }
-
-
-        /* ---------------- MAIN ---------------- */
-        .main {
-            margin-left: 260px;
-            width: calc(100% - 260px);
-        }
-
-        /* ---------------- HERO ---------------- */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-        }
-
-        /* TOP IMAGE SECTION */
-        .hero-image {
-            height: 70vh;
-            background: url("https://images.unsplash.com/photo-1524995997946-a1c2e315a42f") no-repeat center center/cover;
-        }
-
-        /* BOTTOM CONTENT SECTION */
-        .content {
-            background: #fff;
-            padding: 60px 10%;
-            text-align: center;
-        }
-
-        .content span {
-            display: block;
-            width: 70px;
-            height: 4px;
-            background: #3b5bff;
-            margin: 0 auto 25px auto;
-        }
-
-        .content h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 55px;
-            margin-bottom: 25px;
-            color: #111;
-        }
-
-        .content p {
-            max-width: 750px;
-            margin: 0 auto 35px auto;
-            font-size: 17px;
-            line-height: 1.7;
-            color: #555;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 14px 35px;
-            background: linear-gradient(45deg, #5f2eea, #7b61ff);
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: 500;
-            transition: 0.3s ease;
-        }
-
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-        }
-
-        /* RESPONSIVE */
-        @media(max-width:768px) {
-            .hero-image {
-                height: 50vh;
-            }
-
-            .content h1 {
-                font-size: 38px;
-            }
-
-            .content p {
-                font-size: 15px;
-            }
-        }
-
-        /* ---------------- SECTION ---------------- */
-        .section {
-            padding: 48px 32px;
-        }
-
-        .section h2 {
-            font-size: 32px;
-            margin-bottom: 8px;
-        }
-
-        .section p {
-            color: var(--text-muted);
-            margin-bottom: 24px;
-        }
-
-        /* ---------------- GRID ---------------- */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 24px;
-        }
-
-        /* ---------------- CARD ---------------- */
-        .card {
-            background: var(--card-bg);
-            border-radius: 14px;
-            padding: 16px;
-            transition: 0.3s;
-            cursor: pointer;
-        }
-
-        .card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-        }
-
-        .card img {
-            width: 100%;
-            height: 280px;
-            object-fit: cover;
-            border-radius: 10px;
-        }
-
-        .card h4 {
-            margin-top: 12px;
-        }
-
-        .card span {
-            color: var(--text-muted);
-            font-size: 14px;
-        }
-
-        /* ---------------- AUTHORS ---------------- */
-        .author {
-            display: flex;
-            gap: 16px;
-            background: var(--card-bg);
-            border-radius: 14px;
-            padding: 20px;
-        }
-
-        .author img {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Georgia', serif;
-        }
-
-        /* HERO SECTION */
-        .hero {
-            position: relative;
-            height: 100vh;
-            background-image: url("https://images.unsplash.com/photo-1512820790803-83ca734da794");
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            display: flex;
-            align-items: center;
-        }
-
-        /* OVERLAY */
-        .hero::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to right,
-                    rgba(0, 0, 0, 0.85) 40%,
-                    rgba(0, 0, 0, 0.3));
-        }
-
-        /* CONTENT */
-        .hero-content {
-            position: relative;
-            color: #ffffff;
-            padding-left: 8%;
-            max-width: 500px;
-            z-index: 2;
-        }
-
-        .hero-content h1 {
-            font-size: 3.2rem;
-            line-height: 1.2;
-            margin-bottom: 25px;
-        }
-
-        .hero-content a {
-            display: inline-block;
-            text-decoration: none;
-            font-size: 1.2rem;
-            color: #ffffff;
-            border-bottom: 2px solid #ffffff;
-            padding-bottom: 6px;
-            transition: all 0.3s ease;
-        }
-
-        .hero-content a:hover {
-            color: #f4c430;
-            border-color: #f4c430;
-            transform: translateX(5px);
-        }
-
-        /* RESPONSIVE */
-        @media (max-width: 768px) {
-
-            .hero {
-                justify-content: center;
-                text-align: center;
-            }
-
-            .hero-content {
-                padding-left: 0;
-                padding: 20px;
-            }
-
-            .hero-content h1 {
-                font-size: 2.2rem;
-            }
-        }
-
-
-
-        .blog-section {
-            padding: 80px 32px;
-        }
-
-        .blog-section h2 {
-            font-size: 48px;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-
-        .blog-section .subtitle {
-            font-size: 18px;
-            color: #64748b;
-            margin-bottom: 48px;
-        }
-
-        /* ================= GRID ================= */
-        .blog-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
-            gap: 32px;
-        }
-
-        /* ================= CARD ================= */
-        .blog-card {
-            background: #ffffff;
-            border-radius: 18px;
-            overflow: hidden;
-            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            cursor: pointer;
-        }
-
-        .blog-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
-        }
-
-        .blog-card img {
-            width: 100%;
-            height: 260px;
-            object-fit: cover;
-        }
-
-        /* ================= CONTENT ================= */
-        .blog-content {
-            padding: 28px;
-        }
-
-        .blog-content h3 {
-            font-size: 26px;
-            font-weight: 700;
-            margin-bottom: 14px;
-        }
-
-        .blog-content p {
-            font-size: 16px;
-            line-height: 1.6;
-            color: #475569;
-            margin-bottom: 28px;
-        }
-
-        .blog-content .date {
-            display: block;
-            font-size: 14px;
-            color: #94a3b8;
-            text-align: right;
-        }
-
-        /* ================= RESPONSIVE ================= */
-        @media (max-width: 768px) {
-            .blog-section h2 {
-                font-size: 36px;
-            }
-
-            .blog-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* ---------------- NEWSLETTER ---------------- */
-        .newsletter {
-            background: #f1f5f9;
-            padding: 40px;
-            border-radius: 16px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .newsletter input {
-            padding: 14px;
-            width: 260px;
-            border-radius: 10px;
-            border: 1px solid var(--border);
-        }
-
-
-
-        /* COPYRIGHT */
-        .footer-bottom {
-            margin-top: 40px;
-            font-size: 14px;
-            color: #777;
-        }
-
-        /* BACK TO TOP */
-        .back-to-top {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: #eeeeee;
-            padding: 10px 14px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 14px;
-            border: 1px solid #ddd;
-        }
-
-        .back-to-top:hover {
-            background: #ddd;
-        }
-
-        /* RESPONSIVE */
-        @media (max-width: 768px) {
-            .footer-container {
-                flex-direction: column;
-            }
-
-            .newsletter {
-                flex-direction: column;
-            }
-
-            .newsletter button {
-                width: 100%;
-            }
-        }
-
-        /* ---------------- BACK TO TOP ---------------- */
-        #topBtn {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            padding: 10px 16px;
-            border-radius: 8px;
-            border: none;
-            background: #fff;
-            border: 1px solid var(--border);
-            cursor: pointer;
-        }
-    </style>
-</head>
-
-<body>
-
-    <div class="app">
-
-        <!-- MAIN -->
-        <main class="main">
-
-
-            <!-- HERO -->
-            <!-- Top Full Background Image -->
-            <section class="hero-image"></section>
-
-            <!-- Bottom Content -->
-            <section class="content">
-                <span></span>
-                <h1>Over 50,000 Free eBooks</h1>
-                <p>
-                    Explore a massive library of free eBooks across a variety of categories.
-                    Create your own personalized bookshelves to save and organize your favorites,
-                    and dive into endless reading possibilities — all at no cost.
-                </p>
-                <a href="#" class="btn">Discover Now</a>
-            </section>
-
-            <!-- BOOKS -->
-            <section class="section">
-                <h2>Timeless Classics</h2>
-                <p>Must-read novels that stand the test of time</p>
-
-                <div class="grid">
-                    <div class="card">
-                        <img src="https://covers.openlibrary.org/b/id/8225261-L.jpg">
-                        <h4>Alice in Wonderland</h4>
-                        <span>Lewis Carroll</span>
-                    </div>
-                    <div class="card">
-                        <img src="https://covers.openlibrary.org/b/id/8231996-L.jpg">
-                        <h4>Don Quixote</h4>
-                        <span>Miguel de Cervantes</span>
-                    </div>
-                    <div class="card">
-                        <img src="https://covers.openlibrary.org/b/id/8081536-L.jpg">
-                        <h4>The Wizard of Oz</h4>
-                        <span>L. Frank Baum</span>
-                    </div>
-                </div>
-            </section>
-
-            <!-- AUTHORS -->
-            <section class="section">
-                <h2>Featured Authors</h2>
-                <p>Discover timeless works by iconic authors</p>
-
-                <div class="grid">
-                    <div class="author">
-                        <img src="img/Author/portrait.webp">
-                        <div>
-                            <h4>Lewis Carroll</h4>
-                            <span>Author of Alice in Wonderland</span>
-                        </div>
-                    </div>
-                    <div class="author">
-                        <img src="img/Author/portrait (1).webp">
-                        <div>
-                            <h4>Edgar Allan Poe</h4>
-                            <span>Master of Gothic horror</span>
-                        </div>
-                    </div>
-
-                    <div class="author">
-                        <img src="img/Author/portrait (2).webp">
-                        <div>
-                            <h4>Jules Verne</h4>
-                            <span>ules Gabriel Verne was a French novelist, poet, and</span>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!--Books2-->
-
-            <section class="section">
-                <h2>Timeless Classics for New Reads</h2>
-                <p>Must-read novels that stand the test of time</p>
-
-                <div class="grid">
-                    <div class="card">
-                        <img src="img/book 2 img/Alices_Adventures_in_Wonderland_cover.webp">
-                        <h4>Alice in Wonderland</h4>
-                        <span>Lewis Carroll</span>
-                    </div>
-                    <div class="card">
-                        <img src="img/book 2 img/Don_Quixote_cover.webp">
-                        <h4>Don Quixote</h4>
-                        <span>Miguel de Cervantes</span>
-                    </div>
-                    <div class="card">
-                        <img src="img/book 2 img/The_Wonderful_Wizard_of_Oz_cover.webp">
-                        <h4>The Wizard of Oz</h4>
-                        <span>L. Frank Baum</span>
-                    </div>
-                </div>
-            </section>
-
-            <!--book3 -->
-            <section class="section">
-                <h2>Jump into Epic Adventures</h2>
-                <p>Journey into the Unknown with These Thrilling Tales</p>
-
-                <div class="grid">
-                    <div class="card">
-                        <img src="img/book 3 img/Robinson_Crusoe_cover.webp">
-                        <h4>Alice in Wonderland</h4>
-                        <span>Lewis Carroll</span>
-                    </div>
-                    <div class="card">
-                        <img src="img/book 3 img/Treasure_Island_cover.webp">
-                        <h4>Don Quixote</h4>
-                        <span>Miguel de Cervantes</span>
-                    </div>
-                    <div class="card">
-                        <img src="img/book 3 img/King_Solomons_Mines_cover.webp">
-                        <h4>The Wizard of Oz</h4>
-                        <span>L. Frank Baum</span>
-                    </div>
-                </div>
-            </section>
-
-            <!--book4 -->
-            <section class="section">
-                <h2>Nightmares from the Cosmos</h2>
-                <p>Uncover Ancient Terrors and Unfathomable Mysteries Beyond the Stars</p>
-
-                <div class="grid">
-                    <div class="card">
-                        <img src="img/book4 img/The_Great_God_Pan_cover.webp">
-                        <h4>Alice in Wonderland</h4>
-                        <span>Lewis Carroll</span>
-                    </div>
-                    <div class="card">
-                        <img src="img/book4 img/The_Dunwich_Horror_cover.webp">
-                        <h4>Don Quixote</h4>
-                        <span>Miguel de Cervantes</span>
-                    </div>
-                    <div class="card">
-                        <img src="img/book4 img/The_Willows_cover.webp">
-                        <h4>The Wizard of Oz</h4>
-                        <span>L. Frank Baum</span>
-                    </div>
-                </div>
-            </section>
-
-
-            <!--book5 -->
-            <section class="section">
-                <h2>Christmas Classics </h2>
-                <p>Festive tales & classic holiday warmth for fireside reading </p>
-
-                <div class="grid">
-                    <div class="card">
-                        <img src="img/book5 img/Fairy_Tales_of_Hans_Christian_Andersen_cover.webp">
-                        <h4>Alice in Wonderland</h4>
-                        <span>Lewis Carroll</span>
-                    </div>
-                    <div class="card">
-                        <img src="img/book5 img/Christmas_Every_Day_and_Other_Stories_cover.webp">
-                        <h4>Don Quixote</h4>
-                        <span>Miguel de Cervantes</span>
-                    </div>
-                    <div class="card">
-                        <img src="img/book5 img/Fairy_Tales_of_Hans_Christian_Andersen_cover.webp">
-                        <h4>The Wizard of Oz</h4>
-                        <span>L. Frank Baum</span>
-                    </div>
-                </div>
-            </section>
-
-            <!--hero section-->
-            <section class="hero">
-                <div class="hero-content">
-                    <h1>Don’t know <br> where to start?</h1>
-                    <a href="#">Discover your next read →</a>
-                </div>
-            </section>
-
-
-            <!---Blog section------>
-            <section class="blog-section">
-                <h2>From the Blog</h2>
-                <p class="subtitle">Stay up to date with the latest news and updates</p>
-
-                <div class="blog-grid">
-
-                    <!-- Blog Card 1 -->
-                    <article class="blog-card">
-                        <img src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa" alt="Cosmic Image">
-                        <div class="blog-content">
-                            <h3>How To Read Robert Chambers The King in Yellow For Free</h3>
-                            <p>
-                                Find out how you can read Robert W Chambers' classic horror masterpiece,
-                                "The King in Yellow," for free online—and discover why it's still chilling
-                                readers today.
-                            </p>
-                            <span class="date">Published on 2025-03-06</span>
-                        </div>
-                    </article>
-
-                    <!-- Blog Card 2 -->
-                    <article class="blog-card">
-                        <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba" alt="Old House">
-                        <div class="blog-content">
-                            <h3>Why Poe’s The Fall of the House of Usher Still Haunts Us</h3>
-                            <p>
-                                Edgar Allan Poe’s The Fall of the House of Usher still sends shivers down
-                                spines. Its crumbling mansion and eerie madness haunt us nearly two
-                                centuries later.
-                            </p>
-                            <span class="date">Published on 2025-03-03</span>
-                        </div>
-                    </article>
-
-                </div>
-            </section>
-            <div class="back-to-top" onclick="window.scrollTo({top:0, behavior:'smooth'})">
-                ↑ Back to top
-            </div>
-
-            <button id="topBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">
-                Back to top
-            </button>
-</body>
-
-</html>
+
+<style>
+{% comment %} .main-wrapper {
+  padding: 40px 20px;
+} {% endcomment %}
+
+/* ================= HERO SECTION ================= */
+
+.top-hero {
+  background: #f1f2f4;
+  padding: 80px 60px;
+  border-radius: 12px;
+}
+
+.hero-container {
+  max-width: 1300px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 60px;
+}
+
+.hero-left {
+  flex: 1;
+  max-width: 600px;
+}
+
+.hero-line {
+  width: 70px;
+  height: 4px;
+  background: #4f46e5;
+  margin-bottom: 25px;
+}
+
+.hero-left h1 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 56px;
+  font-weight: 600;
+  color: #0f172a;
+  line-height: 1.1;
+  margin-bottom: 25px;
+}
+
+.hero-left p {
+  font-size: 18px;
+  color: #334155;
+  line-height: 1.8;
+  margin-bottom: 35px;
+}
+
+.hero-btn {
+  display: inline-block;
+  padding: 14px 30px;
+  background: linear-gradient(90deg, #6366f1, #7c3aed);
+  color: white;
+  font-weight: 600;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: 0.3s ease;
+}
+
+.hero-btn:hover {
+  opacity: 0.9;
+}
+
+.hero-right {
+  flex: 1;
+}
+
+.hero-right img {
+  width: 100%;
+  height: 520px;
+  object-fit: cover;
+  {% comment %} border-radius: 12px; {% endcomment %}
+}
+
+/* ================= BOOK GRID ================= */
+
+.book-grid {
+  margin-top: 60px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.card img {
+  height: 250px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* ================= SECOND HERO ================= */
+
+.hero {
+  margin-top: 60px;
+  height: 50vh;
+  background: url("https://images.unsplash.com/photo-1512820790803-83ca734da794") center/cover;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  color: white;
+}
+
+.hero-content {
+  padding: 40px;
+}
+
+/* ================= BLOG GRID ================= */
+
+.blog-grid {
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 992px) {
+
+  .top-hero {
+    padding: 60px 30px;
+  }
+
+  .hero-container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .hero-left h1 {
+    font-size: 42px;
+  }
+
+  .hero-line {
+    margin: 0 auto 20px;
+  }
+
+  .hero-right img {
+    height: 400px;
+  }
+}
+
+@media (max-width: 576px) {
+
+  .hero-left h1 {
+    font-size: 32px;
+  }
+
+  .hero-left p {
+    font-size: 16px;
+  }
+
+  .hero-right img {
+    height: 280px;
+  }
+}
+</style>
+
+
+<div class="main-wrapper">
+
+  <!-- TOP HERO -->
+  <section class="top-hero">
+    <div class="hero-container">
+
+      <div class="hero-left">
+        <div class="hero-line"></div>
+        <h1>Over 50,000 free eBooks</h1>
+        <p>
+          Explore a massive library of free eBooks across a variety of categories.
+          Create your own personalized bookshelves to save and organize your favorites,
+          and dive into endless reading possibilities—all at no cost!
+        </p>
+        <a href="#" class="hero-btn">Discover Now</a>
+      </div>
+
+      <div class="hero-right">
+        <img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f" alt="Library">
+      </div>
+
+    </div>
+  </section>
+
+
+  <h3 class="mb-4 mt-5">Timeless Classics</h3>
+
+  <div class="book-grid">
+    <div class="card">
+      <img src="https://covers.openlibrary.org/b/id/8225261-L.jpg">
+      <div class="p-3">
+        <h5>Alice in Wonderland</h5>
+        <small>Lewis Carroll</small>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://covers.openlibrary.org/b/id/8231996-L.jpg">
+      <div class="p-3">
+        <h5>Don Quixote</h5>
+        <small>Miguel de Cervantes</small>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://covers.openlibrary.org/b/id/8081536-L.jpg">
+      <div class="p-3">
+        <h5>Wizard of Oz</h5>
+        <small>L Frank Baum</small>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- SECOND HERO -->
+  <div class="hero">
+    <div class="hero-content">
+      <h1>Don't know where to start?</h1>
+      <a href="#" style="color:white;">Discover →</a>
+    </div>
+  </div>
+
+
+  <h3 class="mt-5 mb-4">From Blog</h3>
+
+  <div class="blog-grid">
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa">
+      <div class="p-3">
+        <h5>The King in Yellow</h5>
+        <small>Published 2025</small>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba">
+      <div class="p-3">
+        <h5>Poe’s House of Usher</h5>
+        <small>Published 2025</small>
+      </div>
+    </div>
+  </div>
+
+</div>
+
 {% endblock %}

@@ -1,412 +1,480 @@
-{% comment %}
 {% load static %}
-{% endcomment %}
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
     <title>Open Chapter</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
 
     <style>
-        body {
-            margin: 0;
-            font-family: 'Segoe UI', sans-serif;
-            background: #f4f6fb;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            padding-top: 70px;
-            /* IMPORTANT */
+      /* GLOBAL */
+      /* GLOBAL */
+
+      body {
+        margin: 0;
+        font-family: "Segoe UI", sans-serif;
+        background: #f4f6fb;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        padding-top: 70px; /* ADD THIS */
+      }
+
+      /* NAVBAR */
+
+      .navbar {
+        background: #ffffff;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        padding: 12px 20px;
+        z-index: 1000;
+        position: fixed; /* ADD THIS */
+        top: 0; /* ADD THIS */
+        left: 0; /* ADD THIS */
+        width: 100%; /* ADD THIS */
+      }
+
+      .navbar-brand img {
+        height: 40px;
+      }
+
+      .nav-link {
+        font-weight: 500;
+        color: #333 !important;
+      }
+
+      .nav-link:hover {
+        color: #6c63ff !important;
+      }
+
+      /* SEARCH */
+
+      .nav-search {
+        width: 260px;
+      }
+
+      /* LAYOUT WRAPPER */
+
+      .layout-wrapper {
+        flex: 1;
+        display: flex;
+        min-height: calc(100vh - 70px);
+      }
+
+      /* SIDEBAR */
+
+      .sidebar {
+        width: 260px;
+        background: linear-gradient(180deg, #6c63ff, #5a54e8);
+        padding: 30px 20px;
+        color: white;
+        position: fixed;
+        top: 70px; /* CHANGE FROM 0 TO 70px */
+        left: 0;
+        height: calc(100vh - 70px); /* CHANGE THIS */
+        overflow-y: auto;
+        transition: 0.3s ease;
+        z-index: 999;
+      }
+
+      .sidebar h5 {
+        font-weight: 700;
+        margin-bottom: 20px;
+      }
+
+      .sidebar h6 {
+        font-size: 13px;
+        text-transform: uppercase;
+        margin-top: 25px;
+        margin-bottom: 10px;
+        opacity: 0.7;
+      }
+
+      .sidebar a {
+        display: flex;
+        align-items: center;
+        padding: 12px;
+        margin-bottom: 6px;
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        font-size: 16px;
+        transition: 0.3s;
+      }
+
+      .sidebar a:hover {
+        background: rgba(255, 255, 255, 0.15);
+      }
+
+      .sidebar i {
+        font-size: 18px;
+        width: 22px;
+      }
+
+      /* MAIN CONTENT */
+
+      .main-content {
+        flex: 1;
+        margin-left: 260px;
+        padding: 20px;
+        transition: 0.3s;
+        width: 100%;
+      }
+
+      /* TOGGLE BUTTON */
+
+      .sidebar-toggle {
+        background: #6c63ff;
+        border: none;
+        color: white;
+        padding: 8px 12px;
+        border-radius: 5px;
+      }
+
+      /* OVERLAY */
+
+      .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.4);
+        display: none;
+        z-index: 998;
+      }
+
+      .overlay.show {
+        display: block;
+      }
+
+      /* MOBILE */
+
+      @media (max-width: 992px) {
+        .nav-search {
+          width: 100%;
+        }
+
+        .sidebar {
+          left: -260px;
+        }
+
+        .sidebar.active {
+          left: 0;
         }
 
         .main-content {
-            margin-left: 260px;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
+          margin-left: 0;
+          padding: 15px;
         }
 
-        .page-content {
-            flex: 1;
+        body.sidebar-open {
+          overflow: hidden;
         }
+      }
 
-        /* NAVBAR */
+      /* DESKTOP */
 
-        .navbar {
-            background: #ffffff;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-            padding: 12px 20px;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1000;
-        }
-
-        .navbar-brand img {
-            height: 40px;
-        }
-
-        .nav-link {
-            font-weight: 500;
-            color: #333 !important;
-        }
-
-        .nav-link:hover {
-            color: #6c63ff !important;
-        }
-
-        .nav-search {
-            width: 260px;
-        }
-
-        /* SIDEBAR */
-
-        .sidebar {
-            position: fixed;
-            top: 70px;
-            left: 0;
-            width: 260px;
-            height: calc(100vh - 70px);
-            background: linear-gradient(180deg, #6c63ff, #5a54e8);
-            padding: 30px 20px;
-            color: white;
-            overflow-y: auto;
-        }
-
-        .sidebar h5 {
-            font-weight: 700;
-            margin-bottom: 20px;
-        }
-
-        .sidebar h6 {
-            font-size: 13px;
-            text-transform: uppercase;
-            margin-top: 25px;
-            margin-bottom: 10px;
-            opacity: 0.7;
-        }
-
-        .sidebar a {
-            display: flex;
-            align-items: center;
-            padding: 12px;
-            margin-bottom: 6px;
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            font-size: 16px;
-            transition: 0.3s;
-        }
-
-        .sidebar a:hover {
-            background: rgba(255, 255, 255, 0.15);
-            transform: translateX(6px);
-        }
-
-        .sidebar i {
-            font-size: 18px;
-            width: 22px;
-        }
-
+      @media (min-width: 992px) {
         .sidebar-toggle {
-            background: #6c63ff;
-            border: none;
-            color: white;
-            padding: 8px 12px;
-            border-radius: 5px;
+          display: none;
         }
+      }
 
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 100%;
-            width: 100%;
-            background: rgba(0, 0, 0, 0.4);
-            display: none;
-            z-index: 998;
-        }
+      /* FOOTER */
 
-        .overlay.show {
-            display: block;
-        }
+      .footer-section {
+        background: #111827;
+        color: #d1d5db;
+        padding: 60px 0 25px;
+      }
 
-        /* MOBILE */
-        @media(max-width:992px) {
-            .nav-search {
-                width: 100%;
-            }
+      .footer-title {
+        font-weight: 600;
+        margin-bottom: 15px;
+        color: #ffffff;
+      }
 
-            .sidebar {
-                position: fixed;
-                left: -260px;
-                top: 0;
-                z-index: 999;
-            }
+      .footer-text {
+        color: #9ca3af;
+        line-height: 1.6;
+      }
 
-            .sidebar.active {
-                left: 0;
-            }
+      .footer-text-small {
+        font-size: 14px;
+        color: #9ca3af;
+      }
 
-        }
+      .footer-links {
+        list-style: none;
+        padding: 0;
+      }
 
-        @media(min-width:992px) {
+      .footer-links li {
+        margin-bottom: 8px;
+      }
 
-            .sidebar-toggle {
-                display: none;
-            }
+      .footer-links a {
+        color: #9ca3af;
+        text-decoration: none;
+        transition: 0.3s ease;
+      }
 
-        }
+      .footer-links a:hover {
+        color: #6c63ff;
+      }
 
-        /* Newsletter */
-        .newsletter-box {
-            display: flex;
-            background: #1f2937;
-            border-radius: 6px;
-            overflow: hidden;
-            margin-top: 10px;
-        }
+      .newsletter-box {
+        display: flex;
+        background: #1f2937;
+        border-radius: 6px;
+        overflow: hidden;
+        margin-top: 10px;
+      }
 
-        .newsletter-box input {
-            flex: 1;
-            padding: 12px;
-            border: none;
-            background: transparent;
-            color: white;
-            outline: none;
-        }
+      .newsletter-box input {
+        flex: 1;
+        padding: 12px;
+        border: none;
+        background: transparent;
+        color: white;
+        outline: none;
+      }
 
-        .newsletter-box button {
-            background: linear-gradient(135deg, #6c63ff, #5a54e8);
-            border: none;
-            color: white;
-            padding: 0 20px;
-            transition: 0.3s ease;
-        }
+      .newsletter-box button {
+        background: linear-gradient(135deg, #6c63ff, #5a54e8);
+        border: none;
+        color: white;
+        padding: 0 20px;
+      }
 
-        .newsletter-box button:hover {
-            opacity: 0.9;
-        }
+      .footer-divider {
+        border-color: #374151;
+        margin: 40px 0 20px;
+      }
 
-        /* FOOTER */
+      .footer-bottom-links a {
+        color: #9ca3af;
+        margin-left: 20px;
+        text-decoration: none;
+      }
+      /* FIX FOOTER OVERLAP WITH SIDEBAR */
+
+      @media (min-width: 992px) {
         .footer-section {
-            background: #111827;
-            color: #d1d5db;
-            padding: 60px 0 25px;
-            margin-left: 260px;
-            /* SAME AS SIDEBAR WIDTH */
+          margin-left: 260px;
+          width: calc(100% - 260px);
         }
-
-        .footer-title {
-            font-weight: 600;
-            margin-bottom: 15px;
-            color: #ffffff;
-        }
-
-        .footer-text {
-            color: #9ca3af;
-            line-height: 1.6;
-        }
-
-        .footer-text-small {
-            font-size: 14px;
-            color: #9ca3af;
-        }
-
-        .footer-links {
-            list-style: none;
-            padding: 0;
-        }
-
-        .footer-links li {
-            margin-bottom: 8px;
-        }
-
-        .footer-links a {
-            color: #9ca3af;
-            text-decoration: none;
-            transition: 0.3s ease;
-        }
-
-        .footer-links a:hover {
-            color: #6c63ff;
-            padding-left: 4px;
-        }
-
-        .footer-divider {
-            border-color: #374151;
-            margin: 40px 0 20px;
-        }
-
-        .footer-bottom-links a {
-            color: #9ca3af;
-            margin-left: 20px;
-            text-decoration: none;
-            transition: 0.3s ease;
-        }
-
-        .footer-bottom-links a:hover {
-            color: #ffffff;
-        }
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <!-- OVERLAY -->
+
     <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+    <!-- NAVBAR -->
+
     <nav class="navbar navbar-expand-lg">
-        <div class="container-fluid">
+      <div class="container-fluid">
+        <button class="sidebar-toggle me-2" onclick="toggleSidebar()">
+          <i class="fa fa-bars"></i>
+        </button>
 
-            <button class="sidebar-toggle me-2" onclick="toggleSidebar()">
-                <i class="fa fa-bars"></i>
-            </button>
+        <button
+          class="navbar-toggler"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarContent"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
 
-            <a class="navbar-brand fw-bold">
-                OPEN CHAPTER
+        <!-- LOGO (UNCHANGED) -->
+
+        <a class="navbar-brand">
+          <img src="https://openchapter.io/public/images/logo_black.png" />
+        </a>
+
+        <div class="collapse navbar-collapse" id="navbarContent">
+          <form class="d-flex ms-lg-3 my-2">
+            <input
+              class="form-control nav-search"
+              type="search"
+              placeholder="Search Books"
+            />
+          </form>
+
+          <ul class="navbar-nav mx-auto text-center">
+            <li class="nav-item">
+              <a class="nav-link">Literature</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link">Poetry</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link">Crime/Mystery</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link">Science-Fiction & Fantasy</a>
+            </li>
+          </ul>
+
+          <div class="d-flex align-items-center mt-2 mt-lg-0">
+            <i class="fa-regular fa-circle-user me-2"></i>
+
+            <a
+              href="{% url 'login' %}"
+              class="text-decoration-none text-dark me-3"
+            >
+              Login
             </a>
 
-            <div class="collapse navbar-collapse" id="navbarContent">
+            <span class="text-muted">/</span>
 
-                <form class="d-flex ms-3">
-                    <input class="form-control nav-search" type="search" placeholder="Search Books">
-                </form>
-
-                <ul class="navbar-nav mx-auto">
-                    <li class="nav-item"><a class="nav-link">Literature</a></li>
-                    <li class="nav-item"><a class="nav-link">Poetry</a></li>
-                    <li class="nav-item"><a class="nav-link">Crime/Mystery</a></li>
-                    <li class="nav-item"><a class="nav-link">Sci-Fi & Fantasy</a></li>
-                </ul>
-
-                <div class="d-flex align-items-center">
-                    <i class="fa-regular fa-circle-user"></i>
-                    <span class="ms-3">
-                        <a href="{% url 'login' %}" style="color: black; text-decoration: none;">Login</a>
-                        <a href="{% url 'signup' %}"style="color: black; text-decoration: none; margin-left:10px;">Register</a>
-                    </span>
-                </div>
-
-            </div>
+            <a
+              href="{% url 'signup' %}"
+              class="text-decoration-none text-dark ms-3"
+            >
+              Sign Up
+            </a>
+          </div>
         </div>
+      </div>
     </nav>
-    <!-- sidebar -->
-    <div class="sidebar" id="sidebar">
 
+    <!-- sidebar -->
+
+    <div class="layout-wrapper">
+      <div class="sidebar" id="sidebar">
         <h5 class="mb-4 fw-bold">Dashboard</h5>
 
         <h6>Quick Links</h6>
 
         <a href="#">
-            <i class="fa-regular fa-compass me-2"></i>
-            Discover
+          <i class="fa-regular fa-compass me-2"></i>
+          Discover
         </a>
 
-        <a href="{% url 'categories' %}">
-            <i class="fa-solid fa-table-cells-large me-2"></i>
-            Categories
-        </a>
-
-        <a href="#">
-            <i class="fa-solid fa-chart-line me-2"></i>
-            Top Books
+        <a href="categories">
+          <i class="fa-solid fa-table-cells-large me-2"></i>
+          Categories
         </a>
 
         <a href="#">
-            <i class="fa-solid fa-book me-2"></i>New Books</a>
+          <i class="fa-solid fa-chart-line me-2"></i>
+          Top Books
+        </a>
+
+        <a href="#">
+          <i class="fa-solid fa-book me-2"></i>
+          New Books
+        </a>
 
         <h6 class="mt-4">Your Books</h6>
 
         <a href="#">
-            <i class="fa-regular fa-heart me-2"></i>
-            Liked Books
+          <i class="fa-regular fa-heart me-2"></i>
+          Liked Books
         </a>
 
         <a href="#">
-            <i class="fa-solid fa-clock-rotate-left me-2"></i>
-            History
+          <i class="fa-solid fa-clock-rotate-left me-2"></i>
+          History
         </a>
 
         <h6 class="mt-4">Bookshelves</h6>
 
         <a href="#">
-            <i class="fa-regular fa-folder me-2"></i>
-            Create Shelf
+          <i class="fa-regular fa-folder me-2"></i>
+          Create Shelf
         </a>
-
-    </div>
-
-    <div style="flex:1; padding:20px;">
-        {% block content %}
-        {% endblock %}
-    </div>
+      </div>
+      <!-- MAIN CONTENT -->
+      <div class="main-content">{% block content %} {% endblock %}</div>
     </div>
 
     <!-- FOOTER (UNCHANGED) -->
 
     <footer class="footer-section">
-        <div class="container">
-            <div class="row gy-4">
-
-                <!-- BRAND -->
-                <div class="col-lg-4">
-                    <div class="d-flex align-items-center mb-3">
-                        <img src="https://openchapter.io/public/images/logo_black.png" height="35" class="me-2">
-                        <h5 class="mb-0 fw-bold">OPEN CHAPTER</h5>
-                    </div>
-                    <p class="footer-text">
-                        Your Gateway to Unlimited Reading – Discover an extensive library of free eBooks.
-                    </p>
-                </div>
-
-                <!-- LINKS -->
-                <div class="col-lg-3">
-                    <h6 class="footer-title">Quick Links</h6>
-                    <ul class="footer-links">
-                        <li><a href="#">Home</a></li>
-                        <li><a href="{% url 'categories' %}">Categories</a></li>
-                        <li><a href="#">Top Books</a></li>
-                        <li><a href="#">Contact</a></li>
-                    </ul>
-                </div>
-
-                <!-- NEWSLETTER -->
-                <div class="col-lg-5">
-                    <h6 class="footer-title">Newsletter</h6>
-                    <p class="footer-text-small">
-                        Sign up to receive latest book updates.
-                    </p>
-                    <div class="newsletter-box">
-                        <input type="email" placeholder="Your email address">
-                        <button>Subscribe</button>
-                    </div>
-                </div>
-
+      <div class="container">
+        <div class="row gy-4">
+          <!-- BRAND -->
+          <div class="col-lg-4">
+            <div class="d-flex align-items-center mb-3">
+              <img
+                src="https://openchapter.io/public/images/logo_black.png"
+                height="35"
+                class="me-2"
+              />
+              <h5 class="mb-0 fw-bold">OPEN CHAPTER</h5>
             </div>
+            <p class="footer-text">
+              Your Gateway to Unlimited Reading – Discover an extensive library
+              of free eBooks.
+            </p>
+          </div>
 
-            <hr class="footer-divider">
+          <!-- LINKS -->
+          <div class="col-lg-3">
+            <h6 class="footer-title">Quick Links</h6>
+            <ul class="footer-links">
+              <li><a href="{% url 'user_home' %}">Home</a></li>
+              <li><a href="{% url 'categories' %}">Categories</a></li>
+              <li><a href="#">Top Books</a></li>
+              <li><a href="#">Contact</a></li>
+            </ul>
+          </div>
 
-            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
-                <p class="mb-2 mb-md-0">© 2026 OpenChapter. All Rights Reserved.</p>
-                <div class="footer-bottom-links">
-                    <a href="#">Terms</a>
-                    <a href="#">Privacy</a>
-                    <a href="#">Cookies</a>
-                </div>
+          <!-- NEWSLETTER -->
+          <div class="col-lg-5">
+            <h6 class="footer-title">Newsletter</h6>
+            <p class="footer-text-small">
+              Sign up to receive latest book updates.
+            </p>
+            <div class="newsletter-box">
+              <input type="email" placeholder="Your email address" />
+              <button>Subscribe</button>
             </div>
+          </div>
         </div>
-    </footer>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        function toggleSidebar() {
-            document.getElementById("sidebar").classList.toggle("active");
-            document.getElementById("overlay").classList.toggle("show");
-        }
-    </script>
-</body>
 
+        <hr class="footer-divider" />
+
+        <div
+          class="d-flex flex-column flex-md-row justify-content-between align-items-center"
+        >
+          <p class="mb-2 mb-md-0">© 2026 OpenChapter. All Rights Reserved.</p>
+          <div class="footer-bottom-links">
+            <a href="#">Terms</a>
+            <a href="#">Privacy</a>
+            <a href="#">Cookies</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+      function toggleSidebar() {
+        document.getElementById("sidebar").classList.toggle("active");
+
+        document.getElementById("overlay").classList.toggle("show");
+      }
+    </script>
+  </body>
 </html>

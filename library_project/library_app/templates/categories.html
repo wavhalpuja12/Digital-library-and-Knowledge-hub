@@ -2,67 +2,75 @@
 {% load static %}
 
 {% block content %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>All Categories</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 * {
   box-sizing: border-box;
 }
 
-body {
-  margin: 0;
-  font-family: Georgia, "Times New Roman", serif;
-  background: #f5f7fa;
-  color: #222;
+/* ================= HERO SECTION ================= */
+
+.category-hero {
+  background: #f1f2f4;
+  padding: 80px 60px;
 }
 
-.container {
-  max-width: 1200px;
+.hero-content {
+  max-width: 1300px;
   margin: auto;
-  padding: 40px 20px;
-}
-
-/* ================= INTRO SECTION ================= */
-.category-intro {
   display: flex;
-  gap: 40px;
   align-items: center;
-  margin-bottom: 70px;
+  justify-content: space-between;
+  gap: 60px;
 }
 
-.intro-text {
+.hero-text {
+  flex: 1;
+  max-width: 600px;
+}
+
+.hero-line {
+  width: 70px;
+  height: 4px;
+  background: #4f46e5;
+  margin-bottom: 25px;
+}
+
+.hero-text h1 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 48px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #111827;
+}
+
+.hero-text p {
+  font-size: 18px;
+  line-height: 1.8;
+  color: #374151;
+}
+
+.hero-image {
   flex: 1;
 }
 
-.intro-text h1 {
-  font-size: 36px;
-  margin-bottom: 15px;
-}
-
-.intro-text p {
-  font-size: 16px;
-  line-height: 1.7;
-  color: #444;
-}
-
-.intro-image {
-  flex: 1;
-  text-align: right;
-}
-
-.intro-image img {
+.hero-image img {
   width: 100%;
-  max-width: 480px;
-  border-radius: 12px;
+  height: 420px;
   object-fit: cover;
 }
 
+/* ================= MAIN CONTAINER ================= */
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: auto;
+  padding: 60px 20px;
+}
+
 /* ================= CATEGORY ROW ================= */
+
 .category-row {
   display: flex;
   gap: 30px;
@@ -71,11 +79,11 @@ body {
   border-radius: 14px;
   box-shadow: 0 6px 18px rgba(0,0,0,0.08);
   margin-bottom: 40px;
+  flex-wrap: wrap;
 }
 
-/* LEFT SIDE */
 .category-left {
-  flex: 1;
+  flex: 1 1 350px;
 }
 
 .category-left h2 {
@@ -93,18 +101,15 @@ body {
   font-size: 15px;
   line-height: 1.6;
   color: #444;
-  max-width: 520px;
 }
 
-/* RIGHT SIDE */
 .category-right {
-  flex: 1;
+  flex: 1 1 500px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 0; /* no gap between boxes */
+  gap: 15px;
 }
 
-/* BOOK BOX */
 .box {
   background: #f1f3f6;
   padding: 8px;
@@ -142,7 +147,6 @@ body {
   color: #888;
 }
 
-/* ================= BUTTON ================= */
 .show-more {
   text-align: center;
   margin: 60px 0;
@@ -159,15 +163,28 @@ body {
 }
 
 /* ================= RESPONSIVE ================= */
-@media (max-width: 900px) {
-  .category-intro,
-  .category-row {
+
+@media (max-width: 992px) {
+
+  .category-hero {
+    padding: 60px 30px;
+  }
+
+  .hero-content {
     flex-direction: column;
     text-align: center;
   }
 
-  .intro-image {
-    text-align: center;
+  .hero-line {
+    margin: 0 auto 20px;
+  }
+
+  .hero-image img {
+    height: 350px;
+  }
+
+  .category-row {
+    flex-direction: column;
   }
 
   .category-right {
@@ -175,187 +192,261 @@ body {
   }
 }
 
-@media (max-width: 500px) {
+@media (max-width: 576px) {
+
+  .hero-text h1 {
+    font-size: 32px;
+  }
+
+  .hero-text p {
+    font-size: 16px;
+  }
+
+  .hero-image img {
+    height: 250px;
+  }
+
+  .container {
+    padding: 40px 15px;
+  }
+
   .category-right {
     grid-template-columns: 1fr;
   }
+
+  .box img {
+    height: 200px;
+  }
+
+  .show-more button {
+    width: 100%;
+  }
 }
-
-
 </style>
-</head>
 
-<body>
 
-<div class="container">
-
-  <!-- INTRO -->
-  <section class="category-intro">
-    <div class="intro-text">
+<!-- HERO SECTION -->
+<section class="category-hero">
+  <div class="hero-content">
+    <div class="hero-text">
+      <div class="hero-line"></div>
       <h1>All Categories</h1>
       <p>
         Browse all book categories in one convenient page, making it easy to explore our entire collection of free classic literature. Discover diverse genres, from timeless fiction and historical works to poetry and philosophy, and find your next read by exploring every category available on the site.
       </p>
     </div>
-
-    <div class="intro-image">
+    <div class="hero-image">
       <img src="https://cdn.a2-host.cloud/MzPhGbSiW59oQyWjPUTYIO5NR5QbHpRdviVCvf5dDTs/rs:fill:700:500:0/g:ce/aHR0cHM6Ly9pbWFnZXMucGV4ZWxzLmNvbS9waG90b3MvMzk1MjA3MS9wZXhlbHMtcGhvdG8tMzk1MjA3MS5qcGVnP2F1dG89Y29tcHJlc3MmY3M9dGlueXNyZ2Imdz0xMjYwJmg9NzUwJmRwcj0x.webp">
     </div>
-  </section>
-
-  <!-- CATEGORY ROW -->
-  <div class="category-row">
-
-    <div class="category-left">
-      <h2>History – India</h2>
-      <div class="book-count">5062 books in category</div>
-      <p class="category-desc">
-        Discover a vast and fascinating collection of texts that explore the rich and diverse history of India. From the ancient Indus Valley Civilization and the Vedic age to the Mughal Empire and the struggle for independence, these books bring to life the people, cultures, and events that shaped the Indian subcontinent over thousands of years.
-      </p>
-    </div>
-
-    <div class="category-right">
-      <div class="box">
-        <img src="https://m.media-amazon.com/images/I/718j7m7yOIL._AC_UF1000,1000_QL80_.jpg">
-        <div class="book-title">The Declaration of IndependencePerspectives in Indian History : From the Origins to AD 1857</div>
-        <div class="book-author">By  M. Jankiraman Ph.D.</div>
-        <div class="book-rating">(100)</div>
-      </div>
-
-      <div class="box">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPKh92ZngiOu37jTsoIZS1_mOrNDQjHMVw4a6rWFNj2g&s">
-        <div class="book-title">Books That Changed History</div>
-        <div class="book-author">by DK (Author), James Naughtie</div>
-        <div class="book-rating">(87)</div>
-      </div>
-
-      <div class="box">
-        <img src="https://m.media-amazon.com/images/I/71eCLdAkkFL._AC_UF1000,1000_QL80_.jpg">
-        <div class="book-title">WILLUSTRATED HISTORY OF INDIA</div>
-        <div class="book-author">by Wilco Books</div>
-        <div class="book-rating">(92)</div>
-      </div>
-    </div>
-
   </div>
+</section>
 
 
-  <!-- CATEGORY ROW -->
-  <div class="category-row">
+<div class="container">
 
-    <div class="category-left">
-      <h2>Indian-Politics</h2>
-      <div class="book-count">5062 books in category</div>
-      <p class="category-desc">
-        Explore an in-depth collection of works that examine the political evolution of India. From the foundations of ancient governance and colonial administration to the Constitution of India, democratic institutions, political movements, and contemporary policy debates, these books offer valuable insights into the ideas, leaders, and systems that shape Indian politics today.
-      </p>
-    </div>
+  <!-- KEEP ALL YOUR CATEGORY ROWS EXACTLY SAME BELOW -->
+  <!-- (No content changed from your original) -->
 
-    <div class="category-right">
-      <div class="box">
-        <img src="https://m.media-amazon.com/images/I/81xTpWHBCkL._AC_UF1000,1000_QL80_.jpg">
-        <div class="book-title">Indian Politics</div>
-        <div class="book-author">by Ramdas Rupavath </div>
-        <div class="book-rating">(100)</div>
+  <!-- Your category rows here exactly as you already wrote --><!-- CATEGORY ROW -->
+      <div class="category-row">
+        <div class="category-left">
+          <h2>History – India</h2>
+          <div class="book-count">5062 books in category</div>
+          <p class="category-desc">
+            Discover a vast and fascinating collection of texts that explore the
+            rich and diverse history of India. From the ancient Indus Valley
+            Civilization and the Vedic age to the Mughal Empire and the struggle
+            for independence, these books bring to life the people, cultures,
+            and events that shaped the Indian subcontinent over thousands of
+            years.
+          </p>
+        </div>
+
+        <div class="category-right">
+          <div class="box">
+            <img
+              src="https://m.media-amazon.com/images/I/718j7m7yOIL._AC_UF1000,1000_QL80_.jpg"
+            />
+            <div class="book-title">
+              The Declaration of IndependencePerspectives in Indian History :
+              From the Origins to AD 1857
+            </div>
+            <div class="book-author">By M. Jankiraman Ph.D.</div>
+            <div class="book-rating">(100)</div>
+          </div>
+
+          <div class="box">
+            <img
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPKh92ZngiOu37jTsoIZS1_mOrNDQjHMVw4a6rWFNj2g&s"
+            />
+            <div class="book-title">Books That Changed History</div>
+            <div class="book-author">by DK (Author), James Naughtie</div>
+            <div class="book-rating">(87)</div>
+          </div>
+
+          <div class="box">
+            <img
+              src="https://m.media-amazon.com/images/I/71eCLdAkkFL._AC_UF1000,1000_QL80_.jpg"
+            />
+            <div class="book-title">WILLUSTRATED HISTORY OF INDIA</div>
+            <div class="book-author">by Wilco Books</div>
+            <div class="book-rating">(92)</div>
+          </div>
+        </div>
       </div>
 
-      <div class="box">
-        <img src="https://m.media-amazon.com/images/I/51b4yO3njmL.jpg">
-        <div class="book-title">The Future of Indian Politics</div>
-        <div class="book-author">by M N Roy</div>
-        <div class="book-rating">(87)</div>
+      <!-- CATEGORY ROW -->
+      <div class="category-row">
+        <div class="category-left">
+          <h2>Indian-Politics</h2>
+          <div class="book-count">5062 books in category</div>
+          <p class="category-desc">
+            Explore an in-depth collection of works that examine the political
+            evolution of India. From the foundations of ancient governance and
+            colonial administration to the Constitution of India, democratic
+            institutions, political movements, and contemporary policy debates,
+            these books offer valuable insights into the ideas, leaders, and
+            systems that shape Indian politics today.
+          </p>
+        </div>
+
+        <div class="category-right">
+          <div class="box">
+            <img
+              src="https://m.media-amazon.com/images/I/81xTpWHBCkL._AC_UF1000,1000_QL80_.jpg"
+            />
+            <div class="book-title">Indian Politics</div>
+            <div class="book-author">by Ramdas Rupavath</div>
+            <div class="book-rating">(100)</div>
+          </div>
+
+          <div class="box">
+            <img src="https://m.media-amazon.com/images/I/51b4yO3njmL.jpg" />
+            <div class="book-title">The Future of Indian Politics</div>
+            <div class="book-author">by M N Roy</div>
+            <div class="book-rating">(87)</div>
+          </div>
+
+          <div class="box">
+            <img
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsuhIKYu4h-I5mMFrx9xFO8GFnCwj0U0hZ_Q&s"
+            />
+            <div class="book-title">
+              The-oxford-handbook-of-indian-foreign-policy
+            </div>
+            <div class="book-author">By Edgar Allan Poe</div>
+            <div class="book-rating">(92)</div>
+          </div>
+        </div>
       </div>
 
-      <div class="box">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsuhIKYu4h-I5mMFrx9xFO8GFnCwj0U0hZ_Q&s">
-        <div class="book-title">The-oxford-handbook-of-indian-foreign-policy</div>
-        <div class="book-author">By Edgar Allan Poe</div>
-        <div class="book-rating">(92)</div>
-      </div>
-    </div>
+      <!-- CATEGORY ROW -->
+      <div class="category-row">
+        <div class="category-left">
+          <h2>Law & Criminology</h2>
+          <div class="book-count">5062 books in category</div>
+          <p class="category-desc">
+            Explore a comprehensive collection of works focused on legal
+            systems, criminal justice, and the study of crime. From
+            constitutional law, human rights, and judicial processes to
+            criminological theories, forensic science, and landmark case
+            studies, this category offers valuable insights into how laws are
+            formed, enforced, and interpreted, as well as the social factors
+            behind crime and punishment.
+          </p>
+        </div>
 
-  </div>
+        <div class="category-right">
+          <div class="box">
+            <img
+              src="https://m.media-amazon.com/images/I/41ONShWtQKL._AC_SX148_SY213_QL70_.jpg"
+            />
+            <div class="book-title">Problems & Solutions On Criminal Law</div>
+            <div class="book-author">By Thomas Jefferson</div>
+            <div class="book-rating">(100)</div>
+          </div>
 
-  <!-- CATEGORY ROW -->
-  <div class="category-row">
+          <div class="box">
+            <img
+              src="https://m.media-amazon.com/images/I/71YLOpdWbjL._SL1382_.jpg"
+            />
+            <div class="book-title">
+              Professional'S New Criminal Laws/ Criminal Manual
+            </div>
+            <div class="book-author">By Bharatiya Nyaya</div>
+            <div class="book-rating">(87)</div>
+          </div>
 
-    <div class="category-left">
-      <h2>Law & Criminology</h2>
-      <div class="book-count">5062 books in category</div>
-      <p class="category-desc">
-        Explore a comprehensive collection of works focused on legal systems, criminal justice, and the study of crime. From constitutional law, human rights, and judicial processes to criminological theories, forensic science, and landmark case studies, this category offers valuable insights into how laws are formed, enforced, and interpreted, as well as the social factors behind crime and punishment.
-      </p>
-    </div>
-
-    <div class="category-right">
-      <div class="box">
-        <img src="https://m.media-amazon.com/images/I/41ONShWtQKL._AC_SX148_SY213_QL70_.jpg">
-        <div class="book-title">Problems & Solutions On Criminal Law </div>
-        <div class="book-author">By Thomas Jefferson</div>
-        <div class="book-rating">(100)</div>
-      </div>
-
-      <div class="box">
-        <img src="https://m.media-amazon.com/images/I/71YLOpdWbjL._SL1382_.jpg">
-        <div class="book-title">Professional'S New Criminal Laws/ Criminal Manual</div>
-        <div class="book-author">By Bharatiya Nyaya</div>
-        <div class="book-rating">(87)</div>
-      </div>
-
-      <div class="box">
-        <img src="https://m.media-amazon.com/images/I/7147QNI5V4L._AC_UY218_.jpg">
-        <div class="book-title">Ill Health Among Tribal Communities in India</div>
-        <div class="book-author">By  T. K. Sundari Ravindran </div>
-        <div class="book-rating">(92)</div>
-      </div>
-    </div>
-
-  </div>
-
-
-  <!-- CATEGORY ROW -->
-  <div class="category-row">
-
-    <div class="category-left">
-      <h2>Horror</h2>
-      <div class="book-count">5062 books in category</div>
-      <p class="category-desc">
-        Explore a chilling collection of horror stories that promise to keep you on the edge of your seat. This category features timeless tales from classic authors that explore the depths of fear and the unknown. Each story holds a unique spin on horror, from ghostly encounters to thrilling mysteries. Perfect for late-night reading, these narratives will captivate your imagination and send shivers down your spine.
-      </p>
-    </div>
-
-    <div class="category-right">
-      <div class="box">
-        <img src="https://cdn.a2-host.cloud/Nz2pukNpV1THvQ9Iho7GW3WWPliLRAmxeU-LSp_NmeM/rs:fill:760:1100:0/g:ce/aHR0cHM6Ly9zcC1hc3NldHMuczMudXMtd2VzdC0wMDQuYmFja2JsYXplYjIuY29tL2Jvb2svMTAwMDcvQ2FybWlsbGFfY292ZXIuanBn.webp">
-        <div class="book-title">Carmilla</div>
-        <div class="book-author">By Thomas Jefferson</div>
-        <div class="book-rating">(100)</div>
+          <div class="box">
+            <img
+              src="https://m.media-amazon.com/images/I/7147QNI5V4L._AC_UY218_.jpg"
+            />
+            <div class="book-title">
+              Ill Health Among Tribal Communities in India
+            </div>
+            <div class="book-author">By T. K. Sundari Ravindran</div>
+            <div class="book-rating">(92)</div>
+          </div>
+        </div>
       </div>
 
-      <div class="box">
-        <img src="https://cdn.a2-host.cloud/kVyrr2Ir4R6Jn1xciwZikQnQHOxeDlMTaGFvWOndyaw/rs:fill:760:1100:0/g:ce/aHR0cHM6Ly9zcC1hc3NldHMuczMudXMtd2VzdC0wMDQuYmFja2JsYXplYjIuY29tL2Jvb2svMzI2OC9UaGVfTXlzdGVyaWVzX29mX1Vkb2xwaG9fY292ZXIuanBn.webp">
-        <div class="book-title">The Mysteries of Udolpho</div>
-        <div class="book-author">By John Muir</div>
-        <div class="book-rating">(87)</div>
+      <!-- CATEGORY ROW -->
+      <div class="category-row">
+        <div class="category-left">
+          <h2>Horror</h2>
+          <div class="book-count">5062 books in category</div>
+          <p class="category-desc">
+            Explore a chilling collection of horror stories that promise to keep
+            you on the edge of your seat. This category features timeless tales
+            from classic authors that explore the depths of fear and the
+            unknown. Each story holds a unique spin on horror, from ghostly
+            encounters to thrilling mysteries. Perfect for late-night reading,
+            these narratives will captivate your imagination and send shivers
+            down your spine.
+          </p>
+        </div>
+
+        <div class="category-right">
+          <div class="box">
+            <img
+              src="https://cdn.a2-host.cloud/Nz2pukNpV1THvQ9Iho7GW3WWPliLRAmxeU-LSp_NmeM/rs:fill:760:1100:0/g:ce/aHR0cHM6Ly9zcC1hc3NldHMuczMudXMtd2VzdC0wMDQuYmFja2JsYXplYjIuY29tL2Jvb2svMTAwMDcvQ2FybWlsbGFfY292ZXIuanBn.webp"
+            />
+            <div class="book-title">Carmilla</div>
+            <div class="book-author">By Thomas Jefferson</div>
+            <div class="book-rating">(100)</div>
+          </div>
+
+          <div class="box">
+            <img
+              src="https://cdn.a2-host.cloud/kVyrr2Ir4R6Jn1xciwZikQnQHOxeDlMTaGFvWOndyaw/rs:fill:760:1100:0/g:ce/aHR0cHM6Ly9zcC1hc3NldHMuczMudXMtd2VzdC0wMDQuYmFja2JsYXplYjIuY29tL2Jvb2svMzI2OC9UaGVfTXlzdGVyaWVzX29mX1Vkb2xwaG9fY292ZXIuanBn.webp"
+            />
+            <div class="book-title">The Mysteries of Udolpho</div>
+            <div class="book-author">By John Muir</div>
+            <div class="book-rating">(87)</div>
+          </div>
+
+          <div class="box">
+            <img
+              src="https://cdn.a2-host.cloud/JdCAoq8o8O3XrODgUZ-1AVXVlfMCV1E1BcPbrACrAxA/rs:fill:760:1100:0/g:ce/aHR0cHM6Ly9zcC1hc3NldHMuczMudXMtd2VzdC0wMDQuYmFja2JsYXplYjIuY29tL2Jvb2svNjQyMTgvQV9Kb3VybmV5X01hZGVfaW5fdGhlX1N1bW1lcl9vZl8xNzk0X3Rocm91Z2hfSG9sbGFuZF9hbmRfdGhlX1dlc3Rlcm5fRnJvbnRpZXJfb2ZfR2VybWFueV93aXRoX2FfUmV0dXJuX0Rvd25fdGhlX1JoaW5lX1ZvbF8yX29mXzJfVG9fV2hpY2hfQXJlX0FkZGVkX09ic2VydmF0aW9uc19kdXJpbmdfYV9Ub3VyX3RvX3RoZV9MYWtlc19vZl9MYW5jYXNoaXJlX1dlc3Rtb3JlbGFuZF9hbmRfQ3VtYmVybGFuZF9TZWNvbmRfRWRpdGlvbl9jb3Zlci5qcGc.webp"
+            />
+            <div class="book-title">
+              A Journey Made in the Summer of 1794, through Holland and the
+              Western Frontier of Germany
+            </div>
+            <div class="book-author">By Edgar Allan Poe</div>
+            <div class="book-rating">(92)</div>
+          </div>
+        </div>
       </div>
 
-      <div class="box">
-        <img src="https://cdn.a2-host.cloud/JdCAoq8o8O3XrODgUZ-1AVXVlfMCV1E1BcPbrACrAxA/rs:fill:760:1100:0/g:ce/aHR0cHM6Ly9zcC1hc3NldHMuczMudXMtd2VzdC0wMDQuYmFja2JsYXplYjIuY29tL2Jvb2svNjQyMTgvQV9Kb3VybmV5X01hZGVfaW5fdGhlX1N1bW1lcl9vZl8xNzk0X3Rocm91Z2hfSG9sbGFuZF9hbmRfdGhlX1dlc3Rlcm5fRnJvbnRpZXJfb2ZfR2VybWFueV93aXRoX2FfUmV0dXJuX0Rvd25fdGhlX1JoaW5lX1ZvbF8yX29mXzJfVG9fV2hpY2hfQXJlX0FkZGVkX09ic2VydmF0aW9uc19kdXJpbmdfYV9Ub3VyX3RvX3RoZV9MYWtlc19vZl9MYW5jYXNoaXJlX1dlc3Rtb3JlbGFuZF9hbmRfQ3VtYmVybGFuZF9TZWNvbmRfRWRpdGlvbl9jb3Zlci5qcGc.webp">
-        <div class="book-title">A Journey Made in the Summer of 1794, through Holland and the Western Frontier of Germany</div>
-        <div class="book-author">By Edgar Allan Poe</div>
-        <div class="book-rating">(92)</div>
-      </div>
-    </div>
+     
 
-  </div>
-
-  <!-- SHOW MORE -->
   <div class="show-more">
     <button>Show More Categories</button>
   </div>
 
+  {{ block.super }}
+
 </div>
 
-</body>
-</html>
 {% endblock %}
