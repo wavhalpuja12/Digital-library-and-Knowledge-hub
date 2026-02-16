@@ -4,10 +4,6 @@
 {% block content %}
 
 <style>
-{% comment %} .main-wrapper {
-  padding: 40px 20px;
-} {% endcomment %}
-
 /* ================= HERO SECTION ================= */
 
 .top-hero {
@@ -76,7 +72,7 @@
   width: 100%;
   height: 520px;
   object-fit: cover;
-  {% comment %} border-radius: 12px; {% endcomment %}
+  /* border-radius: 12px; */
 }
 
 /* ================= BOOK GRID ================= */
@@ -161,7 +157,6 @@
 }
 </style>
 
-
 <div class="main-wrapper">
 
   <!-- TOP HERO -->
@@ -186,36 +181,31 @@
     </div>
   </section>
 
-
-  <h3 class="mb-4 mt-5">Timeless Classics</h3>
-
-  <div class="book-grid">
-    <div class="card">
-      <img src="https://covers.openlibrary.org/b/id/8225261-L.jpg">
-      <div class="p-3">
-        <h5>Alice in Wonderland</h5>
-        <small>Lewis Carroll</small>
-      </div>
+{% for category in categories %}
+    <h2 class="mt-4">{{ category.name }}</h2>
+    <div class="row">
+        {% for book in category.books.all %}
+            <div class="col-md-3">
+                <div class="card mb-3">
+                    {% if book.image %}
+                        <img src="{{ book.image.url }}" class="card-img-top">
+                    {% else %}
+                        <img src="{% static 'default_book.jpg' %}" class="card-img-top">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5>{{ book.title }}</h5>
+                        <p>{{ book.author }}</p>
+                        <a href="{% url 'book_detail' book.id %}" class="btn btn-primary">
+                            View
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <p>No books in this category.</p>
+        {% endfor %}
     </div>
-
-    <div class="card">
-      <img src="https://covers.openlibrary.org/b/id/8231996-L.jpg">
-      <div class="p-3">
-        <h5>Don Quixote</h5>
-        <small>Miguel de Cervantes</small>
-      </div>
-    </div>
-
-    <div class="card">
-      <img src="https://covers.openlibrary.org/b/id/8081536-L.jpg">
-      <div class="p-3">
-        <h5>Wizard of Oz</h5>
-        <small>L Frank Baum</small>
-      </div>
-    </div>
-  </div>
-
-
+{% endfor %}
   <!-- SECOND HERO -->
   <div class="hero">
     <div class="hero-content">
@@ -223,7 +213,6 @@
       <a href="#" style="color:white;">Discover →</a>
     </div>
   </div>
-
 
   <h3 class="mt-5 mb-4">From Blog</h3>
 

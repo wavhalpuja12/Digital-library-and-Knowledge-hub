@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+    <h1>Add New Category</h1>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="name" class="form-label">Category Name</label>
+            <input type="text" class="form-control" name="name" id="name" placeholder="Enter category name" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Add Category</button>
+    </form>
+
+    <h2 class="mt-4">Existing Categories</h2>
+    <ul>
+        {% for cat in categories %}
+            <li>{{ cat.name }}</li>
+        {% empty %}
+            <li>No categories yet.</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

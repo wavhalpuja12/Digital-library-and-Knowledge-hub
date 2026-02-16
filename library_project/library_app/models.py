@@ -5,15 +5,20 @@ from django.utils import timezone
 from datetime import date
 
 # ---------------- BOOK MODEL ----------------
+class Category(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+
+    def __str__(self):
+        return self.name
+    
 class Book(models.Model):
     title = models.CharField(max_length=200)
     author = models.CharField(max_length=200)
     description = models.TextField(blank=True, null=True)
     image = models.ImageField(upload_to='books/', blank=True, null=True)
     book_pdf = models.FileField(upload_to='pdfs/', blank=True, null=True)
+    category = models.ForeignKey(Category,on_delete=models.CASCADE,related_name='books')
     is_availible = models.BooleanField(default=True)
-
-    # 👑 ADD THIS
     is_premium = models.BooleanField(default=False)
 
     def __str__(self):

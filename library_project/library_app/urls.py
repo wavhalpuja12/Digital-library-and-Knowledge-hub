@@ -21,6 +21,8 @@ urlpatterns = [
     path('upgrade-premium/', views.upgrade_premium, name='upgrade_premium'),
     path('activate-premium/', views.activate_premium, name='activate_premium'),
     path('categories/', views.categories, name='categories'),
+    path('add-category/', views.add_category, name='add_category'),
+
 
 
 ]

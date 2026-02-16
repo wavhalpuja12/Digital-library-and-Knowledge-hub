@@ -1,155 +1,170 @@
-  {% load static %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<title>Signup Page</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>Signup Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<style>
-  
-    * {
-        box-sizing: border-box;
-        font-family: "Segoe UI", Tahoma, sans-serif;
-    }
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: "Segoe UI", Tahoma, sans-serif;
+        }
 
-    body {
-        margin: 0;
-        min-height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-image: url("{% static 'images/background.jpeg' %}");
-    }
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: url("{% static 'images/background.jpeg' %}");
+        }
 
-    .signup-card {
-        width: 380px;
-        background: #ffffff78;
-        border-radius: 16px;
-        padding: 30px;
-        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.549);
-    }
+        .signup-card {
+            width: 380px;
+            background: #ffffff78;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.549);
+        }
 
-    .signup-card h1 {
-        
-        color: #154ad0;
-    }
+        .signup-card h1 {
 
-    .signup-card p {
-        color: #000000;
-        margin-bottom: 25px;
-    }
+            color: #154ad0;
+        }
 
-    .input-group {
-        margin-bottom: 15px;
-    }
+        .signup-card p {
+            color: #000000;
+            margin-bottom: 25px;
+        }
 
-    .input-group input {
-        width: 100%;
-        padding: 12px 14px;
-        border-radius: 8px;
-        border: 1px solid #ddd;
-        outline: none;
-        font-size: 14px;
-    }
+        .input-group {
+            margin-bottom: 15px;
+        }
 
-    .input-group input:focus {
-        border-color: #5c88ff;
-    }
+        .input-group input {
+            width: 100%;
+            padding: 12px 14px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            outline: none;
+            font-size: 14px;
+        }
 
-    .btn {
-        width: 100%;
-        padding: 12px;
-        border: none;
-        border-radius: 8px;
-        background: linear-gradient(90deg, #0f4aec, #7aa2ff);
-        color: white;
-        font-size: 16px;
-        cursor: pointer;
-        margin-top: 10px;
-    }
+        .input-group input:focus {
+            border-color: #5c88ff;
+        }
 
-    .btn:hover {
-        opacity: 0.9;
-    }
+        .btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(90deg, #0f4aec, #7aa2ff);
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
 
-    .or {
-        text-align: center;
-        margin: 20px 0;
-        color: #999;
-        font-size: 14px;
-    }
+        .btn:hover {
+            opacity: 0.9;
+        }
 
-    .social {
-        display: flex;
-        justify-content: center;
-        gap: 15px;
-    }
+        .or {
+            text-align: center;
+            margin: 20px 0;
+            color: #999;
+            font-size: 14px;
+        }
 
-    .social button {
-        width: 45px;
-        height: 45px;
-        border-radius: 50%;
-        border: none;
-        cursor: pointer;
-        font-size: 18px;
-        color: white;
-    }
+        .social {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
 
-    .google { background: #db4437; }
-    .facebook { background: #0a4bcc; }
-    .apple { background: #000; }
+        .social button {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            color: white;
+        }
 
-    .login-link {
-        text-align: center;
-        margin-top: 20px;
-        font-size: 14px;
-    }
+        .google {
+            background: #db4437;
+        }
 
-    .login-link a {
-        color: #2056e8;
-        text-decoration: none;
-        font-weight: 600;
-    }
-</style>
+        .facebook {
+            background: #0a4bcc;
+        }
+
+        .apple {
+            background: #000;
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .login-link a {
+            color: #2056e8;
+            text-decoration: none;
+            font-weight: 600;
+        }
+    </style>
 </head>
 
 <body>
 
-<div class="signup-card">
-    <h1>Sign Up</h1>
-    <p>Create your account</p>
+    <div class="signup-card">
+        <h1>Sign Up</h1>
+        <p>Create your account</p>
 
-    <div class="input-group">
-        <input type="text" placeholder="Full Name">
+        <form method="POST">
+            {% csrf_token %}
+
+            <div class="input-group">
+                <input type="text" name="username" placeholder="Username" required>
+            </div>
+
+            <div class="input-group">
+                <input type="email" name="email" placeholder="Email" required>
+            </div>
+
+            <div class="input-group">
+                <input type="password" name="password" placeholder="Password" required>
+            </div>
+
+            <div class="log">
+                <label for="password2">Confirm Password</label>
+                <input type="password" name="password2" id="password2" required class="form-control">
+            </div>
+
+            <button type="submit" class="btn">Sign Up</button>
+        </form>
+
+        <div class="or">Or sign up with</div>
+
+        <div class="social">
+            <button type="button" class="google">G</button>
+            <button type="button" class="facebook">f</button>
+            <button type="button" class="apple">a</button>
+        </div>
+
+        <div class="login-link">
+            Already have an account?
+            <a href="{% url 'login' %}">Log In</a>
+        </div>
     </div>
-
-    <div class="input-group">
-        <input type="email" placeholder="Email">
-    </div>
-
-    <div class="input-group">
-        <input type="password" placeholder="Password">
-    </div>
-
-    <div class="input-group">
-        <input type="password" placeholder="Confirm Password">
-    </div>
-
-    <button class="btn">Sign Up</button>
-
-    <div class="or">Or sign up with</div>
-
-     <div class="social">
-        <button class="google">G</button>
-        <button class="facebook">f</button>
-        <button class="apple">a</button>
-    </div>
-
-    <div class="login-link">
-    Already have an account? <a href="{% url 'login' %}">Log In</a>
-</div>
-</div>
 
 </body>
+
 </html>

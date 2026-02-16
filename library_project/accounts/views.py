@@ -6,38 +6,35 @@ from django.contrib import messages
 # ---------- SIGNUP ----------
 
 def signup_view(request):
+    if request.method == 'POST':
+        # Get form data safely
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        confirm_password = request.POST.get('password2')  # Make sure your HTML input has name="password2"
 
-    if request.method == "POST":
-        username = request.POST['username'].strip()
-        email = request.POST['email'].strip()
-        password = request.POST['password']
-        password2 = request.POST['password2']
+        # Check if passwords match
+        if password != confirm_password:
+            messages.error(request, "Passwords do not match.")
+            return render(request, 'signup.html')
 
-        # Username check
+        # Check if username is already taken
         if User.objects.filter(username=username).exists():
             messages.error(request, "Username already taken.")
             return render(request, 'signup.html')
 
-        # Email check
+        # Check if email is already taken
         if User.objects.filter(email=email).exists():
             messages.error(request, "Email already registered.")
             return render(request, 'signup.html')
 
-        # Password match check
-        if password != password2:
-            messages.error(request, "Passwords do not match.")
-            return render(request, 'signup.html')
-
         # Create user
-        User.objects.create_user(
-            username=username,
-            email=email,
-            password=password
-        )
+        user = User.objects.create_user(username=username, email=email, password=password)
+        user.save()
+        messages.success(request, "Account created successfully! You can now log in.")
+        return redirect('/accounts/login/')
 
-        messages.success(request, "Account created successfully! Please login.")
-        return redirect('login')
-
+    # If GET request, just render the signup form
     return render(request, 'signup.html')
 
 
@@ -62,7 +59,7 @@ def login_view(request):
             if user.is_superuser:
                 return redirect('admin_dashboard')
 
-            return redirect('home')
+            return redirect('user_home')
 
         else:
             messages.error(request, "Invalid username or password.")
@@ -76,7 +73,7 @@ def login_view(request):
 # ---------- LOGOUT ----------
 def logout_view(request):
     logout(request)
-    return redirect('home')
+    return redirect('user_home')
 
 
 

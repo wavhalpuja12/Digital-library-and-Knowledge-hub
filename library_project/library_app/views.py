@@ -3,28 +3,17 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib import messages
-from .models import Book, BorrowRecord, Premium
+from .models import Book, BorrowRecord, Premium, Category
 from django.db.models import Count
 
 
 # ---------- HOME (SHOW ALL BOOKS WITHOUT LOGIN) ----------
 def user_home(request):
-    query = request.GET.get('q')
+    categories = Category.objects.prefetch_related('books').all()
 
-    if query:
-        books = Book.objects.filter(title__icontains=query)
-    else:
-        books = Book.objects.all()
-
-    context = {
-        'books': books
-    }
-
-    if request.user.is_authenticated and request.user.is_superuser:
-        context['total_books'] = Book.objects.count()
-        context['total_records'] = BorrowRecord.objects.count()
-
-    return render(request, 'user_home.html', context)
+    return render(request, 'user_home.html', {
+        'categories': categories
+    })
 
 
 # ---------- BORROW BOOK ----------
@@ -124,13 +113,18 @@ def add_book(request):
     if not request.user.is_superuser:
         return redirect('home')
 
+    categories = Category.objects.all()
+
     if request.method == "POST":
         title = request.POST['title']
         author = request.POST['author']
         description = request.POST.get('description')
         image = request.FILES.get('image')
         book_pdf = request.FILES.get('book_pdf')
+        category_id = request.POST.get('category')
         is_premium = request.POST.get('is_premium') == 'on'
+
+        category = Category.objects.get(id=category_id)
 
         Book.objects.create(
             title=title,
@@ -138,14 +132,14 @@ def add_book(request):
             description=description,
             image=image,
             book_pdf=book_pdf,
+            category=category,
             is_premium=is_premium
         )
 
         messages.success(request, "Book added successfully!")
         return redirect('admin_dashboard')
 
-    return render(request, 'add_book.html')
-
+    return render(request, 'add_book.html', {'categories': categories})
 
 
 # ---------- DELETE BOOK (ADMIN ONLY) ----------
@@ -191,4 +185,22 @@ def activate_premium(request):
 def categories(request):
     return render(request, 'categories.html')
 
+@login_required(login_url='login')
+def add_category(request):
 
+    if not request.user.is_superuser:
+        return redirect('home')
+
+    if request.method == "POST":
+        name = request.POST.get('name')
+
+        if not Category.objects.filter(name=name).exists():
+            Category.objects.create(name=name)
+            messages.success(request, "Category added successfully!")
+        else:
+            messages.error(request, "Category already exists!")
+
+        return redirect('add_category')
+
+    categories = Category.objects.all()
+    return render(request, 'add_category.html', {'categories': categories})

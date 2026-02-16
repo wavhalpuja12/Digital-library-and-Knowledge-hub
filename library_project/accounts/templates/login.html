@@ -64,31 +64,39 @@
 
 <body>
 
-    <div id="div1">
-        <form action="">
-            <div style="margin: 15px;">
-                <i class="fa-regular fa-circle-user"></i>
-                <!-- <img src="user_icon.svg" alt=" " style="width: 125px; height: 125px;"> -->
+   <div id="div1">
+    <form method="POST">
+        {% csrf_token %}
 
-            </div>
-            <div class="log">
-                <label class="form-label fw-semibold" for="un">User Name</label><br>
-                <input type="text" id="un" class="form-control" name="username" placeholder="username" required>
-            </div>
-            <br>
-            <div class="log">
-                <label class="form-label fw-semibold" for="pass">Password</label><br>
-                <input type="password" id="pass" class="form-control" placeholder="password" required>
-            </div>
+        <div style="margin: 15px;">
+            <i class="fa-regular fa-circle-user"></i>
+        </div>
 
-            <button type="submit" class="btn btn-login w-100 mb-3">
-                Login
-            </button>
-            <div class="signup-link mb-1">
-                Create New account? <a href="{% url 'signup' %}">Register</a>
-            </div>
-        </form>
-    </div>
+        <div class="log">
+            <label class="form-label fw-semibold" for="un">User Name</label><br>
+            <input type="text" id="un" class="form-control" 
+                   name="username" placeholder="username" required>
+        </div>
+
+        <br>
+
+        <div class="log">
+            <label class="form-label fw-semibold" for="pass">Password</label><br>
+            <input type="password" id="pass" class="form-control" 
+                   name="password" placeholder="password" required>
+        </div>
+
+        <button type="submit" class="btn btn-login w-100 mb-3">
+            Login
+        </button>
+
+        <div class="signup-link mb-1">
+            <p>Don't have an account? 
+               <a href="{% url 'signup' %}">Sign up here</a>
+            </p>
+        </div>
+    </form>
+</div>
 </body>
 
 </html>

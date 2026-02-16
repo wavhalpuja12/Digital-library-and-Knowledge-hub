@@ -89,7 +89,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'digital_library_db',
         'USER': 'root',
-        'PASSWORD': 'root',
+        'PASSWORD': 'pran@253',
         'HOST': '127.0.0.1',
         'PORT': '3306',
     }
