@@ -414,11 +414,27 @@
             />
           </form>
           <ul class="navbar-nav mx-auto text-center">
-            <li class="nav-item"><a class="nav-link">Literature</a></li>
-            <li class="nav-item"><a class="nav-link">Poetry</a></li>
-            <li class="nav-item"><a class="nav-link">Crime/Mystery</a></li>
-            <li class="nav-item"><a class="nav-link">Science Fiction</a></li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'literature' %}">Literature</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'poetry' %}">Poetry</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'crime_mystery' %}"
+                >Crime/Mystery</a
+              >
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'Sci_fiction' %}"
+                >Science Fiction</a
+              >
+            </li>
           </ul>
+
           <div class="d-flex align-items-center desktop-login">
             <i class="fa-regular fa-circle-user me-2"></i>
             <a

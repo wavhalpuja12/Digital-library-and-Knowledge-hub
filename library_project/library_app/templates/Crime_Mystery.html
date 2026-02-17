@@ -1,0 +1,180 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<style>
+.hero{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:40px;
+  padding:40px 10px;
+  align-items:center;
+}
+
+.hero-text h1{
+  font-size:38px;
+  margin-bottom:15px;
+}
+
+.hero-text p{
+  font-size:15px;
+  line-height:1.7;
+  color:#444;
+}
+
+.hero-image{
+  width:100%;
+  height:350px;
+  border-radius:12px;
+  overflow:hidden;
+}
+
+.hero-image img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.category-main{
+  display:grid;
+  grid-template-columns:260px 1fr;
+  gap:30px;
+  margin-top:30px;
+}
+
+.category-filter h5{
+  font-size:16px;
+  margin-bottom:12px;
+}
+
+.filter-item{
+  display:flex;
+  justify-content:space-between;
+  font-size:14px;
+  padding:5px 0;
+}
+
+.clear-btn{
+  width:100%;
+  padding:10px;
+  border:none;
+  background:#6c63ff;
+  color:#fff;
+  border-radius:6px;
+  margin-top:15px;
+}
+
+.books{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+  gap:25px;
+}
+
+.book-img{
+  width:100%;
+  aspect-ratio:2/3;
+  border-radius:10px;
+  overflow:hidden;
+  background:#eee;
+}
+
+.book-img img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.book-card h6{
+  font-size:14px;
+  margin-top:8px;
+}
+
+.book-card p{
+  font-size:13px;
+  color:#666;
+}
+
+@media (max-width:992px){
+  .hero{
+    grid-template-columns:1fr;
+  }
+
+  .category-main{
+    grid-template-columns:1fr;
+  }
+}
+</style>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <h1>Crime / Mystery</h1>
+    <p>
+      Discover a captivating collection of Crime and Mystery books that
+      promises intrigue and suspense. These intriguing stories feature
+      enigmatic detectives, puzzling clues, and thrilling adventures
+      that challenge the intellect and captivate readers.
+    </p>
+  </div>
+  <div class="hero-image">
+    <img src="{% static 'img/crime-hero.webp' %}">
+  </div>
+</section>
+
+<!-- MAIN -->
+<section class="category-main">
+
+  <!-- FILTER -->
+  <div class="category-filter">
+    <h5>Sub Categories</h5>
+    <div class="filter-item"><span>Detective</span><span>320</span></div>
+    <div class="filter-item"><span>Thriller</span><span>410</span></div>
+    <div class="filter-item"><span>Classic Mystery</span><span>210</span></div>
+
+    <button class="clear-btn">Clear Filters</button>
+  </div>
+
+  <!-- BOOK GRID -->
+  <div>
+
+    <div class="d-flex justify-content-between mb-3">
+      <span>Showing 1 – 20 of 1159 results</span>
+      <select class="form-select w-auto">
+        <option>Relevance</option>
+      </select>
+    </div>
+
+    <div class="books">
+
+      <div class="book-card">
+        <div class="book-img">
+          <img src="{% static 'img2/hunters_lodge.webp' %}">
+        </div>
+        <h6>The Hunter's Lodge Case</h6>
+        <p>Agatha Christie</p>
+      </div>
+
+      <div class="book-card">
+        <div class="book-img">
+          <img src="{% static 'img2/for_the_defence.webp' %}">
+        </div>
+        <h6>For the Defence</h6>
+        <p>Fergus Hume</p>
+      </div>
+
+      <div class="book-card">
+        <div class="book-img">
+          <img src="{% static 'img2/the_lonely_house.webp' %}">
+        </div>
+        <h6>The Lonely House</h6>
+        <p>Marie Belloc Lowndes</p>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+{% endblock %}

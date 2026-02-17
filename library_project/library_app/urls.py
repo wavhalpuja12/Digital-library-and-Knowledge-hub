@@ -4,6 +4,11 @@ from . import views
 urlpatterns = [
     path('', views.user_home, name='user_home'),
     path('contact/', views.contact, name='contact'),
+    path('literature/', views.literature, name='literature'),
+    path('poetry/', views.poetry, name='poetry'),
+    path('crime-mystery/', views.crime_mystery, name='crime_mystery'),
+    path('Sci_fiction/', views.Sci_fiction, name='Sci_fiction'),
+
 
     # -------- USER URLs --------
     path('borrow/<int:book_id>/', views.borrow_book, name='borrow_book'),
