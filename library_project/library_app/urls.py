@@ -3,6 +3,7 @@ from . import views
 
 urlpatterns = [
     path('', views.user_home, name='user_home'),
+    path('contact/', views.contact, name='contact'),
 
     # -------- USER URLs --------
     path('borrow/<int:book_id>/', views.borrow_book, name='borrow_book'),
