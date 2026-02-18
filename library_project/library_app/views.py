@@ -194,4 +194,14 @@ def categories(request):
 def contact(request):
     return render(request, 'contact.html')
 
+def literature(request):
+    return render(request, 'Literature.html')
 
+def poetry(request):
+    return render(request, 'poetry.html')
+
+def crime_mystery(request):
+    return render(request, 'crime_mystery.html')
+
+def Sci_fiction(request):
+    return render(request, 'Science-Fiction & Fantasy.html')

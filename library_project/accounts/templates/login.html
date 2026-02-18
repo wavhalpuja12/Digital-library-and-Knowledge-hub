@@ -151,9 +151,7 @@
     <form   method="POST">
         {% csrf_token %}
 
-        <div style="margin: 15px;">
-            <i class="fa-regular fa-circle-user"></i>
-        </div>
+       <img src="{% static 'media/user_icon.svg' %}" alt="User Icon">
 
         <div class="log">
             <label class="form-label fw-semibold" for="un">User Name</label><br>

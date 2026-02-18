@@ -375,6 +375,7 @@
   </style>
 </head>
 
+<<<<<<< HEAD
 <body>
   <!-- OVERLAY -->
   <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
@@ -388,6 +389,120 @@
       <!-- MOBILE SEARCH CENTER -->
       <div class="mobile-search">
         <input type="search" class="form-control" placeholder="Search Books" />
+=======
+      .mobile-login-icon {
+        display: none;
+      }
+
+      @media (max-width: 992px) {
+        /* show mobile search */
+        .mobile-search {
+          display: block;
+          flex: 1;
+          margin: 0 10px;
+        }
+
+        .mobile-search input {
+          width: 100%;
+          border-radius: 20px;
+          padding: 6px 12px;
+        }
+
+        /* show login icon */
+        .mobile-login-icon {
+          display: block;
+          font-size: 22px;
+          color: #333;
+        }
+
+        /* hide desktop login text */
+        .desktop-login {
+          display: none;
+        }
+
+        /* hide desktop search */
+        .desktop-search {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- OVERLAY -->
+    <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg">
+      <div class="container-fluid d-flex align-items-center">
+        <!-- LEFT SIDEBAR BUTTON -->
+        <button class="sidebar-toggle me-2" onclick="toggleSidebar()">
+          <i class="fa fa-bars"></i>
+        </button>
+        <!-- MOBILE SEARCH CENTER -->
+        <div class="mobile-search">
+          <input
+            type="search"
+            class="form-control"
+            placeholder="Search Books"
+          />
+        </div>
+        <!-- DESKTOP LOGO -->
+        <a class="navbar-brand">
+          <img src="https://openchapter.io/public/images/logo_black.png" />
+        </a>
+        <!-- MOBILE LOGIN ICON RIGHT -->
+        <a href="{% url 'login' %}" class="mobile-login-icon me-2">
+          <i class="fa-regular fa-circle-user"></i>
+        </a>
+        <!-- DESKTOP CONTENT -->
+        <div class="collapse navbar-collapse" id="navbarContent">
+          <form class="d-flex ms-lg-3 my-2 desktop-search">
+            <input
+              class="form-control nav-search"
+              type="search"
+              placeholder="Search Books"
+            />
+          </form>
+          <ul class="navbar-nav mx-auto text-center">
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'literature' %}">Literature</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'poetry' %}">Poetry</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'crime_mystery' %}"
+                >Crime/Mystery</a
+              >
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'Sci_fiction' %}"
+                >Science Fiction</a
+              >
+            </li>
+          </ul>
+
+          <div class="d-flex align-items-center desktop-login">
+            <i class="fa-regular fa-circle-user me-2"></i>
+            <a
+              href="{% url 'login' %}"
+              class="text-dark me-3 text-decoration-none"
+            >
+              Login
+            </a>
+            <span>/</span>
+            <a
+              href="{% url 'signup' %}"
+              class="text-dark ms-3 text-decoration-none"
+            >
+              Signup
+            </a>
+          </div>
+        </div>
+>>>>>>> eaa996097502a816e8639f2d510ab2e2fe122562
       </div>
       <!-- DESKTOP LOGO -->
       <a class="navbar-brand">
