@@ -36,47 +36,82 @@ def signup_view(request):
         )
 
         messages.success(request, "Account created successfully! Please login.")
-        return redirect('login')
+        return redirect('/accounts/login/')
 
     return render(request, 'signup.html')
+
+# def signup_view(request): 
 
 
 
 # ---------- LOGIN ----------
+# def login_view(request):
+
+#     next_url = request.GET.get('next')
+
+#     if request.method == "POST":
+#         username = request.POST['username']
+#         password = request.POST['password']
+
+#         user = authenticate(request, username=username, password=password)
+
+#         if user:
+#             login(request, user)
+
+#             if next_url:
+#                 return redirect(next_url)
+
+#             if user.is_superuser:
+#                 return redirect('admin_dashboard')
+
+#             return redirect('home')
+
+#         else:
+#             messages.error(request, "Invalid username or password.")
+
+#     signup_success = request.GET.get('signup')
+#     if signup_success:
+#         messages.success(request, "Account created successfully! Please login.")
+
+#     return render(request, 'login.html')
+
+# def login_view(request):
+#     if request.method == "POST":
+#         us = request.POST.get("username")
+#         pw = request.POST.get("Password")
+
+#         try:
+#             user = User.objects.get(username=us)
+#         except User.DoesNotExist:
+#             return render (request ,'login.html',{"error": " User is Not Found.. Please try Again..!"})
+#         user = authenticate(request,username=us,passwod=pw)
+#         if user is not None:
+#             login(request,user)
+#             return redirect("user_home")
+#         else:
+#             return render(request,'login.html',{"error":"inavalid User name.....!" })
+#     else:
+#         return render (request,'login.html')  
+# 
 def login_view(request):
-
-    next_url = request.GET.get('next')
-
     if request.method == "POST":
-        username = request.POST['username']
-        password = request.POST['password']
+        username = request.POST.get("username")
+        password = request.POST.get("password")
 
         user = authenticate(request, username=username, password=password)
 
-        if user:
+        if user is not None:
             login(request, user)
-
-            if next_url:
-                return redirect(next_url)
-
-            if user.is_superuser:
-                return redirect('admin_dashboard')
-
-            return redirect('home')
-
+            return redirect('user_home')   # 👈 change this to your home URL name
         else:
-            messages.error(request, "Invalid username or password.")
+            messages.error(request, "Invalid username or password")
 
-    signup_success = request.GET.get('signup')
-    if signup_success:
-        messages.success(request, "Account created successfully! Please login.")
-
-    return render(request, 'login.html')
+    return render(request, "login.html") 
 
 # ---------- LOGOUT ----------
 def logout_view(request):
     logout(request)
-    return redirect('home')
+    return redirect('user_home')
 
 
 

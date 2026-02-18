@@ -1,4 +1,5 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,84 +12,174 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <style>
-    body {
-        background-image: url("{% static 'images/books_library.jpeg' %}");
-
-
+    * {
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
     }
 
+    body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-image: url("{% static 'media/download.webp' %}");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+
+    /* ✅ Mobile First */
     #div1 {
-        margin: auto;
-        margin-top: 200px;
-        width: 350px;
-        height: 350px;
-        border-radius: 40px;
-        border: solid 2px black;
+        width: 90%;
+        max-width: 400px;
+       
+        padding: 20px;
+        border-radius: 20px;
+        /* border: 2px solid black; */
         text-align: center;
-        box-shadow: 2px 4px 8px black;
-        background-color: rgba(255, 255, 255, 0.675);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        background-color: rgba(255, 255, 255, 0);
+    }
+
+    /* ✅ FIXED IMAGE */
+    img {
+        width: 80px;
+        height: 80px;
+        /* fixed */
+        margin-bottom: 15px;
     }
 
     .log {
-        font-size: 20px;
-        text-align: start;
-        margin-left: 20px;
-        color: black;
-
-
-    }
-
-    .btn-login {
-        background-color: #0b4edf;
-        border-color: #000000;
-        border-radius: 10px;
-        color: #111;
-        margin-top: 15px;
-        width: 100px;
-        height: 35px;
-
-    }
-
-
-    .btn-alogin:hover {
-        background-color: #3018e0;
-        border-color: #a88734;
+        color: rgb(0, 0, 0);
+        font-size: 19px;
+        text-align: left;
+        margin-bottom: 15px;
     }
 
     .form-control {
-        width: 300px;
-        height: 30px;
-        border-radius: 10px;
+        width: 100%;
+        height: 35px;
+        border-radius: 8px;
+        padding: 5px 10px;
+        border: 1px solid #ccc;
+    }
+
+    .btn-login {
+        width: 100%;
+        height: 40px;
+        border-radius: 8px;
+        background-color: #0b4edf;
+        color: white;
+        border: none;
+        font-size: 15px;
+        cursor: pointer;
+    }
+
+    .btn-login:hover {
+        background-color: #3018e0;
+    }
+
+    /* 📱 Tablet */
+    @media (min-width: 768px) {
+        #div1 {
+            max-width: 380px;
+          border: 2px solid black;
+           background-color: rgba(236, 232, 232, 0.375);
+        }
+
+        img {
+            width: 100px;
+            height: 100px;
+        }
+    }
+
+    /* 💻 Desktop */
+    @media (min-width: 1024px) {
+        #div1 {
+            max-width: 420px;
+            padding: 25px;
+            border: 2px solid black;
+            background-color: rgba(236, 232, 232, 0.375);
+        }
+
+        img {
+            width: 120px;
+            height: 120px;
+        }
+
+        .log {
+            font-size: 16px;
+        }
     }
 </style>
 
 <body>
 
-    <div id="div1">
-        <form action="">
-            <div style="margin: 15px;">
-                <i class="fa-regular fa-circle-user"></i>
-                <!-- <img src="user_icon.svg" alt=" " style="width: 125px; height: 125px;"> -->
 
-            </div>
+    <!-- <div id="div1" >
+        <form action="{% url 'login' %}" method="POSt">
+            {% csrf_token %}
+            <img src="{% static 'media/user_icon.svg' %}" alt="User Icon">
+
             <div class="log">
-                <label class="form-label fw-semibold" for="un">User Name</label><br>
-                <input type="text" id="un" class="form-control" name="username" placeholder="username" required>
-            </div>
-            <br>
-            <div class="log">
-                <label class="form-label fw-semibold" for="pass">Password</label><br>
-                <input type="password" id="pass" class="form-control" placeholder="password" required>
+                <label for="un">User Name</label>
+                <input type="text" id="un" class="form-control" placeholder="Username" required>
             </div>
 
-            <button type="submit" class="btn btn-login w-100 mb-3">
+            <div class="log">
+                <label for="pass">Password</label>
+                <input type="password" id="pass" class="form-control" placeholder="Password" required>
+            </div>
+
+            
+
+            <a href="{% url 'user_home' %}"><button type="submit" class="btn btn-login">
                 Login
-            </button>
-            <div class="signup-link mb-1">
-                Create New account? <a href="{% url 'signup' %}">Register</a>
-            </div>
+            </button></a>
+            
         </form>
-    </div>
+
+        
+
+        <div class="signup-link">
+                    <p>Don't have an account? <a href="{% url 'signup' %}">Sign up here</a></p>
+                </div>
+    </div> -->
+
+    <div id="div1">
+    <form   method="POST">
+        {% csrf_token %}
+
+        <div style="margin: 15px;">
+            <i class="fa-regular fa-circle-user"></i>
+        </div>
+
+        <div class="log">
+            <label class="form-label fw-semibold" for="un">User Name</label><br>
+            <input type="text" id="un" class="form-control" 
+                   name="username" placeholder="username" required>
+        </div>
+
+        <br>
+
+        <div class="log">
+            <label class="form-label fw-semibold" for="pass">Password</label><br>
+            <input type="password" id="pass" class="form-control" 
+                   name="password" placeholder="password" required>
+        </div>
+
+        <button type="submit" class="btn btn-login w-100 mb-3">
+            Login
+        </button>
+
+        <div class="signup-link mb-1">
+            <p>Don't have an account? 
+               <a href="{% url 'signup' %}">Sign up here</a>
+            </p>
+        </div>
+    </form>
+</div>
 </body>
 
 </html>

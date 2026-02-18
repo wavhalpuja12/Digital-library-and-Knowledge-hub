@@ -45,7 +45,7 @@ def borrow_book(request, book_id):
     else:
         messages.error(request, "Book is not available.")
 
-    return redirect('home')
+    return redirect('user_home')
 
 
 # ---------- RETURN BOOK ----------
@@ -75,7 +75,7 @@ def my_books(request):
 def admin_dashboard(request):
 
     if not request.user.is_superuser:
-        return redirect('home')
+        return redirect('user_home')
 
     books = Book.objects.all()
     records = BorrowRecord.objects.all()
@@ -111,7 +111,7 @@ def admin_dashboard(request):
 def premium_members(request):
 
     if not request.user.is_superuser:
-        return redirect('home')
+        return redirect('user_home')
 
     members = Premium.objects.select_related('user').all()
     return render(request, 'premium_members.html', {'members': members})
@@ -122,7 +122,7 @@ def premium_members(request):
 def add_book(request):
 
     if not request.user.is_superuser:
-        return redirect('home')
+        return redirect('user_home')
 
     if request.method == "POST":
         title = request.POST['title']
