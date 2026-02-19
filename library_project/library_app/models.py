@@ -1,29 +1,25 @@
 from django.db import models
 from django.contrib.auth.models import User
-from datetime import timedelta
+from datetime import timedelta, date
 from django.utils import timezone
-from datetime import date
 
 
-# class Category(models.Model):
-#     name = models.CharField(max_length=100)
-    
-#     def __str__(self):
-#         return self.name
-
+# ---------------- CATEGORY MODEL ----------------
 class Category(models.Model):
-    name = models.CharField(max_length=100, unique=True)
+    name = models.CharField(max_length=100)
     parent = models.ForeignKey(
-        "self",
-        on_delete=models.CASCADE,
-        null=True,
-        blank=True,
-        related_name="subcategories"
-    )
+    'self',
+    on_delete=models.CASCADE,
+    blank=True,
+    null=True,
+    related_name='subcategories'  # now prefetch_related('subcategories') works
+)
+
 
     def __str__(self):
         return self.name
-    
+
+
 # ---------------- BOOK MODEL ----------------
 class Book(models.Model):
     title = models.CharField(max_length=200)
@@ -32,8 +28,6 @@ class Book(models.Model):
     image = models.ImageField(upload_to='books/', blank=True, null=True)
     book_pdf = models.FileField(upload_to='pdfs/', blank=True, null=True)
     is_availible = models.BooleanField(default=True)
-
-    # 👑 ADD THIS
     is_premium = models.BooleanField(default=False)
 
     category = models.ForeignKey(
@@ -51,7 +45,7 @@ class Book(models.Model):
 class BorrowRecord(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
-    borrowed_at = models.DateTimeField(default=timezone.now)  # <- fixed
+    borrowed_at = models.DateTimeField(default=timezone.now)
     due_date = models.DateField(blank=True, null=True)
     return_date = models.DateField(blank=True, null=True)
 
@@ -62,7 +56,9 @@ class BorrowRecord(models.Model):
 
     def __str__(self):
         return f"{self.user.username} borrowed {self.book.title}"
-    
+
+
+# ---------------- PREMIUM MODEL ----------------
 class Premium(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     purchased_date = models.DateField(auto_now_add=True)

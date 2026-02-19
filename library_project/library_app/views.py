@@ -14,11 +14,12 @@ def user_home(request):
 
     if query:
         books = Book.objects.filter(title__icontains=query)
-    else:
-        books = Book.objects.all()
+        return render(request, 'user_home.html', {'books': books})
+
+    categories = Category.objects.prefetch_related('books').all()
 
     context = {
-        'books': books
+        'categories': categories
     }
 
     if request.user.is_authenticated and request.user.is_superuser:

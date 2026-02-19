@@ -1,235 +1,221 @@
-{% extends 'base.html' %}
-{% load static %}
-
-{% block content %}
+{% extends 'base.html' %} {% load static %} {% block content %}
 
 <style>
-/* {% comment %} .main-wrapper {
+  /* {% comment %} .main-wrapper {
   padding: 40px 20px;
 } {% endcomment %} */
 
-/* ================= HERO SECTION ================= */
-
-.top-hero {
-  background: #f1f2f4;
-  padding: 80px 60px;
-  border-radius: 12px;
-}
-
-.hero-container {
-  max-width: 1300px;
-  margin: auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 60px;
-}
-
-.hero-left {
-  flex: 1;
-  max-width: 600px;
-}
-
-.hero-line {
-  width: 70px;
-  height: 4px;
-  background: #4f46e5;
-  margin-bottom: 25px;
-}
-
-.hero-left h1 {
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 56px;
-  font-weight: 600;
-  color: #0f172a;
-  line-height: 1.1;
-  margin-bottom: 25px;
-}
-
-.hero-left p {
-  font-size: 18px;
-  color: #334155;
-  line-height: 1.8;
-  margin-bottom: 35px;
-}
-
-.hero-btn {
-  display: inline-block;
-  padding: 14px 30px;
-  background: linear-gradient(90deg, #6366f1, #7c3aed);
-  color: white;
-  font-weight: 600;
-  border-radius: 8px;
-  text-decoration: none;
-  transition: 0.3s ease;
-}
-
-.hero-btn:hover {
-  opacity: 0.9;
-}
-
-.hero-right {
-  flex: 1;
-}
-
-.hero-right img {
-  width: 100%;
-  height: 520px;
-  object-fit: cover;
-  /* {% comment %} border-radius: 12px; {% endcomment %} */
-}
-
-/* ================= BOOK GRID ================= */
-
-.book-grid {
-  margin-top: 60px;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 20px;
-}
-
-.card img {
-  height: 250px;
-  object-fit: cover;
-  border-radius: 8px;
-}
-
-/* ================= SECOND HERO ================= */
-
-.hero {
-  margin-top: 60px;
-  height: 50vh;
-  background: url("https://images.unsplash.com/photo-1512820790803-83ca734da794") center/cover;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  color: white;
-}
-
-.hero-content {
-  padding: 40px;
-}
-
-/* ================= BLOG GRID ================= */
-
-.blog-grid {
-  margin-top: 30px;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 20px;
-}
-
-/* ================= RESPONSIVE ================= */
-
-@media (max-width: 992px) {
+  /* ================= HERO SECTION ================= */
 
   .top-hero {
-    padding: 60px 30px;
+    background: #f1f2f4;
+    padding: 80px 60px;
+    border-radius: 12px;
   }
 
   .hero-container {
-    flex-direction: column;
-    text-align: center;
+    max-width: 1300px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 60px;
   }
 
-  .hero-left h1 {
-    font-size: 42px;
+  .hero-left {
+    flex: 1;
+    max-width: 600px;
   }
 
   .hero-line {
-    margin: 0 auto 20px;
+    width: 70px;
+    height: 4px;
+    background: #4f46e5;
+    margin-bottom: 25px;
   }
-
-  .hero-right img {
-    height: 400px;
-  }
-}
-
-@media (max-width: 576px) {
 
   .hero-left h1 {
-    font-size: 32px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 56px;
+    font-weight: 600;
+    color: #0f172a;
+    line-height: 1.1;
+    margin-bottom: 25px;
   }
 
   .hero-left p {
-    font-size: 16px;
+    font-size: 18px;
+    color: #334155;
+    line-height: 1.8;
+    margin-bottom: 35px;
+  }
+
+  .hero-btn {
+    display: inline-block;
+    padding: 14px 30px;
+    background: linear-gradient(90deg, #6366f1, #7c3aed);
+    color: white;
+    font-weight: 600;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: 0.3s ease;
+  }
+
+  .hero-btn:hover {
+    opacity: 0.9;
+  }
+
+  .hero-right {
+    flex: 1;
   }
 
   .hero-right img {
-    height: 280px;
+    width: 100%;
+    height: 520px;
+    object-fit: cover;
+    /* {% comment %} border-radius: 12px; {% endcomment %} */
   }
-}
+
+  /* ================= BOOK GRID ================= */
+
+  .book-grid {
+    margin-top: 60px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+  }
+
+  .card img {
+    height: 250px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+
+  /* ================= SECOND HERO ================= */
+
+  .hero {
+    margin-top: 60px;
+    height: 50vh;
+    background: url("https://images.unsplash.com/photo-1512820790803-83ca734da794")
+      center/cover;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    color: white;
+  }
+
+  .hero-content {
+    padding: 40px;
+  }
+
+  /* ================= BLOG GRID ================= */
+
+  .blog-grid {
+    margin-top: 30px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+
+  /* ================= RESPONSIVE ================= */
+
+  @media (max-width: 992px) {
+    .top-hero {
+      padding: 60px 30px;
+    }
+
+    .hero-container {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .hero-left h1 {
+      font-size: 42px;
+    }
+
+    .hero-line {
+      margin: 0 auto 20px;
+    }
+
+    .hero-right img {
+      height: 400px;
+    }
+  }
+
+  @media (max-width: 576px) {
+    .hero-left h1 {
+      font-size: 32px;
+    }
+
+    .hero-left p {
+      font-size: 16px;
+    }
+
+    .hero-right img {
+      height: 280px;
+    }
+  }
 </style>
 
-
 <div class="main-wrapper">
-
   <!-- TOP HERO -->
   <section class="top-hero">
     <div class="hero-container">
-
       <div class="hero-left">
         <div class="hero-line"></div>
         <h1>Over 1000 free eBooks</h1>
         <p>
-          Explore a massive library of free eBooks across a variety of categories.
-          Create your own personalized bookshelves to save and organize your favorites,
-          and dive into endless reading possibilities—all at no cost!
+          Explore a massive library of free eBooks across a variety of
+          categories. Create your own personalized bookshelves to save and
+          organize your favorites, and dive into endless reading
+          possibilities—all at no cost!
         </p>
         <a href="#" class="hero-btn">Discover Now</a>
       </div>
 
       <div class="hero-right">
-        <img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f" alt="Library">
+        <img
+          src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f"
+          alt="Library"
+        />
       </div>
-
     </div>
   </section>
 
-
-  <h3 class="mb-4 mt-5">Timeless Classics</h3>
-
-  <div class="book-grid">
-    <div class="card">
-      <img src="https://covers.openlibrary.org/b/id/8225261-L.jpg">
-      <div class="p-3">
-        <h5>Alice in Wonderland</h5>
-        <small>Lewis Carroll</small>
+  {% if categories %} {% for category in categories %}
+  <h3 class="mt-4">{{ category.name }}</h3>
+  <div class="row">
+    {% for book in category.books.all %}
+    <div class="col-md-3">
+      <div class="card">
+        {% if book.image %}
+        <img src="{{ book.image.url }}" class="card-img-top" />
+        {% endif %}
+        <div class="card-body">
+          <h6>{{ book.title }}</h6>
+          <p>{{ book.author }}</p>
+        </div>
       </div>
     </div>
-
-    <div class="card">
-      <img src="https://covers.openlibrary.org/b/id/8231996-L.jpg">
-      <div class="p-3">
-        <h5>Don Quixote</h5>
-        <small>Miguel de Cervantes</small>
-      </div>
-    </div>
-
-    <div class="card">
-      <img src="https://covers.openlibrary.org/b/id/8081536-L.jpg">
-      <div class="p-3">
-        <h5>Wizard of Oz</h5>
-        <small>L Frank Baum</small>
-      </div>
-    </div>
+    {% empty %}
+    <p>No books available in this category.</p>
+    {% endfor %}
   </div>
-
+  {% endfor %} {% endif %}
 
   <!-- SECOND HERO -->
   <div class="hero">
     <div class="hero-content">
       <h1>Don't know where to start?</h1>
-      <a href="#" style="color:white;">Discover →</a>
+      <a href="#" style="color: white">Discover →</a>
     </div>
   </div>
-
 
   <h3 class="mt-5 mb-4">From Blog</h3>
 
   <div class="blog-grid">
     <div class="card">
-      <img src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa">
+      <img src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa" />
       <div class="p-3">
         <h5>The King in Yellow</h5>
         <small>Published 2025</small>
@@ -237,14 +223,13 @@
     </div>
 
     <div class="card">
-      <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba">
+      <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba" />
       <div class="p-3">
         <h5>Poe’s House of Usher</h5>
         <small>Published 2025</small>
       </div>
     </div>
   </div>
-
 </div>
 
 {% endblock %}
