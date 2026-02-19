@@ -1,15 +1,68 @@
 [
 {
-  "model": "books.book",
+  "model": "library_app.category",
   "pk": 1,
   "fields": {
-    "title": "Jane Eyre",
-    "author": "Charlotte Bront�",
-    "description": "ane Eyre (1847) by Charlotte Bront� is a foundational Gothic Bildungsroman detailing the life of an orphaned girl who overcomes a harsh, abusive upbringing to become a principled governess",
-    "image": "books/images.jpg",
+    "name": "Science",
+    "parent": null
+  }
+},
+{
+  "model": "library_app.category",
+  "pk": 2,
+  "fields": {
+    "name": "Popular",
+    "parent": null
+  }
+},
+{
+  "model": "library_app.category",
+  "pk": 3,
+  "fields": {
+    "name": "classic",
+    "parent": null
+  }
+},
+{
+  "model": "library_app.book",
+  "pk": 1,
+  "fields": {
+    "title": "Don Quixote",
+    "author": "Miguel de Cervantes",
+    "description": "Don Quixote (1605, 1615) by Miguel de Cervantes is a seminal Spanish novel often cited as the first modern novel. It follows Alonso Quixano, a middle-aged nobleman who, maddened by chivalric romances, renames himself Don Quixote and sets out to revive knighthood. Along with his pragmatic squire, Sancho Panza, he battles imagined foes, blending satire, adventure, and existential philosophy",
+    "image": "books/download.jpg",
     "book_pdf": "",
     "is_availible": true,
-    "is_premium": false
+    "is_premium": false,
+    "category": null
+  }
+},
+{
+  "model": "library_app.book",
+  "pk": 2,
+  "fields": {
+    "title": "book1",
+    "author": "swaraj",
+    "description": "qwertyu",
+    "image": "books/download_m7Oxgpt.jpg",
+    "book_pdf": "pdfs/Django_Fullstack_Website_Workflow_H6zZw5x.pdf",
+    "is_availible": true,
+    "is_premium": false,
+    "category": 1
+  }
+},
+{
+  "model": "library_app.book",
+  "pk": 3,
+  "fields": {
+    "title": "sai",
+    "author": "sai",
+    "description": "asdasd",
+    "image": "books/An_experiment_in_gyrohats_cover.webp",
+    "book_pdf": "",
+    "is_availible": true,
+    "is_premium": true,
+    "category": 2
   }
 }
 ]
