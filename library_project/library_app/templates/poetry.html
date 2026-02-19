@@ -1,179 +1,116 @@
-{% extends "base.html" %}
-{% load static %}
-
-{% block content %}
+{% extends "base.html" %} {% load static %} {% block content %}
 
 <style>
-.hero{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:40px;
-  padding:40px 10px;
-  align-items:center;
-}
-
-.hero-text h1{
-  font-size:38px;
-  margin-bottom:15px;
-}
-
-.hero-text p{
-  font-size:15px;
-  line-height:1.7;
-  color:#444;
-}
-
-.hero-image{
-  width:100%;
-  height:350px;
-  border-radius:12px;
-  overflow:hidden;
-}
-
-.hero-image img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-}
-
-.category-main{
-  display:grid;
-  grid-template-columns:260px 1fr;
-  gap:30px;
-  margin-top:30px;
-}
-
-.category-filter h5{
-  font-size:16px;
-  margin-bottom:12px;
-}
-
-.filter-item{
-  display:flex;
-  justify-content:space-between;
-  font-size:14px;
-  padding:5px 0;
-}
-
-.clear-btn{
-  width:100%;
-  padding:10px;
-  border:none;
-  background:#6c63ff;
-  color:#fff;
-  border-radius:6px;
-  margin-top:15px;
-}
-
-.books{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
-  gap:25px;
-}
-
-.book-img{
-  width:100%;
-  aspect-ratio:2/3;
-  border-radius:10px;
-  overflow:hidden;
-  background:#eee;
-}
-
-.book-img img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-}
-
-.book-card h6{
-  font-size:14px;
-  margin-top:8px;
-}
-
-.book-card p{
-  font-size:13px;
-  color:#666;
-}
-
-@media (max-width:992px){
-  .hero{
-    grid-template-columns:1fr;
+  /* HERO */
+  .hero {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    padding: 40px 10px;
   }
 
-  .category-main{
-    grid-template-columns:1fr;
+  .hero-text {
+    flex: 1;
   }
-}
+
+  .hero-image {
+    flex: 1;
+  }
+
+  .hero-image img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+
+  /* BOOKS */
+  .books {
+    display: flex;
+    gap: 25px;
+    margin-top: 40px;
+    flex-wrap: wrap;
+  }
+
+  .book-card {
+    width: 180px;
+  }
+
+  .book-img img {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+
+  .book-card h6 {
+    margin-top: 8px;
+    font-size: 14px;
+  }
+
+  .book-card p {
+    font-size: 13px;
+    color: #666;
+  }
+
+  /* MOBILE */
+  @media (max-width: 768px) {
+    .hero {
+      flex-direction: column;
+    }
+  }
 </style>
 
-<!-- HERO -->
+<!-- HERO SECTION -->
 <section class="hero">
   <div class="hero-text">
     <h1>Poetry</h1>
+
     <p>
-      Explore the world of poetry, where words come to life and evoke emotions.
-      From sonnets to free verse, discover timeless expressions of love,
-      nature, and the human experience.
+      Explore the world of poetry, where words come to life and evoke a spectrum of emotions. Dive into classic works and discover verses that have shaped literature through the ages. From sonnets to free verse, this collection offers timeless expressions of love, nature, and the human experience. Perfect for both avid poetry fans and newcomers seeking a lyrical journey.
     </p>
   </div>
+
   <div class="hero-image">
-    <img src="{% static 'img/pexels-photo-904616.webp' %}">
+    <img
+      src="https://cdn.a2-host.cloud/Lhevub08yUS1onPqIFRQnwMaeUq6M9SZze4XxLkKsY8/rs:fill:700:500:0/g:ce/aHR0cHM6Ly9pbWFnZXMucGV4ZWxzLmNvbS9waG90b3MvOTA0NjE2L3BleGVscy1waG90by05MDQ2MTYuanBlZz9hdXRvPWNvbXByZXNzJmNzPXRpbnlzcmdiJnc9MTI2MCZoPTc1MCZkcHI9MQ.webp"
+    />
   </div>
 </section>
 
-<!-- MAIN CONTENT -->
-<section class="category-main">
+<!-- BOOK SECTION -->
 
-  <!-- FILTER -->
-  <div class="category-filter">
-    <h5>Sub Categories</h5>
-    <div class="filter-item"><span>Classic Poetry</span><span>250</span></div>
-    <div class="filter-item"><span>Modern Poetry</span><span>180</span></div>
-    <div class="filter-item"><span>Children Poetry</span><span>90</span></div>
+<section>
+  <div class="books">
+    <div class="book-card">
+      <div class="book-img">
+        <img src="{% static 'img2/A_Room_with_a_View_cover.webp' %}" />
+      </div>
 
-    <button class="clear-btn">Clear Filters</button>
-  </div>
-
-  <!-- BOOK GRID -->
-  <div>
-
-    <div class="d-flex justify-content-between mb-3">
-      <span>Showing 1 – 20 of 1159 results</span>
-      <select class="form-select w-auto">
-        <option>Relevance</option>
-      </select>
+      <h6>A Room with a View</h6>
+      <p>By E. M. Forster</p>
     </div>
 
-    <div class="books">
-
-      <div class="book-card">
-        <div class="book-img">
-          <img src="{% static 'img/Romeo_and_Juliet_cover.webp' %}">
-        </div>
-        <h6>Romeo and Juliet</h6>
-        <p>By William Shakespeare</p>
+    <div class="book-card">
+      <div class="book-img">
+        <img src="{% static 'img2/The_Great_Gatsby_cover.webp' %}" />
       </div>
 
-      <div class="book-card">
-        <div class="book-img">
-          <img src="{% static 'img/Poems_cover.webp' %}">
-        </div>
-        <h6>Poems</h6>
-        <p>By W. B. Yeats</p>
-      </div>
-
-      <div class="book-card">
-        <div class="book-img">
-          <img src="{% static 'img/The_tower_cover.webp' %}">
-        </div>
-        <h6>The Tower</h6>
-        <p>By W. B. Yeats</p>
-      </div>
-
+      <h6>The Great Gatsby</h6>
+      <p>By F. Scott Fitzgerald</p>
     </div>
 
-  </div>
+    <div class="book-card">
+      <div class="book-img">
+        <img
+          src="{% static 'img2/In_the_Days_of_Queen_Victoria_cover.webp' %}"
+        />
+      </div>
 
+      <h6>Queen Victoria</h6>
+      <p>By Eva March Tappan</p>
+    </div>
+  </div>
 </section>
 
 {% endblock %}
