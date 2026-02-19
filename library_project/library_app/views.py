@@ -3,8 +3,9 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib import messages
-from .models import Book, BorrowRecord, Premium
+from .models import Book, BorrowRecord, Premium , Category
 from django.db.models import Count
+from django.db.models import Q
 
 
 # ---------- HOME (SHOW ALL BOOKS WITHOUT LOGIN) ----------
@@ -26,6 +27,15 @@ def user_home(request):
 
     return render(request, 'user_home.html', context)
 
+# def category_book(request, id):
+#     categories = Category.objects.all()
+#     category = get_object_or_404(Category, id=id)
+#     products = Product.objects.filter(category=category)
+#     return render(request, 'category_products.html', {
+#         'product': products,
+#         'categories': categories,
+#         'category': category
+#     })
 
 # ---------- BORROW BOOK ----------
 @login_required(login_url='login')
@@ -72,46 +82,106 @@ def my_books(request):
 
 # ---------- ADMIN DASHBOARD ----------
 @login_required(login_url='login')
+@login_required(login_url='login')
 def admin_dashboard(request):
 
+    # 🔐 Allow only superuser
     if not request.user.is_superuser:
         return redirect('user_home')
 
-    books = Book.objects.all()
-    records = BorrowRecord.objects.all()
+    category_id = request.GET.get('category')
+    search = request.GET.get('search')
 
+    # ✅ convert category_id to int safely
+    if category_id:
+        try:
+            category_id = int(category_id)
+        except (ValueError, TypeError):
+            category_id = None
+
+    # 📚 BOOK QUERY
+    books = Book.objects.select_related("category").all()
+
+    # FILTER BY CATEGORY
+    if category_id:
+        books = books.filter(category_id=category_id)
+
+    # SEARCH BY TITLE OR AUTHOR
+    if search and search != "None":
+        books = books.filter(
+            Q(title__icontains=search) |
+            Q(author__icontains=search)
+        )
+
+    # 📂 MAIN CATEGORIES + SUBCATEGORIES
+    categories = Category.objects.filter(
+        parent__isnull=True
+    ).prefetch_related("subcategories")
+
+    # 📊 DASHBOARD STATS
     total_books = Book.objects.count()
     available_books = Book.objects.filter(is_availible=True).count()
+    issued_books = BorrowRecord.objects.filter(return_date__isnull=True).count()
     total_users = User.objects.count()
 
-    # ✅ Premium System
+    # 👑 PREMIUM SYSTEM
     premium_count = Premium.objects.count()
     normal_users = total_users - premium_count
 
-    # ✅ Updated Chart Data (Premium vs Normal Users)
     chart_labels = ['Premium Members', 'Normal Users']
     chart_data = [premium_count, normal_users]
 
+    # 🕒 RECENT BORROW RECORDS
+    records = BorrowRecord.objects.select_related(
+        "user", "book"
+    ).order_by("-borrowed_at")[:5]
+
     context = {
-        'books': books,
-        'records': records,
-        'total_books': total_books,
-        'available_books': available_books,
-        'total_users': total_users,
-        'premium_count': premium_count,
-        'chart_labels': chart_labels,
-        'chart_data': chart_data,
+        # filters
+        "books": books,
+        "categories": categories,
+        "selected_category": category_id,
+        "search_query": search,
+
+        # stats
+        "total_books": total_books,
+        "available_books": available_books,
+        "issued_books": issued_books,
+        "total_users": total_users,
+
+        # premium
+        "premium_count": premium_count,
+        "chart_labels": chart_labels,
+        "chart_data": chart_data,
+
+        # recent records
+        "records": records,
     }
 
-    return render(request, 'admin_dashboard.html', context)
+    return render(request, "admin_dashboard.html", context)
 
+@login_required(login_url='login')
+def manage_categories(request):
+    categories = Category.objects.filter(parent__isnull=True).prefetch_related("subcategories")
 
-# ---------- PREMIUM MEMBERS LIST ----------
+    if request.method == "POST":
+        name = request.POST.get("name")
+        parent_id = request.POST.get("parent")
+
+        parent = Category.objects.get(id=parent_id) if parent_id else None
+        Category.objects.create(name=name, parent=parent)
+
+        return redirect("manage_categories")
+
+    return render(request, "manage_categories.html", {
+        "categories": categories
+    })
+
 @login_required(login_url='login')
 def premium_members(request):
 
     if not request.user.is_superuser:
-        return redirect('user_home')
+        return redirect('home')
 
     members = Premium.objects.select_related('user').all()
     return render(request, 'premium_members.html', {'members': members})
@@ -124,13 +194,21 @@ def add_book(request):
     if not request.user.is_superuser:
         return redirect('user_home')
 
+    # ✅ Fetch parent categories + subcategories
+    categories = Category.objects.filter(
+        parent__isnull=True
+    ).prefetch_related('subcategories')
+
     if request.method == "POST":
-        title = request.POST['title']
-        author = request.POST['author']
+        title = request.POST.get('title')
+        author = request.POST.get('author')
         description = request.POST.get('description')
         image = request.FILES.get('image')
         book_pdf = request.FILES.get('book_pdf')
         is_premium = request.POST.get('is_premium') == 'on'
+
+        category_id = request.POST.get('category')
+        category = Category.objects.get(id=category_id)
 
         Book.objects.create(
             title=title,
@@ -138,13 +216,17 @@ def add_book(request):
             description=description,
             image=image,
             book_pdf=book_pdf,
-            is_premium=is_premium
+            is_premium=is_premium,
+            category=category  # ✅ SAVE CATEGORY
         )
 
         messages.success(request, "Book added successfully!")
         return redirect('admin_dashboard')
 
-    return render(request, 'add_book.html')
+    # ✅ SEND categories to template
+    return render(request, 'add_book.html', {
+        'categories': categories
+    })
 
 
 

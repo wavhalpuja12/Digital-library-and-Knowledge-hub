@@ -4,6 +4,26 @@ from datetime import timedelta
 from django.utils import timezone
 from datetime import date
 
+
+# class Category(models.Model):
+#     name = models.CharField(max_length=100)
+    
+#     def __str__(self):
+#         return self.name
+
+class Category(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+    parent = models.ForeignKey(
+        "self",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="subcategories"
+    )
+
+    def __str__(self):
+        return self.name
+    
 # ---------------- BOOK MODEL ----------------
 class Book(models.Model):
     title = models.CharField(max_length=200)
@@ -15,6 +35,13 @@ class Book(models.Model):
 
     # 👑 ADD THIS
     is_premium = models.BooleanField(default=False)
+
+    category = models.ForeignKey(
+        Category,
+        on_delete=models.SET_NULL,
+        null=True,
+        related_name='books'
+    )
 
     def __str__(self):
         return self.title

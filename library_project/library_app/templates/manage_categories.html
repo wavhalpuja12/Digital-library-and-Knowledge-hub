@@ -1,0 +1,33 @@
+<h2>Manage Categories</h2>
+
+<form method="post">
+    {% csrf_token %}
+    <input type="text" name="name" placeholder="Category name" required>
+
+    <select name="parent">
+        <option value="">No Parent (Main Category)</option>
+        {% for cat in categories %}
+            <option value="{{ cat.id }}">{{ cat.name }}</option>
+            {% for sub in cat.subcategories.all %}
+                <option value="{{ sub.id }}">↳ {{ sub.name }}</option>
+            {% endfor %}
+        {% endfor %}
+    </select>
+
+    <button type="submit">Add Category</button>
+</form>
+
+<hr>
+
+<ul>
+    {% for cat in categories %}
+        <li>
+            <strong>{{ cat.name }}</strong>
+            <ul>
+                {% for sub in cat.subcategories.all %}
+                    <li>{{ sub.name }}</li>
+                {% endfor %}
+            </ul>
+        </li>
+    {% endfor %}
+</ul>

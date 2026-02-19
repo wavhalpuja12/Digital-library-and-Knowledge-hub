@@ -18,6 +18,7 @@ urlpatterns = [
     # -------- ADMIN URLs --------
     path('admin-dashboard/', views.admin_dashboard, name='admin_dashboard'),
     path('add-book/', views.add_book, name='add_book'),
+    path("manage-categories/", views.manage_categories, name="manage_categories"),
     path('delete-book/<int:book_id>/', views.delete_book, name='delete_book'),
 
 
