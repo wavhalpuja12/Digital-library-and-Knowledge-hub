@@ -1,0 +1,45 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+
+<div class="container mt-4">
+  <h2 class="mb-4">❤️ Liked Books</h2>
+
+  <div class="row">
+    {% for book in books %}
+
+    <div class="col-md-3 mb-4">
+      <div class="card h-100 shadow-sm">
+        {% if book.image %}
+        <img src="{{ book.image.url }}" class="card-img-top" />
+        {% else %}
+        <img src="{% static 'images/1.jpeg' %}" class="card-img-top" />
+        {% endif %}
+
+        <div class="card-body">
+          <h6>{{ book.title }}</h6>
+
+          <p class="text-muted">{{ book.author }}</p>
+
+          <a
+            href="{% url 'book_detail' book.id %}"
+            class="btn btn-primary btn-sm"
+          >
+            View Details
+          </a>
+          <a href="{% url 'like_book' book.id %}" class="btn btn-danger btn-sm">
+            💔 Remove
+          </a>
+        </div>
+      </div>
+    </div>
+
+    {% empty %}
+
+    <div class="col-12">
+      <p>No liked books yet.</p>
+    </div>
+
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}

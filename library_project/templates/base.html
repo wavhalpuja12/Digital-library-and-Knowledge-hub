@@ -421,24 +421,19 @@
           </form>
 
           <!-- MENU -->
+          
           <ul class="navbar-nav mx-auto text-center">
+            {% for category in navbar_categories %}
+
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'literature' %}">Literature</a>
+              <a class="nav-link" href="{% url 'category_books' category.id %}">
+                {{ category.name }}
+              </a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'poetry' %}">Poetry</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'crime_mystery' %}"
-                >Crime/Mystery</a
-              >
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'Sci_fiction' %}"
-                >Science Fiction</a
-              >
-            </li>
+
+            {% endfor %}
           </ul>
+         
 
           <!-- AUTH -->
           <div class="d-flex align-items-center desktop-login">
@@ -480,7 +475,7 @@
         <h5 class="mb-4 fw-bold">Dashboard</h5>
 
         <h6>Quick Links</h6>
-        <a href="#"><i class="fa-regular fa-compass me-2"></i> Discover</a>
+        
         <a href="{% url 'categories' %}">
           <i class="fa-solid fa-table-cells-large me-2"></i> Categories
         </a>
@@ -488,7 +483,7 @@
         <a href="#"><i class="fa-solid fa-book me-2"></i> New Books</a>
 
         <h6 class="mt-4">Your Books</h6>
-        <a href="#"><i class="fa-regular fa-heart me-2"></i> Liked Books</a>
+        <a href="{% url 'liked_books' %}"><i class="fa-regular fa-heart me-2"></i> Liked Books</a>
         <a href="#"
           ><i class="fa-solid fa-clock-rotate-left me-2"></i> History</a
         >

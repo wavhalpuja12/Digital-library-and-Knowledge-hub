@@ -9,34 +9,32 @@ from django.db.models import Q
 
 
 # ---------- HOME (SHOW ALL BOOKS WITHOUT LOGIN) ----------
+
 def user_home(request):
-    query = request.GET.get('q')
 
-    if query:
-        books = Book.objects.filter(title__icontains=query)
-        return render(request, 'user_home.html', {'books': books})
+    navbar_categories = Category.objects.filter(show_in='navbar', parent=None)
 
-    categories = Category.objects.prefetch_related('books').all()
+    home_categories = Category.objects.filter(show_in='home', parent=None).prefetch_related('books')
 
     context = {
-        'categories': categories
-    }
 
-    if request.user.is_authenticated and request.user.is_superuser:
-        context['total_books'] = Book.objects.count()
-        context['total_records'] = BorrowRecord.objects.count()
+        'navbar_categories': navbar_categories,
+
+        'home_categories': home_categories
+
+    }
 
     return render(request, 'user_home.html', context)
 
-# def category_book(request, id):
-#     categories = Category.objects.all()
-#     category = get_object_or_404(Category, id=id)
-#     products = Product.objects.filter(category=category)
-#     return render(request, 'category_products.html', {
-#         'product': products,
-#         'categories': categories,
-#         'category': category
-#     })
+# 
+def category_books(request, category_id):
+    category = get_object_or_404(Category, id=category_id)
+    books = Book.objects.filter(category=category)
+
+    return render(request, 'category_books.html', {
+        'category': category,
+        'books': books
+    })
 
 # ---------- BORROW BOOK ----------
 @login_required(login_url='login')
@@ -82,7 +80,7 @@ def my_books(request):
 
 
 # ---------- ADMIN DASHBOARD ----------
-@login_required(login_url='login')
+
 @login_required(login_url='login')
 def admin_dashboard(request):
 
@@ -163,19 +161,23 @@ def admin_dashboard(request):
 
 @login_required(login_url='login')
 def manage_categories(request):
-    categories = Category.objects.filter(parent__isnull=True).prefetch_related("subcategories")
-
     if request.method == "POST":
-        name = request.POST.get("name")
-        parent_id = request.POST.get("parent")
+        name = request.POST.get('name')
+        parent_id = request.POST.get('parent')
+        show_in = request.POST.get('show_in')
 
         parent = Category.objects.get(id=parent_id) if parent_id else None
-        Category.objects.create(name=name, parent=parent)
 
-        return redirect("manage_categories")
+        Category.objects.create(
+            name=name,
+            parent=parent,
+            show_in=show_in
+        )
 
-    return render(request, "manage_categories.html", {
-        "categories": categories
+    categories = Category.objects.filter(parent=None)
+
+    return render(request, 'admin/manage_categories.html', {
+        'categories': categories
     })
 
 @login_required(login_url='login')
@@ -236,7 +238,7 @@ def add_book(request):
 def delete_book(request, book_id):
 
     if not request.user.is_superuser:
-        return redirect('home')
+        return redirect('user_home')
 
     book = get_object_or_404(Book, id=book_id)
     book.delete()
@@ -257,6 +259,43 @@ def book_detail(request, book_id):
             return redirect('upgrade_premium')
 
     return render(request, 'book_detail.html', {'book': book})
+# def book_detail(request, id):
+#     book = get_object_or_404(Book, id=id)
+#     return render(request, 'books/book_detail.html', {'book': book})
+
+def like_book(request, id):
+    book = get_object_or_404(Book, id=id)
+    
+    # simple like logic (increase count)
+    book.likes = book.likes + 1
+    book.save()
+
+    return redirect(request.META.get('HTTP_REFERER', '/'))
+def like_book(request, id):
+    book = get_object_or_404(Book, id=id)
+
+    if request.user.is_authenticated:
+        book.liked_by.add(request.user)
+
+    return redirect('liked_books')
+@login_required
+def like_book(request, id):
+    book = get_object_or_404(Book, id=id)
+
+    if request.user in book.liked_by.all():
+        book.liked_by.remove(request.user)   # 👈 UNLIKE
+    else:
+        book.liked_by.add(request.user)      # 👈 LIKE
+
+    return redirect(request.META.get('HTTP_REFERER', '/'))
+
+
+@login_required(login_url='login')
+def liked_books(request):
+
+    books = request.user.liked_books.all()
+
+    return render(request, 'liked_books.html', {'books': books})
 
 @login_required(login_url='login')
 def upgrade_premium(request):
@@ -325,3 +364,35 @@ def crime_mystery(request):
 
 def Sci_fiction(request):
     return render(request, 'Science-Fiction & Fantasy.html')
+
+def category_books(request, id):
+    category = Category.objects.get(id=id)
+    books = category.books.all()
+
+    return render(request, 'category_books.html', {
+        'category': category,
+        'books': books
+    })
+
+@login_required(login_url='login')
+def manage_categories(request):
+
+    if request.method == "POST":
+
+        name = request.POST.get('name')
+        parent_id = request.POST.get('parent')
+        show_in = request.POST.get('show_in')
+
+        parent = Category.objects.get(id=parent_id) if parent_id else None
+
+        Category.objects.create(
+            name=name,
+            parent_id=parent if parent else None,
+            show_in=show_in
+        )
+
+    categories = Category.objects.filter(parent=None)
+
+    return render(request, 'manage_categories.html', {
+        'categories': categories
+    })

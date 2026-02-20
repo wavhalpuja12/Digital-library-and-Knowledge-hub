@@ -5,20 +5,31 @@ from django.utils import timezone
 
 
 # ---------------- CATEGORY MODEL ----------------
+# class Category(models.Model):
+#     name = models.CharField(max_length=100)
+#     parent = models.ForeignKey(
+#     'self',
+#     on_delete=models.CASCADE,
+#     blank=True,
+#     null=True,
+#     related_name='subcategories'  # now prefetch_related('subcategories') works
+# )
+
+
+#     def _str_(self):
+#         return self.name
 class Category(models.Model):
     name = models.CharField(max_length=100)
-    parent = models.ForeignKey(
-    'self',
-    on_delete=models.CASCADE,
-    blank=True,
-    null=True,
-    related_name='subcategories'  # now prefetch_related('subcategories') works
-)
+    parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='subcategories')
 
+    choices= (
+        ('navbar', 'Navbar'),
+        ('home', 'Home Page'),
+    )
+    show_in = models.CharField(max_length=10, choices=choices, default='home')
 
-    def __str__(self):
+    def _str_(self):
         return self.name
-
 
 # ---------------- BOOK MODEL ----------------
 class Book(models.Model):
@@ -29,6 +40,7 @@ class Book(models.Model):
     book_pdf = models.FileField(upload_to='pdfs/', blank=True, null=True)
     is_availible = models.BooleanField(default=True)
     is_premium = models.BooleanField(default=False)
+    liked_by = models.ManyToManyField(User, related_name='liked_books', blank=True)
 
     category = models.ForeignKey(
         Category,
@@ -37,7 +49,7 @@ class Book(models.Model):
         related_name='books'
     )
 
-    def __str__(self):
+    def _str_(self):
         return self.title
 
 
@@ -54,7 +66,7 @@ class BorrowRecord(models.Model):
             self.due_date = timezone.now().date() + timedelta(days=7)
         super().save(*args, **kwargs)
 
-    def __str__(self):
+    def _str_(self):
         return f"{self.user.username} borrowed {self.book.title}"
 
 

@@ -30,6 +30,10 @@ urlpatterns = [
     path('categories/', views.categories, name='categories'),
     path('delete-category/<int:cat_id>', views.delete_category, name='delete_category'),
     path('delete_subcategory/<int:sub_id>', views.delete_subcategory, name='delete_subcategory'),
+    path('book/<int:id>/', views.book_detail, name='book_detail'),
+    path('like/<int:id>/', views.like_book, name='like_book'),
+    path('liked-books/', views.liked_books, name='liked_books'),
+    path('category/<int:id>/', views.category_books, name='category_books'),
 
     # path('delete-category/<int:id>/', views.delete_category, name='delete_category')
 

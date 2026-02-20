@@ -170,7 +170,7 @@
           organize your favorites, and dive into endless reading
           possibilities—all at no cost!
         </p>
-        <a href="#" class="hero-btn">Discover Now</a>
+        
       </div>
 
       <div class="hero-right">
@@ -181,33 +181,82 @@
       </div>
     </div>
   </section>
+  {% if home_categories %}
 
-  {% if categories %} {% for category in categories %}
-  <h3 class="mt-4">{{ category.name }}</h3>
-  <div class="row">
-    {% for book in category.books.all %}
-    <div class="col-md-3">
-      <div class="card">
-        {% if book.image %}
-        <img src="{{ book.image.url }}" class="card-img-top" />
-        {% endif %}
-        <div class="card-body">
-          <h6>{{ book.title }}</h6>
-          <p>{{ book.author }}</p>
+    {% for category in home_categories %}
+
+        <h3 class="mt-4">{{ category.name }}</h3>
+
+        <div class="row">
+
+            {% for book in category.books.all %}
+
+                <div class="col-md-3">
+
+                    <div class="card mb-3">
+
+                        {% if book.image %}
+                            <img src="{{ book.image.url }}" class="card-img-top">
+                        {% endif %}
+
+                        <div class="card-body">
+
+                            <h6>{{ book.title }}</h6>
+
+                            <p>{{ book.author }}</p>
+
+                            <a href="{% url 'book_detail' book.id %}"
+                               class="btn btn-primary btn-sm">
+
+                                View Details
+
+                            </a>
+
+
+                            {% if user in book.liked_by.all %}
+
+                                <a href="{% url 'like_book' book.id %}"
+                                   class="btn btn-danger btn-sm">
+
+                                   💔 Unlike
+
+                                </a>
+
+                            {% else %}
+
+                                <a href="{% url 'like_book' book.id %}"
+                                   class="btn btn-outline-danger btn-sm">
+
+                                   ❤️ Like
+
+                                </a>
+
+                            {% endif %}
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            {% empty %}
+
+                <p>No books available in this category.</p>
+
+            {% endfor %}
+
         </div>
-      </div>
-    </div>
-    {% empty %}
-    <p>No books available in this category.</p>
+
     {% endfor %}
-  </div>
-  {% endfor %} {% endif %}
+
+{% endif %}
 
   <!-- SECOND HERO -->
   <div class="hero">
     <div class="hero-content">
       <h1>Don't know where to start?</h1>
-      <a href="#" style="color: white">Discover →</a>
+      
     </div>
   </div>
 
