@@ -1,121 +1,123 @@
 {% extends 'adminbase.html' %}
-
 {% load static %}
 
 {% block content %}
+<div class="dashboard">
 
-{% load static %}
-<div class="content">
-  <h2>Admin Dashboard</h2>
+  <div class="header-row">
+    <h2>Admin Dashboard</h2>
+    <a href="{% url 'add_book' %}" class="btn btn-success">+ Add New Book</a>
+  </div>
 
-  <a href="{% url 'add_book' %}" class="btn-add">+ Add New Book</a>
-
-  <!-- STATS -->
-  <div class="cards" style="margin-top: 20px">
+  <!-- CARDS -->
+  <div class="cards">
     <div class="card">
       <h3>Total Books</h3>
-      <p>{{ total_books }}</p>
+      <p class="card_count">{{ total_books }}</p>
     </div>
-
     <div class="card">
       <h3>Issued Books</h3>
-      <p>{{ issued_books }}</p>
+      <p class="card_count">{{ issued_books }}</p>
     </div>
-
     <div class="card">
       <h3>Available Books</h3>
-      <p>{{ available_books }}</p>
+      <p class="card_count">{{ available_books }}</p>
     </div>
-
     <div class="card">
       <h3>Total Users</h3>
-      <p>{{ total_users }}</p>
+      <p class="card_count">{{ total_users }}</p>
     </div>
   </div>
 
   <!-- FILTER -->
   <form method="get" class="filter-box">
-    <select name="category">
-      <option value="">All Categories</option>
+    <div class="filter-group">
 
-      {% for cat in categories %}
-      <option value="{{ cat.id }}" {% if selected_category == "cat.id" %}selected{% endif %}>
-        {{ cat.name }}
-      </option>
+      <select name="category" class="filter-select">
+        <option value="">All Categories</option>
+        {% for cat in categories %}
+        <option value="{{ cat.id }}" {% if selected_category == cat.id %}selected{% endif %}>
+          {{ cat.name }}
+        </option>
+        {% for sub in cat.subcategories.all %}
+        <option value="{{ sub.id }}" {% if selected_category == sub.id %}selected{% endif %}>
+          ↳ {{ sub.name }}
+        </option>
+        {% endfor %}
+        {% endfor %}
+      </select>
 
-      {% for sub in cat.children.all %}
-      <option value="{{ sub.id }}" {% if selected_category == "sub.id" %}selected{% endif %}>
-        ↳ {{ sub.name }}
-      </option>
-      {% endfor %} {% endfor %}
-    </select>
+      <input type="text" name="search" class="filter-input" placeholder="Search by title or author"
+        value="{{ search_query|default:'' }}" />
 
-    <input type="text" name="search" placeholder="Search title or author" value="{{ search_query }}" />
+      <button type="submit" class="btn btn-success">Apply</button>
 
-    <button type="submit" class="btn-add">Apply</button>
-
-    {% if selected_category or search_query %}
-    <a href="{% url 'admin_dashboard' %}" style="
-              background: red;
-              color: white;
-              padding: 8px 15px;
-              border-radius: 5px;
-            ">
-      Clear
-    </a>
-    {% endif %}
+      {% if selected_category or search_query %}
+      <a href="{% url 'admin_dashboard' %}" class="btn btn-danger">Clear</a>
+      {% endif %}
+    </div>
   </form>
 
   <!-- BOOK TABLE -->
   <table>
-    <tr>
-      <th>Book</th>
-      <th>Author</th>
-      <th>Category</th>
-      <th>Status</th>
-      <th>Action</th>
-    </tr>
+    <thead>
+      <tr>
+        <th>Book</th>
+        <th>Author</th>
+        <th>Category</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
 
-    {% for book in books %}
-    <tr>
-      <td>{{ book.title }}</td>
-      <td>{{ book.author }}</td>
-      <td>{{ book.category.name|default:"Uncategorized" }}</td>
-      <td>
-        {% if book.is_availible %}Available{% else %}Borrowed{% endif %}
-      </td>
-      <td>
-        <a href="{% url 'delete_book' book.id %}" class="btn-delete">Delete</a>
-      </td>
-    </tr>
-    {% empty %}
-    <tr>
-      <td colspan="4" style="text-align: center">No books found</td>
-    </tr>
-    {% endfor %}
+    <tbody>
+      {% for book in books %}
+      <tr>
+        <td>{{ book.title }}</td>
+        <td>{{ book.author }}</td>
+        <td>{{ book.category.name|default:"Uncategorized" }}</td>
+        <td>
+          {% if book.is_availible %}
+          <span class="badge badge-success">Available</span>
+          {% else %}
+          <span class="badge badge-danger">Borrowed</span>
+          {% endif %}
+        </td>
+        <td>
+          <a href="{% url 'delete_book' book.id %}" class="btn btn-danger btn-sm">Delete</a>
+        </td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="5" class="empty">No books found</td>
+      </tr>
+      {% endfor %}
+    </tbody>
   </table>
 
   <!-- RECENT RECORDS -->
-  <h2 style="margin-top: 40px">Recent Borrow Records</h2>
+  <h2 style="margin-top:40px;">Recent Borrow Records</h2>
 
   <table>
-    <tr>
-      <th>User</th>
-      <th>Book</th>
-    </tr>
-
-    {% for record in records %}
-    <tr>
-      <td>{{ record.user.username }}</td>
-      <td>{{ record.book.title }}</td>
-    </tr>
-    {% empty %}
-    <tr>
-      <td colspan="2" style="text-align: center">No records</td>
-    </tr>
-    {% endfor %}
+    <thead>
+      <tr>
+        <th>User</th>
+        <th>Book</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for record in records %}
+      <tr>
+        <td>{{ record.user.username }}</td>
+        <td>{{ record.book.title }}</td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="2" class="empty">No records</td>
+      </tr>
+      {% endfor %}
+    </tbody>
   </table>
+
 </div>
-
-
 {% endblock %}

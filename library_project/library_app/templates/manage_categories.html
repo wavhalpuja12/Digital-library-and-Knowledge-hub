@@ -13,7 +13,7 @@
 
         <form method="post" class="category-form">
             {% csrf_token %}
-            
+
             <div class="form-group">
                 <input type="text" name="name" placeholder="Enter Category Name" required>
             </div>
@@ -23,9 +23,9 @@
                     <option value="">No Parent (Main Category)</option>
                     {% for cat in categories %}
                     <option value="{{ cat.id }}">{{ cat.name }}</option>
-                        {% for sub in cat.subcategories.all %}
-                        <option value="{{ sub.id }}"> ↳ {{ sub.name }}</option>
-                        {% endfor %}
+                    {% for sub in cat.subcategories.all %}
+                    <option value="{{ sub.id }}"> ↳ {{ sub.name }}</option>
+                    {% endfor %}
                     {% endfor %}
                 </select>
             </div>
@@ -39,28 +39,57 @@
 
         <ul class="category-list">
             {% for cat in categories %}
-            <li class="main-category">
-                <div class="category-item">
-                    <span>{{ cat.name }}</span>
+            <li class="category-item">
+
+                <!-- CATEGORY ROW -->
+                <div class="category-row" onclick="toggleSub('{{ cat.id }}')">
+
+                    <div class="category-left">
+                        {% if cat.subcategories.exists %}
+                        <span class="arrow" id="arrow-{{ cat.id }}">▶</span>
+                        {% endif %}
+                        <span class="category-name">{{ cat.name }}</span>
+                    </div>
+
                     <a href="{% url 'delete_category' cat.id %}" class="btn-delete">Delete</a>
                 </div>
 
-                {% if cat.subcategories.all %}
-                <ul class="subcategory">
+                <!-- SUBCATEGORIES -->
+                {% if cat.subcategories.exists %}
+                <ul class="subcategory-list" id="sub-{{ cat.id }}">
                     {% for sub in cat.subcategories.all %}
-                    <li>
+                    <li class="subcategory-item">
                         <span>↳ {{ sub.name }}</span>
-                        <a href="{% url 'delete_subcategory' sub.id %}" class="delete"><i class="fa-solid fa-trash"></i></a>
+                        <a href="{% url 'delete_subcategory' sub.id %}" class="delete">
+                            <i class="fa-solid fa-trash"></i>
+                        </a>
                     </li>
                     {% endfor %}
                 </ul>
                 {% endif %}
+
             </li>
             {% endfor %}
         </ul>
-
     </div>
 
 </div>
+
+<script>
+    function toggleSub(id) {
+        const sub = document.getElementById(`sub-${id}`);
+        const arrow = document.getElementById(`arrow-${id}`);
+
+        if (!sub) return;
+
+        if (sub.style.display === "block") {
+            sub.style.display = "none";
+            arrow?.classList.remove("rotate");
+        } else {
+            sub.style.display = "block";
+            arrow?.classList.add("rotate");
+        }
+    }
+</script>
 
 {% endblock %}

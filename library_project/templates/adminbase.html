@@ -1,17 +1,14 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'admin_dashboard/CSS/style.css' %}">
+    <title>Library Management System</title>
+    <link rel="stylesheet" href="{% static 'admin_dashboard/css/style.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
         integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-    <title>admin_dashboard</title>
 </head>
 
 <body>
@@ -20,39 +17,31 @@
         <h1>📚 Library Management System</h1>
         <nav>
             <a href="{% url 'user_home' %}">Home</a>
-            <a href="{% url 'logout' %}">Logout</a>
+            <a href="{% url 'logout' %}" class="logout-btn">Logout</a>
         </nav>
 
 
     </header>
 
+    <div class="layout">
 
-    <main>
-        <div class="container">
+        <aside class="sidebar">
+            <a href="{% url 'admin_dashboard' %}"
+                class="{% if request.resolver_match.url_name == 'admin_dashboard' %}active{% endif %}">
+                Dashboard
+            </a>
+            <a href="{% url 'add_book' %}">Add Book</a>
+            <a href="{% url 'manage_categories' %}">Manage Categories</a>
+            <a href="{% url 'premium_members' %}">Premium Members</a>
+        </aside>
 
-            <div class="sidebar">
-                <a href="{% url 'admin_dashboard' %}">Dashboard</a>
-                <a href="{% url 'add_book' %}">Add Book</a>
-                <a href="{% url 'manage_categories' %}">Manage Categories</a>
-                <a href="{% url 'premium_members' %}">Premium Members</a>
-                <a href="{% url 'logout' %}">Logout</a>
-            </div>
+        <main class="main-content">
+            {% block content %}{% endblock %}
+        </main>
 
-            <div class="content">
-                {% block content %}
+    </div>
 
-                {% endblock %}
-            </div>
-
-        </div>
-
-    </main>
-
-    <footer>
-
-        © 2026 Library Management System | Admin Panel
-    </footer>
-
+  
 </body>
 
 </html>
