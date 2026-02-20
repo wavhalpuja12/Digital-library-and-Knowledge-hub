@@ -1,295 +1,121 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Admin Dashboard</title>
+{% extends 'adminbase.html' %}
 
-    <style>
-      * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-        font-family: Arial, sans-serif;
-      }
+{% load static %}
 
-      body {
-        background: #f4f6f8;
-      }
+{% block content %}
 
-      header {
-        background: #2c3e50;
-        color: #fff;
-        padding: 15px 30px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
+{% load static %}
+<div class="content">
+  <h2>Admin Dashboard</h2>
 
-      header h1 {
-        font-size: 22px;
-      }
+  <a href="{% url 'add_book' %}" class="btn-add">+ Add New Book</a>
 
-      nav a {
-        color: #fff;
-        margin-left: 20px;
-        text-decoration: none;
-        font-weight: bold;
-      }
+  <!-- STATS -->
+  <div class="cards" style="margin-top: 20px">
+    <div class="card">
+      <h3>Total Books</h3>
+      <p>{{ total_books }}</p>
+    </div>
 
-      .container {
-        display: flex;
-      }
+    <div class="card">
+      <h3>Issued Books</h3>
+      <p>{{ issued_books }}</p>
+    </div>
 
-      .sidebar {
-        width: 220px;
-        background: #34495e;
-        min-height: 100vh;
-        padding-top: 20px;
-      }
+    <div class="card">
+      <h3>Available Books</h3>
+      <p>{{ available_books }}</p>
+    </div>
 
-      .sidebar a {
-        display: block;
-        color: #ecf0f1;
-        padding: 12px 20px;
-        text-decoration: none;
-      }
+    <div class="card">
+      <h3>Total Users</h3>
+      <p>{{ total_users }}</p>
+    </div>
+  </div>
 
-      .sidebar a:hover {
-        background: #1abc9c;
-        color: #000;
-      }
+  <!-- FILTER -->
+  <form method="get" class="filter-box">
+    <select name="category">
+      <option value="">All Categories</option>
 
-      .content {
-        flex: 1;
-        padding: 30px;
-      }
+      {% for cat in categories %}
+      <option value="{{ cat.id }}" {% if selected_category == "cat.id" %}selected{% endif %}>
+        {{ cat.name }}
+      </option>
 
-      .cards {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 20px;
-      }
+      {% for sub in cat.children.all %}
+      <option value="{{ sub.id }}" {% if selected_category == "sub.id" %}selected{% endif %}>
+        ↳ {{ sub.name }}
+      </option>
+      {% endfor %} {% endfor %}
+    </select>
 
-      .card {
-        background: #fff;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-      }
+    <input type="text" name="search" placeholder="Search title or author" value="{{ search_query }}" />
 
-      table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 30px;
-        background: #fff;
-      }
+    <button type="submit" class="btn-add">Apply</button>
 
-      table th,
-      table td {
-        padding: 12px;
-        border: 1px solid #ddd;
-      }
-
-      table th {
-        background: #2c3e50;
-        color: #fff;
-      }
-
-      .btn-delete {
-        background: red;
-        color: white;
-        padding: 6px 12px;
-        text-decoration: none;
-        border-radius: 4px;
-      }
-
-      .btn-add {
-        background: green;
-        color: white;
-        padding: 8px 15px;
-        text-decoration: none;
-        border-radius: 5px;
-      }
-
-      .filter-box {
-        margin-top: 30px;
-        display: flex;
-        gap: 10px;
-        align-items: center;
-      }
-    </style>
-  </head>
-
-  <body>
-    <header>
-      <h1>📚 Library Management System</h1>
-      <nav>
-        <a href="{% url 'user_home' %}">Home</a>
-        <a href="{% url 'logout' %}">Logout</a>
-      </nav>
-    </header>
-
-    <div class="container">
-      <div class="sidebar">
-        <a href="{% url 'admin_dashboard' %}">Dashboard</a>
-        <a href="{% url 'add_book' %}">Add Book</a>
-        <a href="{% url 'manage_categories' %}">Manage Categories</a>
-        <a href="{% url 'premium_members' %}">Premium Members</a>
-        <a href="{% url 'logout' %}">Logout</a>
-      </div>
-
-      <div class="content">
-        <h2>Admin Dashboard</h2>
-
-        <a href="{% url 'add_book' %}" class="btn-add">+ Add New Book</a>
-
-        <!-- STATS -->
-        <div class="cards" style="margin-top: 20px">
-          <div class="card">
-            <h3>Total Books</h3>
-            <p>{{ total_books }}</p>
-          </div>
-
-          <div class="card">
-            <h3>Issued Books</h3>
-            <p>{{ issued_books }}</p>
-          </div>
-
-          <div class="card">
-            <h3>Available Books</h3>
-            <p>{{ available_books }}</p>
-          </div>
-
-          <div class="card">
-            <h3>Total Users</h3>
-            <p>{{ total_users }}</p>
-          </div>
-        </div>
-
-        <!-- FILTER -->
-        <form method="get" class="filter-box">
-          <select name="category">
-            <option value="">All Categories</option>
-
-            {% for cat in categories %}
-            <option
-              value="{{ cat.id }}"
-              {%
-              if
-              selected_category=""
-              ="cat.id"
-              %}selected{%
-              endif
-              %}
-            >
-              {{ cat.name }}
-            </option>
-
-            {% for sub in cat.children.all %}
-            <option
-              value="{{ sub.id }}"
-              {%
-              if
-              selected_category=""
-              ="sub.id"
-              %}selected{%
-              endif
-              %}
-            >
-              ↳ {{ sub.name }}
-            </option>
-            {% endfor %} {% endfor %}
-          </select>
-
-          <input
-            type="text"
-            name="search"
-            placeholder="Search title or author"
-            value="{{ search_query }}"
-          />
-
-          <button type="submit" class="btn-add">Apply</button>
-
-          {% if selected_category or search_query %}
-          <a
-            href="{% url 'admin_dashboard' %}"
-            style="
+    {% if selected_category or search_query %}
+    <a href="{% url 'admin_dashboard' %}" style="
               background: red;
               color: white;
               padding: 8px 15px;
               border-radius: 5px;
-            "
-          >
-            Clear
-          </a>
-          {% endif %}
-        </form>
+            ">
+      Clear
+    </a>
+    {% endif %}
+  </form>
 
-        <!-- BOOK TABLE -->
-        <table>
-          <tr>
-            <th>Book</th>
-            <th>Author</th>
-            <th>Category</th>
-            <th>Status</th>
-            <th>Action</th>
-          </tr>
+  <!-- BOOK TABLE -->
+  <table>
+    <tr>
+      <th>Book</th>
+      <th>Author</th>
+      <th>Category</th>
+      <th>Status</th>
+      <th>Action</th>
+    </tr>
 
-          {% for book in books %}
-          <tr>
-            <td>{{ book.title }}</td>
-            <td>{{ book.author }}</td>
-            <td>{{ book.category.name|default:"Uncategorized" }}</td>
-            <td>
-              {% if book.is_availible %}Available{% else %}Borrowed{% endif %}
-            </td>
-            <td>
-              <a href="{% url 'delete_book' book.id %}" class="btn-delete"
-                >Delete</a
-              >
-            </td>
-          </tr>
-          {% empty %}
-          <tr>
-            <td colspan="4" style="text-align: center">No books found</td>
-          </tr>
-          {% endfor %}
-        </table>
+    {% for book in books %}
+    <tr>
+      <td>{{ book.title }}</td>
+      <td>{{ book.author }}</td>
+      <td>{{ book.category.name|default:"Uncategorized" }}</td>
+      <td>
+        {% if book.is_availible %}Available{% else %}Borrowed{% endif %}
+      </td>
+      <td>
+        <a href="{% url 'delete_book' book.id %}" class="btn-delete">Delete</a>
+      </td>
+    </tr>
+    {% empty %}
+    <tr>
+      <td colspan="4" style="text-align: center">No books found</td>
+    </tr>
+    {% endfor %}
+  </table>
 
-        <!-- RECENT RECORDS -->
-        <h2 style="margin-top: 40px">Recent Borrow Records</h2>
+  <!-- RECENT RECORDS -->
+  <h2 style="margin-top: 40px">Recent Borrow Records</h2>
 
-        <table>
-          <tr>
-            <th>User</th>
-            <th>Book</th>
-          </tr>
+  <table>
+    <tr>
+      <th>User</th>
+      <th>Book</th>
+    </tr>
 
-          {% for record in records %}
-          <tr>
-            <td>{{ record.user.username }}</td>
-            <td>{{ record.book.title }}</td>
-          </tr>
-          {% empty %}
-          <tr>
-            <td colspan="2" style="text-align: center">No records</td>
-          </tr>
-          {% endfor %}
-        </table>
-      </div>
-    </div>
+    {% for record in records %}
+    <tr>
+      <td>{{ record.user.username }}</td>
+      <td>{{ record.book.title }}</td>
+    </tr>
+    {% empty %}
+    <tr>
+      <td colspan="2" style="text-align: center">No records</td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
 
-    <footer
-      style="
-        background: #2c3e50;
-        color: #fff;
-        text-align: center;
-        padding: 10px;
-        margin-top: 30px;
-      "
-    >
-      © 2026 Library Management System | Admin Panel
-    </footer>
-  </body>
-</html>
+
+{% endblock %}

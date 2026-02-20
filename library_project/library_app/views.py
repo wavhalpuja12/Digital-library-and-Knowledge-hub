@@ -274,6 +274,43 @@ def activate_premium(request):
 def categories(request):
     return render(request, 'categories.html')
 
+# -------------------Delete main Categories ---------------
+# @login_required(login_url='login')
+# def delete_category(request, id):
+
+#     if not request.user.is_superuser:
+#         return redirect('user_home')
+
+#     category = get_object_or_404(Category, id=id)
+#     category.delete()
+
+#     messages.success(request, "Category deleted successfully!")
+#     return redirect('manage_categories')
+
+@login_required(login_url='login')
+def delete_category(request, cat_id):
+
+    if not request.user.is_superuser:
+        return redirect('user_home')
+
+    category = get_object_or_404(Category, id=cat_id)
+    category.delete()
+
+    messages.success(request, "Category deleted successfully!")
+    return redirect('manage_categories')
+
+@login_required(login_url='login')
+def delete_subcategory(request,sub_id):
+
+    if not request.user.is_superuser:
+        return redirect('user_home')
+
+    sub_cat = get_object_or_404(Category, id=sub_id)
+    sub_cat.delete()
+
+    messages.success(request, "Category deleted successfully!")
+    return redirect('manage_categories')
+
 def contact(request):
     return render(request, 'contact.html')
 

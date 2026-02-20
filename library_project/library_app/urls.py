@@ -28,6 +28,10 @@ urlpatterns = [
     path('upgrade-premium/', views.upgrade_premium, name='upgrade_premium'),
     path('activate-premium/', views.activate_premium, name='activate_premium'),
     path('categories/', views.categories, name='categories'),
+    path('delete-category/<int:cat_id>', views.delete_category, name='delete_category'),
+    path('delete_subcategory/<int:sub_id>', views.delete_subcategory, name='delete_subcategory'),
+
+    # path('delete-category/<int:id>/', views.delete_category, name='delete_category')
 
 
 ]
