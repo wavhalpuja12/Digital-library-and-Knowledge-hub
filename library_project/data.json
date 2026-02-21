@@ -1,68 +1,854 @@
 [
 {
-  "model": "library_app.category",
+  "model": "auth.permission",
   "pk": 1,
   "fields": {
-    "name": "Science",
-    "parent": null
+    "name": "Can add log entry",
+    "content_type": 1,
+    "codename": "add_logentry"
   }
 },
 {
-  "model": "library_app.category",
+  "model": "auth.permission",
   "pk": 2,
   "fields": {
-    "name": "Popular",
-    "parent": null
+    "name": "Can change log entry",
+    "content_type": 1,
+    "codename": "change_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 3,
+  "fields": {
+    "name": "Can delete log entry",
+    "content_type": 1,
+    "codename": "delete_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 4,
+  "fields": {
+    "name": "Can view log entry",
+    "content_type": 1,
+    "codename": "view_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 5,
+  "fields": {
+    "name": "Can add permission",
+    "content_type": 2,
+    "codename": "add_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 6,
+  "fields": {
+    "name": "Can change permission",
+    "content_type": 2,
+    "codename": "change_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 7,
+  "fields": {
+    "name": "Can delete permission",
+    "content_type": 2,
+    "codename": "delete_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 8,
+  "fields": {
+    "name": "Can view permission",
+    "content_type": 2,
+    "codename": "view_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 9,
+  "fields": {
+    "name": "Can add group",
+    "content_type": 3,
+    "codename": "add_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 10,
+  "fields": {
+    "name": "Can change group",
+    "content_type": 3,
+    "codename": "change_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 11,
+  "fields": {
+    "name": "Can delete group",
+    "content_type": 3,
+    "codename": "delete_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 12,
+  "fields": {
+    "name": "Can view group",
+    "content_type": 3,
+    "codename": "view_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 13,
+  "fields": {
+    "name": "Can add user",
+    "content_type": 4,
+    "codename": "add_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 14,
+  "fields": {
+    "name": "Can change user",
+    "content_type": 4,
+    "codename": "change_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 15,
+  "fields": {
+    "name": "Can delete user",
+    "content_type": 4,
+    "codename": "delete_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 16,
+  "fields": {
+    "name": "Can view user",
+    "content_type": 4,
+    "codename": "view_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 17,
+  "fields": {
+    "name": "Can add content type",
+    "content_type": 5,
+    "codename": "add_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 18,
+  "fields": {
+    "name": "Can change content type",
+    "content_type": 5,
+    "codename": "change_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 19,
+  "fields": {
+    "name": "Can delete content type",
+    "content_type": 5,
+    "codename": "delete_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 20,
+  "fields": {
+    "name": "Can view content type",
+    "content_type": 5,
+    "codename": "view_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 21,
+  "fields": {
+    "name": "Can add session",
+    "content_type": 6,
+    "codename": "add_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 22,
+  "fields": {
+    "name": "Can change session",
+    "content_type": 6,
+    "codename": "change_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 23,
+  "fields": {
+    "name": "Can delete session",
+    "content_type": 6,
+    "codename": "delete_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 24,
+  "fields": {
+    "name": "Can view session",
+    "content_type": 6,
+    "codename": "view_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 25,
+  "fields": {
+    "name": "Can add book",
+    "content_type": 7,
+    "codename": "add_book"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 26,
+  "fields": {
+    "name": "Can change book",
+    "content_type": 7,
+    "codename": "change_book"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 27,
+  "fields": {
+    "name": "Can delete book",
+    "content_type": 7,
+    "codename": "delete_book"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 28,
+  "fields": {
+    "name": "Can view book",
+    "content_type": 7,
+    "codename": "view_book"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 29,
+  "fields": {
+    "name": "Can add borrow record",
+    "content_type": 8,
+    "codename": "add_borrowrecord"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 30,
+  "fields": {
+    "name": "Can change borrow record",
+    "content_type": 8,
+    "codename": "change_borrowrecord"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 31,
+  "fields": {
+    "name": "Can delete borrow record",
+    "content_type": 8,
+    "codename": "delete_borrowrecord"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 32,
+  "fields": {
+    "name": "Can view borrow record",
+    "content_type": 8,
+    "codename": "view_borrowrecord"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 33,
+  "fields": {
+    "name": "Can add premium",
+    "content_type": 9,
+    "codename": "add_premium"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 34,
+  "fields": {
+    "name": "Can change premium",
+    "content_type": 9,
+    "codename": "change_premium"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 35,
+  "fields": {
+    "name": "Can delete premium",
+    "content_type": 9,
+    "codename": "delete_premium"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 36,
+  "fields": {
+    "name": "Can view premium",
+    "content_type": 9,
+    "codename": "view_premium"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 37,
+  "fields": {
+    "name": "Can add book",
+    "content_type": 10,
+    "codename": "add_book"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 38,
+  "fields": {
+    "name": "Can change book",
+    "content_type": 10,
+    "codename": "change_book"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 39,
+  "fields": {
+    "name": "Can delete book",
+    "content_type": 10,
+    "codename": "delete_book"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 40,
+  "fields": {
+    "name": "Can view book",
+    "content_type": 10,
+    "codename": "view_book"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 41,
+  "fields": {
+    "name": "Can add borrow record",
+    "content_type": 11,
+    "codename": "add_borrowrecord"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 42,
+  "fields": {
+    "name": "Can change borrow record",
+    "content_type": 11,
+    "codename": "change_borrowrecord"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 43,
+  "fields": {
+    "name": "Can delete borrow record",
+    "content_type": 11,
+    "codename": "delete_borrowrecord"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 44,
+  "fields": {
+    "name": "Can view borrow record",
+    "content_type": 11,
+    "codename": "view_borrowrecord"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 45,
+  "fields": {
+    "name": "Can add premium",
+    "content_type": 12,
+    "codename": "add_premium"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 46,
+  "fields": {
+    "name": "Can change premium",
+    "content_type": 12,
+    "codename": "change_premium"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 47,
+  "fields": {
+    "name": "Can delete premium",
+    "content_type": 12,
+    "codename": "delete_premium"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 48,
+  "fields": {
+    "name": "Can view premium",
+    "content_type": 12,
+    "codename": "view_premium"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 49,
+  "fields": {
+    "name": "Can add category",
+    "content_type": 13,
+    "codename": "add_category"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 50,
+  "fields": {
+    "name": "Can change category",
+    "content_type": 13,
+    "codename": "change_category"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 51,
+  "fields": {
+    "name": "Can delete category",
+    "content_type": 13,
+    "codename": "delete_category"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 52,
+  "fields": {
+    "name": "Can view category",
+    "content_type": 13,
+    "codename": "view_category"
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$XT0WMsxO5pZxjMdvaObO9o$O7sDcg9lHrnjHMsXfIlK2+WtNVdWO2E5NpeocHi845k=",
+    "last_login": "2026-02-20T07:16:08.023Z",
+    "is_superuser": false,
+    "username": "puja",
+    "first_name": "",
+    "last_name": "",
+    "email": "puja@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-02-13T10:27:33.749Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 2,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$on3lJtFDHQuIDefwGt0ujj$o736+RJxZutuEqMLu8zvVh0h78QPRVmDEUMNH8u4c10=",
+    "last_login": "2026-02-13T18:05:38.346Z",
+    "is_superuser": false,
+    "username": "pooja",
+    "first_name": "",
+    "last_name": "",
+    "email": "pooja@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-02-13T18:05:27.555Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 3,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$t6SKeUsWJzI773rPQpRO3H$h3y8wiOn9cjgmOeicx0C3vqBUQPNz4mdJyWZUA0TyAE=",
+    "last_login": "2026-02-13T19:08:06.040Z",
+    "is_superuser": false,
+    "username": "wavhal",
+    "first_name": "",
+    "last_name": "",
+    "email": "wavhal@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-02-13T19:07:44.918Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 4,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$8gyppRvXgiRbW6pAurU92x$mwPG4IJV0hepPmloL7lttmIjvypHIAcbyrTLi54kOaE=",
+    "last_login": "2026-02-13T19:28:39.194Z",
+    "is_superuser": false,
+    "username": "ppp",
+    "first_name": "",
+    "last_name": "",
+    "email": "ppp@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-02-13T19:28:31.649Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 5,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$clL0DBcQhJAiY8hsSVqm2N$MmpvyNGX/ORCvTLy6eH7NnHHc1wXhjPxXqCAxlEkhAY=",
+    "last_login": "2026-02-15T17:52:19.967Z",
+    "is_superuser": false,
+    "username": "itp",
+    "first_name": "",
+    "last_name": "",
+    "email": "itp@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-02-15T17:52:11.449Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 6,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$vkPJe1uSITHMYNroU1gqgE$apxdXnxiLdoDAlZes7aVx9rWcuvbJFZHKzm4bSHCZdU=",
+    "last_login": "2026-02-19T11:02:19.892Z",
+    "is_superuser": true,
+    "username": "Apurvesh",
+    "first_name": "",
+    "last_name": "",
+    "email": "Apurvesh@gmail.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2026-02-19T06:21:15.285Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 8,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$dY8T9Dm0b27iREsgDZQHCr$ZusniXPknXtU5OYDGt1CambMuJOFWe3aaPRgBTvG7Qo=",
+    "last_login": "2026-02-20T09:51:38.303Z",
+    "is_superuser": true,
+    "username": "hupare",
+    "first_name": "",
+    "last_name": "",
+    "email": "hupare@gmail.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2026-02-19T11:11:08.151Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 1,
+  "fields": {
+    "app_label": "admin",
+    "model": "logentry"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 2,
+  "fields": {
+    "app_label": "auth",
+    "model": "permission"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 3,
+  "fields": {
+    "app_label": "auth",
+    "model": "group"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 4,
+  "fields": {
+    "app_label": "auth",
+    "model": "user"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 5,
+  "fields": {
+    "app_label": "contenttypes",
+    "model": "contenttype"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 6,
+  "fields": {
+    "app_label": "sessions",
+    "model": "session"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 7,
+  "fields": {
+    "app_label": "library_app",
+    "model": "book"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 8,
+  "fields": {
+    "app_label": "library_app",
+    "model": "borrowrecord"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 9,
+  "fields": {
+    "app_label": "library_app",
+    "model": "premium"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 10,
+  "fields": {
+    "app_label": "books",
+    "model": "book"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 11,
+  "fields": {
+    "app_label": "borrow",
+    "model": "borrowrecord"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 12,
+  "fields": {
+    "app_label": "premium",
+    "model": "premium"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 13,
+  "fields": {
+    "app_label": "library_app",
+    "model": "category"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "86d4fv275pnam0zpju3v2ejl05fr9yef",
+  "fields": {
+    "session_data": "e30:1vqyui:5zlZBp-pol7S-23zn2YjTNaRWdv0E9mWFY3Tbn3q5Pw",
+    "expire_date": "2026-02-27T19:33:16.618Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "glkammsiymv66w2zmev9s1iqvfi2p636",
+  "fields": {
+    "session_data": ".eJxVjDEOwjAMRe-SGUV1SULMyM4ZIjt2SAG1UtNOiLtDpQ6w_vfef5lE61LT2nROg5iziebwuzHlh44bkDuNt8nmaVzmge2m2J02e51En5fd_Tuo1Oq3htB5Lb6ngkzFISjAkTvpMegJPBUPMSIIBCYvHFAQpQ-OclR2kM37A-S4OAw:1vtNAg:BURCe-oZInrXEGizl8CCkO7cW5iSB8jRnPl6lSoPP6M",
+    "expire_date": "2026-03-06T09:51:38.305Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "oxn5c6ngu1kmzhr3yz0kyjng2o2bwcac",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2hA6hWlx6d4zkBkGpGpoUtqV8e7apAvd_vfef6lA21rC1tISJlFn1anT78YUH6nuQO5Ub7OOc12XifWu6IM2fZ0lPS-H-3dQqJVvDWLYMniDPgIh82B7Zy0KjgnF5wFsRBAeyTnvoong0HScU0-JMol6fwDVQzgr:1vrgeV:ZvzTSVdnYPHGawVh-xeYIhzsRcHwhjCjSe4WByRzWJ4",
+    "expire_date": "2026-03-01T18:15:27.570Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "s0tlnmsam1iwzp0xvw27f6uihkryp3zb",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2hA6hWlx6d4zkBkGpGpoUtqV8e7apAvd_vfef6lA21rC1tISJlFn1anT78YUH6nuQO5Ub7OOc12XifWu6IM2fZ0lPS-H-3dQqJVvDWLYMniDPgIh82B7Zy0KjgnF5wFsRBAeyTnvoong0HScU0-JMol6fwDVQzgr:1vqyvV:wAg4hZDeCJntTnjGJ6F5gTAsJAVFI6KLMsmwL_EvoVw",
+    "expire_date": "2026-02-27T19:34:05.488Z"
   }
 },
 {
   "model": "library_app.category",
-  "pk": 3,
+  "pk": 14,
   "fields": {
-    "name": "classic",
-    "parent": null
+    "name": "Technical",
+    "parent": null,
+    "show_in": "home"
+  }
+},
+{
+  "model": "library_app.category",
+  "pk": 16,
+  "fields": {
+    "name": "Poetry",
+    "parent": null,
+    "show_in": "navbar"
+  }
+},
+{
+  "model": "library_app.category",
+  "pk": 17,
+  "fields": {
+    "name": "Literature",
+    "parent": null,
+    "show_in": "navbar"
+  }
+},
+{
+  "model": "library_app.category",
+  "pk": 18,
+  "fields": {
+    "name": "Crime/Mystery",
+    "parent": null,
+    "show_in": "navbar"
+  }
+},
+{
+  "model": "library_app.category",
+  "pk": 19,
+  "fields": {
+    "name": "Science-Fiction & Fantasy",
+    "parent": null,
+    "show_in": "navbar"
   }
 },
 {
   "model": "library_app.book",
-  "pk": 1,
+  "pk": 6,
   "fields": {
-    "title": "Don Quixote",
-    "author": "Miguel de Cervantes",
-    "description": "Don Quixote (1605, 1615) by Miguel de Cervantes is a seminal Spanish novel often cited as the first modern novel. It follows Alonso Quixano, a middle-aged nobleman who, maddened by chivalric romances, renames himself Don Quixote and sets out to revive knighthood. Along with his pragmatic squire, Sancho Panza, he battles imagined foes, blending satire, adventure, and existential philosophy",
-    "image": "books/download.jpg",
+    "title": "Book1",
+    "author": "Puja ",
+    "description": "nA",
+    "image": "books/Screenshot_2025-12-20_235250.png",
     "book_pdf": "",
     "is_availible": true,
     "is_premium": false,
-    "category": null
+    "category": 14,
+    "liked_by": []
   }
 },
 {
   "model": "library_app.book",
-  "pk": 2,
+  "pk": 8,
   "fields": {
-    "title": "book1",
-    "author": "swaraj",
-    "description": "qwertyu",
-    "image": "books/download_m7Oxgpt.jpg",
-    "book_pdf": "pdfs/Django_Fullstack_Website_Workflow_H6zZw5x.pdf",
-    "is_availible": true,
-    "is_premium": false,
-    "category": 1
-  }
-},
-{
-  "model": "library_app.book",
-  "pk": 3,
-  "fields": {
-    "title": "sai",
-    "author": "sai",
-    "description": "asdasd",
-    "image": "books/An_experiment_in_gyrohats_cover.webp",
+    "title": "Book3",
+    "author": "pranjali",
+    "description": "dncdfgngklhmsnmzdvz",
+    "image": "books/Screenshot_2026-02-16_131700.png",
     "book_pdf": "",
     "is_availible": true,
-    "is_premium": true,
-    "category": 2
+    "is_premium": false,
+    "category": 17,
+    "liked_by": []
+  }
+},
+{
+  "model": "library_app.book",
+  "pk": 9,
+  "fields": {
+    "title": "Book4",
+    "author": "Apurvesh",
+    "description": "",
+    "image": "books/Screenshot_2025-12-29_234352.png",
+    "book_pdf": "",
+    "is_availible": true,
+    "is_premium": false,
+    "category": 19,
+    "liked_by": [
+      8
+    ]
+  }
+},
+{
+  "model": "library_app.book",
+  "pk": 10,
+  "fields": {
+    "title": "swaraj",
+    "author": "Sai",
+    "description": "Nikhil ",
+    "image": "books/Screenshot_2026-01-05_124646.png",
+    "book_pdf": "",
+    "is_availible": true,
+    "is_premium": false,
+    "category": 18,
+    "liked_by": []
+  }
+},
+{
+  "model": "library_app.book",
+  "pk": 11,
+  "fields": {
+    "title": "Book5",
+    "author": "Sai",
+    "description": "dvfdh",
+    "image": "books/Screenshot_2026-01-13_095730.png",
+    "book_pdf": "",
+    "is_availible": true,
+    "is_premium": false,
+    "category": 16,
+    "liked_by": []
   }
 }
 ]
