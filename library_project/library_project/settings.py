@@ -11,6 +11,10 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import os
+
+RAZORPAY_KEY_ID = os.getenv("RAZORPAY_KEY_ID")
+RAZORPAY_KEY_SECRET = os.getenv("RAZORPAY_KEY_SECRET")
 
 import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -26,7 +30,8 @@ SECRET_KEY = os.environ.get("SECRET_KEY", "dev-secret-key-change-in-production")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("RENDER") != "true"
 
-ALLOWED_HOSTS = []
+# settings.py
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'inflectionally-nonprofit-vella.ngrok-free.dev']
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 if RENDER_EXTERNAL_HOSTNAME:
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
@@ -42,9 +47,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'library_app',
-    'accounts'
+    'accounts',
     
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -74,6 +80,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'library_app.context_processors.navbar_categories',
+                'library_app.context_processors.premium_books',
             ],
         },
     },
@@ -146,3 +153,14 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'wavhalpuja053@gmail.com'
+EMAIL_HOST_PASSWORD = 'tndfwboyhbnpjswn'
+
+RAZORPAY_KEY_ID = "rzp_test_xxxxxx"   
+
+RAZORPAY_KEY_SECRET = "xxxxxxxx" 

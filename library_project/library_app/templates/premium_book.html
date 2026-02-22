@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-4">
+  <h2>🔥 Premium Books</h2>
+  <div class="row mt-3">
+    {% for book in premium_books %}
+      <div class="col-md-3">
+        <div class="card mb-3">
+          {% if book.image %}
+            <img src="{{ book.image.url }}" class="card-img-top">
+          {% endif %}
+          <div class="card-body">
+            <h6>{{ book.title }}</h6>
+            <p>{{ book.author }}</p>
+            <a href="{% url 'book_detail' book.id %}" class="btn btn-primary btn-sm">
+              View Details
+            </a>
+          </div>
+        </div>
+      </div>
+    {% empty %}
+      <p>No premium books available.</p>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}

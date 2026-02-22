@@ -1,0 +1,71 @@
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<button id="pay-btn">Pay Now</button>
+
+<script>
+  var options = {
+    key: "{{ razorpay_key }}",
+    amount: "{{ order.amount }}",
+    currency: "INR",
+    name: "Digital Library",
+    description: "Premium Membership",
+    order_id: "{{ order.id }}",
+
+    handler: function (response) {
+
+      // Create a form dynamically
+      var form = document.createElement("form");
+      form.method = "POST";
+      form.action = "/payment-success/";
+
+      // Add CSRF token (IMPORTANT for Django)
+      var csrfInput = document.createElement("input");
+      csrfInput.type = "hidden";
+      csrfInput.name = "csrfmiddlewaretoken";
+      csrfInput.value = "{{ csrf_token }}";
+      form.appendChild(csrfInput);
+
+      // Send Razorpay response data
+      var paymentInput = document.createElement("input");
+      paymentInput.type = "hidden";
+      paymentInput.name = "razorpay_payment_id";
+      paymentInput.value = response.razorpay_payment_id;
+      form.appendChild(paymentInput);
+
+      var orderInput = document.createElement("input");
+      orderInput.type = "hidden";
+      orderInput.name = "razorpay_order_id";
+      orderInput.value = response.razorpay_order_id;
+      form.appendChild(orderInput);
+
+      var signatureInput = document.createElement("input");
+      signatureInput.type = "hidden";
+      signatureInput.name = "razorpay_signature";
+      signatureInput.value = response.razorpay_signature;
+      form.appendChild(signatureInput);
+
+      document.body.appendChild(form);
+      form.submit();
+    },
+
+    prefill: {
+      name: "Test User",
+      email: "test@gmail.com",
+      contact: "9876543210",
+    },
+
+    method: {
+      upi: true,
+      card: true,
+      netbanking: true,
+      wallet: true,
+    },
+  };
+
+  var rzp = new Razorpay(options);
+
+  document.getElementById("pay-btn").onclick = function (e) {
+    rzp.open();
+    e.preventDefault();
+  };
+</script>

@@ -6,7 +6,22 @@ from django.contrib import messages
 from .models import Book, BorrowRecord, Premium , Category
 from django.db.models import Count
 from django.db.models import Q
+import razorpay
+from django.conf import settings
+from django.shortcuts import render
+from django.core.mail import send_mail
+    
+from datetime import timedelta
+from django.utils import timezone
+from django.core.mail import send_mail
+from django.shortcuts import redirect
+from .models import Premium
 
+from django.views.decorators.csrf import csrf_exempt
+from django.shortcuts import redirect
+from django.http import HttpResponse
+import razorpay
+from django.conf import settings
 
 # ---------- HOME (SHOW ALL BOOKS WITHOUT LOGIN) ----------
 
@@ -15,12 +30,14 @@ def user_home(request):
     navbar_categories = Category.objects.filter(show_in='navbar', parent=None)
 
     home_categories = Category.objects.filter(show_in='home', parent=None).prefetch_related('books')
+    # premium_books = Book.objects.filter(is_premium=True)
 
     context = {
 
         'navbar_categories': navbar_categories,
 
-        'home_categories': home_categories
+        'home_categories': home_categories,
+        # 'premium_books': premium_books,
 
     }
 
@@ -249,16 +266,46 @@ def delete_book(request, book_id):
 
 
 # ---------- BOOK DETAIL ----------
-@login_required(login_url='login')
-def book_detail(request, book_id):
-    book = Book.objects.get(id=book_id)
+
+def book_detail(request, id):
+
+    book = get_object_or_404(Book, id=id)
+
+    # 🔥 Allow admin to access all books
+    if request.user.is_superuser:
+        return render(request, "book_detail.html", {"book": book})
 
     if book.is_premium:
-        if not Premium.objects.filter(user=request.user).exists():
-            messages.warning(request, "⚠ This is a Premium Book. Upgrade to access.")
-            return redirect('upgrade_premium')
 
-    return render(request, 'book_detail.html', {'book': book})
+        if not request.user.is_authenticated:
+            return redirect("login")
+
+        try:
+            premium = Premium.objects.get(user=request.user)
+
+            if premium.expiry_date < timezone.now().date():
+                return redirect("upgrade_premium")
+
+        except Premium.DoesNotExist:
+            return redirect("upgrade_premium")
+
+    return render(request, "book_detail.html", {"book": book})
+
+# def book_detail(request, id):
+#     book = Book.objects.get(id=id)
+
+#     if book.is_premium:
+#         try:
+#             premium = Premium.objects.get(user=request.user)
+#             if premium.expiry_date < timezone.now().date():
+#                 return redirect("premium_required")
+#         except Premium.DoesNotExist:
+#             return redirect("premium_required")
+
+#     return render(request, "book_detail.html", {"book": book})
+
+
+
 # def book_detail(request, id):
 #     book = get_object_or_404(Book, id=id)
 #     return render(request, 'books/book_detail.html', {'book': book})
@@ -396,3 +443,100 @@ def manage_categories(request):
     return render(request, 'manage_categories.html', {
         'categories': categories
     })
+    
+def premium_books_page(request):
+    premium_books = Book.objects.filter(is_premium=True)
+
+    return render(request, 'premium_book.html', {
+        'premium_books': premium_books
+    })
+    
+
+
+@login_required(login_url='login')
+def activate_premium(request):
+
+    client = razorpay.Client(auth=(
+        settings.RAZORPAY_KEY_ID,
+        settings.RAZORPAY_KEY_SECRET
+    ))
+
+    order = client.order.create({
+        "amount": 9900,
+        "currency": "INR"
+    })
+
+    # 🔥 STORE ORDER ID IN SESSION
+    request.session['razorpay_order_id'] = order['id']
+
+    return render(request, "payment.html", {
+        "order": order,
+        "razorpay_key": settings.RAZORPAY_KEY_ID
+    })
+
+
+@csrf_exempt
+@login_required(login_url='login')
+def payment_success(request):
+
+    if request.method == "POST":
+
+        try:
+            client = razorpay.Client(auth=(
+                settings.RAZORPAY_KEY_ID,
+                settings.RAZORPAY_KEY_SECRET
+            ))
+
+            stored_order_id = request.session.get('razorpay_order_id')
+
+            if not stored_order_id:
+                return HttpResponse("Order session expired. Please try again.")
+
+            params_dict = {
+                'razorpay_order_id': stored_order_id,
+                'razorpay_payment_id': request.POST.get('razorpay_payment_id'),
+                'razorpay_signature': request.POST.get('razorpay_signature')
+            }
+
+            client.utility.verify_payment_signature(params_dict)
+
+            # ✅ Activate Premium
+            expiry_date = timezone.now().date() + timedelta(days=30)
+
+            Premium.objects.update_or_create(
+                user=request.user,
+                defaults={"expiry_date": expiry_date}
+            )
+
+            # ✅ Send Email
+            send_mail(
+                subject="🎉 Premium Membership Activated - Digital Library",
+                message=f"""
+Hello {request.user.username},
+
+Your payment was successful!
+
+Your Premium Membership is now active.
+
+🗓 Valid Until: {expiry_date}
+
+You now have full access to all premium books.
+
+Thank you for choosing Digital Library 📚
+
+Happy Reading!
+                """,
+                from_email=settings.EMAIL_HOST_USER,
+                recipient_list=[request.user.email],
+                fail_silently=False,
+            )
+
+            # Clear session
+            del request.session['razorpay_order_id']
+
+            return redirect("user_home")
+
+        except Exception as e:
+            return HttpResponse(f"Payment verification failed: {str(e)}")
+
+    return HttpResponse("Invalid request")

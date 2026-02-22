@@ -23,7 +23,7 @@ urlpatterns = [
 
 
     # -------- TEMP ADMIN CREATION --------
-    path('book/<int:book_id>/', views.book_detail, name='book_detail'),
+    # path('book/<int:book_id>/', views.book_detail, name='book_detail'),
     path('premium-members/', views.premium_members, name='premium_members'),
     path('upgrade-premium/', views.upgrade_premium, name='upgrade_premium'),
     path('activate-premium/', views.activate_premium, name='activate_premium'),
@@ -34,6 +34,10 @@ urlpatterns = [
     path('like/<int:id>/', views.like_book, name='like_book'),
     path('liked-books/', views.liked_books, name='liked_books'),
     path('category/<int:id>/', views.category_books, name='category_books'),
+    path('premium-books/', views.premium_books_page, name='premium_books'),
+    # path('activate-premium/', views.activate_premium, name='activate_premium'),
+    path('payment-success/', views.payment_success, name='payment_success'),
+    
 
     # path('delete-category/<int:id>/', views.delete_category, name='delete_category')
 

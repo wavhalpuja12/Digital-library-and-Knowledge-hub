@@ -4,6 +4,7 @@ from datetime import timedelta, date
 from django.utils import timezone
 
 
+
 # ---------------- CATEGORY MODEL ----------------
 # class Category(models.Model):
 #     name = models.CharField(max_length=100)
@@ -41,6 +42,7 @@ class Book(models.Model):
     is_availible = models.BooleanField(default=True)
     is_premium = models.BooleanField(default=False)
     liked_by = models.ManyToManyField(User, related_name='liked_books', blank=True)
+    is_premium = models.BooleanField(default=False) 
 
     category = models.ForeignKey(
         Category,
@@ -72,9 +74,9 @@ class BorrowRecord(models.Model):
 
 # ---------------- PREMIUM MODEL ----------------
 class Premium(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    purchased_date = models.DateField(auto_now_add=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     expiry_date = models.DateField()
+    is_active = models.BooleanField(default=True)
 
-    def is_active(self):
-        return self.expiry_date >= date.today()
+    def is_valid(self):
+        return self.expiry_date >= timezone.now().date()

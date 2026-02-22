@@ -421,7 +421,7 @@
           </form>
 
           <!-- MENU -->
-          
+
           <ul class="navbar-nav mx-auto text-center">
             {% for category in navbar_categories %}
 
@@ -433,7 +433,6 @@
 
             {% endfor %}
           </ul>
-         
 
           <!-- AUTH -->
           <div class="d-flex align-items-center desktop-login">
@@ -475,15 +474,24 @@
         <h5 class="mb-4 fw-bold">Dashboard</h5>
 
         <h6>Quick Links</h6>
-        
+
         <a href="{% url 'categories' %}">
           <i class="fa-solid fa-table-cells-large me-2"></i> Categories
         </a>
-        <a href="#"><i class="fa-solid fa-chart-line me-2"></i> Top Books</a>
+        <h4 class="text-white mb-3">
+          <a
+            href="{% url 'premium_books' %}"
+            class="text-white text-decoration-none"
+          >
+            ✨ Premium Books
+          </a>
+        </h4>
         <a href="#"><i class="fa-solid fa-book me-2"></i> New Books</a>
 
         <h6 class="mt-4">Your Books</h6>
-        <a href="{% url 'liked_books' %}"><i class="fa-regular fa-heart me-2"></i> Liked Books</a>
+        <a href="{% url 'liked_books' %}"
+          ><i class="fa-regular fa-heart me-2"></i> Liked Books</a
+        >
         <a href="#"
           ><i class="fa-solid fa-clock-rotate-left me-2"></i> History</a
         >
