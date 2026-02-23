@@ -1,11 +1,242 @@
 [
 {
-  "model": "library_app.category",
-  "pk": 14,
+  "model": "library_app.book",
+  "pk": 19,
   "fields": {
-    "name": "Technical",
-    "parent": null,
-    "show_in": "home"
+    "title": "The Wizard From Vahan",
+    "author": "Candy Ray",
+    "description": "Jasper does a time-jump which is supposed to be a meditation, but it goes wrong, and he finds himself in a parallel world about to embark on a mission that he does not want.\r\n\r\nJasper is an apprentice magician in a society of the future, where chaos magic has become the dominant religion. He does a time-jump which is supposed to be a meditation, but it goes wrong, and he finds himself in a parallel world about to embark on a mission that he does not want.",
+    "image": "books/the-wizard-from-vahan-70b5fa86260d8b5f3aaf7782192e2a7a.jpg",
+    "book_pdf": "pdfs/the-wizard-from-vahan-obooko.pdf",
+    "is_availible": true,
+    "is_premium": false,
+    "category": 21,
+    "liked_by": []
+  }
+},
+{
+  "model": "library_app.book",
+  "pk": 20,
+  "fields": {
+    "title": "13 Years in America ",
+    "author": "Melanie Steele",
+    "description": "The thought-provoking story of one woman's search for happiness and fulfilment in modern-day America.\r\n\r\nThe thought-provoking story of one woman's search for happiness and fulfilment in modern-day America.\r\n\r\nAfter moving to the United States from Canada in 1998, a free-spirited young woman rejects the status quo and embarks on a journey to discover what it means to be truly happy and fulfilled in the Land of Opportunity",
+    "image": "books/13-years-america-steele.jpg",
+    "book_pdf": "pdfs/the-wizard-from-vahan-obooko_pnU44LX.pdf",
+    "is_availible": true,
+    "is_premium": false,
+    "category": 21,
+    "liked_by": []
+  }
+},
+{
+  "model": "library_app.book",
+  "pk": 21,
+  "fields": {
+    "title": "Beasts of New York",
+    "author": "Jon Evans",
+    "description": "A violent, epic, action-packed urban quest full of very eccentric, often hilarious, extremely dangerous characters who also happen to be animals.\r\n\r\nBeasts of New York is a novel by award-winning author Jon Evans: a violent, epic, action-packed urban quest full of very eccentric, often hilarious, extremely dangerous characters who also happen to be animals -- the wildlife of New York City, to be exact.",
+    "image": "books/beasts-of-new-york-jon-evans.jpg",
+    "book_pdf": "pdfs/BeastsofNewYork-obooko-fan0118.pdf",
+    "is_availible": true,
+    "is_premium": false,
+    "category": 21,
+    "liked_by": []
+  }
+},
+{
+  "model": "library_app.book",
+  "pk": 22,
+  "fields": {
+    "title": " A Pirate's Wife",
+    "author": " Lynelle Clark",
+    "description": "Abducted from her parents’ castle in Portugal, Rosa Lee became the Falcon’s ransom―a brutal pirate king on the island of Madagascar―in exchange for her younger brother Pedro’s life.\r\n\r\nGrowing up sheltered, Rosa Lee Almaida lived a carefree life after both she and her mother experienced a horrific ordeal on the seas, and in the middle of Africa, when she was only four years. Meeting her adoptive father was the only joyful and good experience as a result thereof; the man honored by all sailors on land and sea for his bravery and unconditional love. He was her hero, and a model for her future husband-to-be. Now, twenty years later, she is forced to return to the seas that claimed the lives of many, including her birth father.",
+    "image": "books/pirates-wife-lynelle-clark.jpg",
+    "book_pdf": "pdfs/free-romance-ebook-pirates-wife-clark-obooko.pdf",
+    "is_availible": true,
+    "is_premium": true,
+    "category": 21,
+    "liked_by": []
+  }
+},
+{
+  "model": "library_app.book",
+  "pk": 23,
+  "fields": {
+    "title": " A New Spartan: Nikos Kokiniakos ",
+    "author": " Charles Coiro",
+    "description": "A young Greek boy living in an isolated small village seeks to continue the Spartan way of living and tries to join the army at age 7, the same as the Spartans. His attempt to join is picked up by the newspapers and read by a wealthy Greek man from New York who offers to send him through Military School. Nikos becomes a courier of funds slated for helping the Conservative faction to overthrow the Liberals in Greece. His adventures awaken his understanding in his friendships with men and women.",
+    "image": "books/new-spartan-charles-coiro.jpg",
+    "book_pdf": "pdfs/NewSpartan-obooko-gen0172.pdf",
+    "is_availible": true,
+    "is_premium": false,
+    "category": 22,
+    "liked_by": []
+  }
+},
+{
+  "model": "library_app.book",
+  "pk": 24,
+  "fields": {
+    "title": "New Testament Commentary by a Mathematician ",
+    "author": " Victor Porton",
+    "description": "This is a New Testament commentary written by a mathematician, which contains many new revelations. Free ebook.\r\n\r\nThis is a New Testament commentary written by a mathematician, which contains many new revelations.\r\nIn Gospel there are things which are not revealed when just reading the text but only after a serious scrutinized study.",
+    "image": "books/new-testament-commentary-porton.jpg",
+    "book_pdf": "pdfs/NT-Commentary-obooko-rel0114.pdf",
+    "is_availible": true,
+    "is_premium": false,
+    "category": 22,
+    "liked_by": []
+  }
+},
+{
+  "model": "library_app.book",
+  "pk": 25,
+  "fields": {
+    "title": " The Flint Lord ",
+    "author": "Richard Herley",
+    "description": "This novel of intrigue, violence and betrayal in the land of our Stone Age forefathers is a magnificent successor to the author's The Stone Arrow. Here, spurring the Flint Lord's drive for conquest, is his passion for his beautiful, decadent sister, a drive and a passion which lead inexorably to catastrophic consequences.",
+    "image": "books/flintlord-herley.jpg",
+    "book_pdf": "pdfs/TheFlintLord-obooko-actad0003.pdf",
+    "is_availible": true,
+    "is_premium": false,
+    "category": 22,
+    "liked_by": []
+  }
+},
+{
+  "model": "library_app.book",
+  "pk": 26,
+  "fields": {
+    "title": "Planning Armageddon ",
+    "author": " George McNeur",
+    "description": "When Josh and Tom's wives discover there are people 'out there' planning to ensure the 2012 Doomsday prophecies are fulfilled, they decide to take matters into their own hands and on their terms ...\r\n\r\nWhat would it take to make you commit bio-terrorism on a global scale?",
+    "image": "books/planning-armageddon-mcneur.jpg",
+    "book_pdf": "pdfs/PlanningArmageddon-obooko-adv0023.pdf",
+    "is_availible": true,
+    "is_premium": true,
+    "category": 22,
+    "liked_by": []
+  }
+},
+{
+  "model": "library_app.book",
+  "pk": 27,
+  "fields": {
+    "title": "Time Management for Mercenaries ",
+    "author": "Dai Alanye",
+    "description": "How do Travel, Adventure and Good Pay sound to you? Can you handle a bow, a spear, perhaps a sword? Join a team of men and women to forever alter history--for better or worse. Come on! What's the worst that can happen? Sickness, death by misadventure, some mistake that drops you in the middle of nowhere, instant oblivion? Sure, but look on the bright side. Well... No, I can't actually describe the bright side--our project is confidential. But you do like adventure, don't you? And how's your attitude toward a bit of looting and pillaging?",
+    "image": "books/time-management-alanye.jpg",
+    "book_pdf": "pdfs/TimeManMercs-obooko-adv0034.pdf",
+    "is_availible": true,
+    "is_premium": false,
+    "category": 23,
+    "liked_by": []
+  }
+},
+{
+  "model": "library_app.book",
+  "pk": 28,
+  "fields": {
+    "title": " From Rome to Byzantium ",
+    "author": " Tom Green",
+    "description": "This book provides a detailed overview of trading activity in the Roman and Byzantine Mediterranean, grounded in recent archaeological research. It is argued in what follows that while state-sponsored trading was undoubtedly important in both eras ...",
+    "image": "books/from-rome-to-byzantium-tom-green.jpg",
+    "book_pdf": "pdfs/from-rome-to-byzantium-obooko.pdf",
+    "is_availible": true,
+    "is_premium": false,
+    "category": 23,
+    "liked_by": []
+  }
+},
+{
+  "model": "library_app.book",
+  "pk": 29,
+  "fields": {
+    "title": "Introduction to Philosophy: Ethics ",
+    "author": "George Matthews ",
+    "description": "We often make judgments about good and bad, right and wrong. Philosophical ethics is the critical examination of these and other concepts central to how we evaluate our own and each others' behavior and choices. This text examines some of the main threads of discussion on these topics that have developed over the last couple of millenia, mostly within the Western cultural tradition.",
+    "image": "books/philosophy-of-ethics-obooko-98e43244e539f22f8edff7986d1321c1.jpg",
+    "book_pdf": "pdfs/introduction-to-philosophy-ethics-obooko.pdf",
+    "is_availible": true,
+    "is_premium": false,
+    "category": 23,
+    "liked_by": []
+  }
+},
+{
+  "model": "library_app.book",
+  "pk": 30,
+  "fields": {
+    "title": " An Introduction to the Corps of Marine Trained Messiahnists!",
+    "author": "Mike Knowles",
+    "description": "Looking for a religion based on science aimed at atheists? Like being shouted at by a former gunnery sergeant in the USMC? Computer Book.\r\n\r\nLooking for a religion based on science aimed at atheists? Like being shouted at by a former gunnery sergeant in the USMC? Well, look no further! Your prayers have been answered. Created by a published writer with the aid of a former gunnery sergeant in the USMC, Messiahnism is a religion for the computer generation.",
+    "image": "books/messiahnists-knowles.jpg",
+    "book_pdf": "pdfs/CMTM-obooko-comp0005.pdf",
+    "is_availible": true,
+    "is_premium": true,
+    "category": 23,
+    "liked_by": []
+  }
+},
+{
+  "model": "library_app.book",
+  "pk": 31,
+  "fields": {
+    "title": " COORG - A State of Mind",
+    "author": "Animesh Anand",
+    "description": "This travelogue, painted in the backdrop of an unearthly part of the cosmos, is a reflection of eternal memories one experiences in such ethereal setup..\r\n\r\nThis travel book, painted in the backdrop of an unearthly part of the cosmos, is a reflection of eternal memories one experiences in such ethereal setup. These memories might not be confined to an individual; neither do they belong to a single group of friends who visited the valley. Instead, the memoir b",
+    "image": "books/coorg-anand.jpg",
+    "book_pdf": "pdfs/COORG-obooko-trav0080.pdf",
+    "is_availible": true,
+    "is_premium": false,
+    "category": 24,
+    "liked_by": []
+  }
+},
+{
+  "model": "library_app.book",
+  "pk": 32,
+  "fields": {
+    "title": " Treasure Island",
+    "author": "by Robert Louis Stevenson",
+    "description": "Squire Trelawney, Doctor Livesey, and the rest of these gentlemen having asked me to write down the whole particulars about Treasure Island, from the beginning to the end, keeping nothing back but the bearings of the island, and that only because there is still treasure not yet lifted, I take up my pen in the year of grace 17—, and go back to the time when my father kept the \"Admiral Benbow\" Inn, and the brown old seaman, with the saber cut, first took up his lodging under our roof.",
+    "image": "books/Treasure-Island-free-ebook-cover-obooko-lores-e3c8309796cdfdbd73831c687bd12206.jpg",
+    "book_pdf": "pdfs/treasure-island-robert-louis-stevenson-obooko.pdf",
+    "is_availible": true,
+    "is_premium": false,
+    "category": 24,
+    "liked_by": []
+  }
+},
+{
+  "model": "library_app.book",
+  "pk": 33,
+  "fields": {
+    "title": "Book Of Wisdom ",
+    "author": " Advanced Society of Paranormal Studies (ASPS)",
+    "description": "This is a book for thinkers. People who like to explore mysterious truths about the universe, and writings about deep matters that affect us all, right here, right now. Subjects include: intelligence, knowledge, science, meta-physics, materialism, ancient wisdom, reincarnation, spirituality, ancient texts, paranormal phenomena, mind, yoga, life, death, natural phenomena, nature, consciousness, supernatural powers, physics, the universe, religion, and philosophy.",
+    "image": "books/book-of-wisdom-bc2f54c803437803414bed8dcc0f692b.jpg",
+    "book_pdf": "pdfs/book-of-wisdom-obooko.pdf",
+    "is_availible": true,
+    "is_premium": false,
+    "category": 24,
+    "liked_by": []
+  }
+},
+{
+  "model": "library_app.book",
+  "pk": 34,
+  "fields": {
+    "title": "The Mathematical Universe ",
+    "author": "Manjunath.R",
+    "description": "We become more aware of how little we know about how the cosmos functions as we learn more about it. The Universe is full of secrets, from the doorstep of our own Solar System to the far-off shores of the intergalactic ocean. With the help of a large number of telescopes and satellites, we have increased our understanding of the universe. We have been investigating the history of the cosmos, from the Big Bang through comets' peculiarities and our curiosity about the chemistry of stars. One thing unites many of the most prevalent theories: they start from a mathematical framework that aims to explain more than our existing leading theories can.",
+    "image": "books/mathematical-universe-manjunath-r-obooko-ebook-6c1c0122a5456d3ec5a55a0002c5df5f.jpg",
+    "book_pdf": "pdfs/the-mathematical-universe-obooko.pdf",
+    "is_availible": true,
+    "is_premium": true,
+    "category": 24,
+    "liked_by": []
   }
 },
 {
@@ -45,125 +276,39 @@
   }
 },
 {
-  "model": "library_app.book",
-  "pk": 8,
+  "model": "library_app.category",
+  "pk": 21,
   "fields": {
-    "title": "Book3",
-    "author": "pranjali",
-    "description": "dncdfgngklhmsnmzdvz",
-    "image": "books/Screenshot_2026-02-16_131700.png",
-    "book_pdf": "",
-    "is_availible": true,
-    "is_premium": false,
-    "category": 17,
-    "liked_by": []
+    "name": "Jump into Epic Adventures 🧭",
+    "parent": null,
+    "show_in": "home"
   }
 },
 {
-  "model": "library_app.book",
-  "pk": 9,
+  "model": "library_app.category",
+  "pk": 22,
   "fields": {
-    "title": "Book4",
-    "author": "Apurvesh",
-    "description": "",
-    "image": "books/Screenshot_2025-12-29_234352.png",
-    "book_pdf": "",
-    "is_availible": true,
-    "is_premium": false,
-    "category": 19,
-    "liked_by": []
+    "name": "Timeless Classics for New Reads ⏳",
+    "parent": null,
+    "show_in": "home"
   }
 },
 {
-  "model": "library_app.book",
-  "pk": 10,
+  "model": "library_app.category",
+  "pk": 23,
   "fields": {
-    "title": "swaraj",
-    "author": "Sai",
-    "description": "Nikhil ",
-    "image": "books/Screenshot_2026-01-05_124646.png",
-    "book_pdf": "",
-    "is_availible": true,
-    "is_premium": false,
-    "category": 18,
-    "liked_by": []
+    "name": "Featured Authors",
+    "parent": null,
+    "show_in": "home"
   }
 },
 {
-  "model": "library_app.book",
-  "pk": 11,
+  "model": "library_app.category",
+  "pk": 24,
   "fields": {
-    "title": "Book5",
-    "author": "Sai",
-    "description": "dvfdh",
-    "image": "books/Screenshot_2026-01-13_095730.png",
-    "book_pdf": "",
-    "is_availible": true,
-    "is_premium": false,
-    "category": 16,
-    "liked_by": [
-      
-    ]
-  }
-},
-{
-  "model": "library_app.book",
-  "pk": 14,
-  "fields": {
-    "title": "kkkk",
-    "author": "p.k sharma",
-    "description": "dwjfjes",
-    "image": "books/Screenshot_2025-12-20_235517.png",
-    "book_pdf": "",
-    "is_availible": true,
-    "is_premium": false,
-    "category": 14,
-    "liked_by": []
-  }
-},
-{
-  "model": "library_app.book",
-  "pk": 15,
-  "fields": {
-    "title": "Book to pune",
-    "author": "hupare",
-    "description": "fsndfngka",
-    "image": "books/Screenshot_2026-01-12_235411.png",
-    "book_pdf": "",
-    "is_availible": true,
-    "is_premium": true,
-    "category": 18,
-    "liked_by": []
-  }
-},
-{
-  "model": "library_app.book",
-  "pk": 16,
-  "fields": {
-    "title": "book10",
-    "author": "dsmnc",
-    "description": "dsbjvdnfgkd,mbv",
-    "image": "books/Screenshot_2026-01-31_200304.png",
-    "book_pdf": "",
-    "is_availible": true,
-    "is_premium": false,
-    "category": 17,
-    "liked_by": []
-  }
-},
-{
-  "model": "library_app.book",
-  "pk": 17,
-  "fields": {
-    "title": "fjdsfnsgn",
-    "author": "fnewgrad",
-    "description": "ghsrtjk,",
-    "image": "books/Screenshot_2025-12-20_235328_8QDPeRF.png",
-    "book_pdf": "",
-    "is_availible": true,
-    "is_premium": true,
-    "category": 16,
-    "liked_by": []
+    "name": "Nightmares from the Cosmos 🌌",
+    "parent": null,
+    "show_in": "home"
   }
 }
 ]
