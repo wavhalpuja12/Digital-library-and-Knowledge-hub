@@ -1,5 +1,86 @@
 [
 {
+  "model": "library_app.category",
+  "pk": 14,
+  "fields": {
+    "name": "Technical",
+    "parent": null,
+    "show_in": "home"
+  }
+},
+{
+  "model": "library_app.category",
+  "pk": 16,
+  "fields": {
+    "name": "Poetry",
+    "parent": null,
+    "show_in": "navbar"
+  }
+},
+{
+  "model": "library_app.category",
+  "pk": 17,
+  "fields": {
+    "name": "Literature",
+    "parent": null,
+    "show_in": "navbar"
+  }
+},
+{
+  "model": "library_app.category",
+  "pk": 18,
+  "fields": {
+    "name": "Crime/Mystery",
+    "parent": null,
+    "show_in": "navbar"
+  }
+},
+{
+  "model": "library_app.category",
+  "pk": 19,
+  "fields": {
+    "name": "Science-Fiction & Fantasy",
+    "parent": null,
+    "show_in": "navbar"
+  }
+},
+{
+  "model": "library_app.category",
+  "pk": 21,
+  "fields": {
+    "name": "Jump into Epic Adventures 🧭",
+    "parent": null,
+    "show_in": "home"
+  }
+},
+{
+  "model": "library_app.category",
+  "pk": 22,
+  "fields": {
+    "name": "Timeless Classics for New Reads ⏳",
+    "parent": null,
+    "show_in": "home"
+  }
+},
+{
+  "model": "library_app.category",
+  "pk": 23,
+  "fields": {
+    "name": "Featured Authors",
+    "parent": null,
+    "show_in": "home"
+  }
+},
+{
+  "model": "library_app.category",
+  "pk": 24,
+  "fields": {
+    "name": "Nightmares from the Cosmos 🌌",
+    "parent": null,
+    "show_in": "home"
+  }
+},
+{
   "model": "library_app.book",
   "pk": 19,
   "fields": {
@@ -240,75 +321,258 @@
   }
 },
 {
-  "model": "library_app.category",
-  "pk": 16,
+  "model": "library_app.book",
+  "pk": 35,
   "fields": {
-    "name": "Poetry",
-    "parent": null,
-    "show_in": "navbar"
+    "title": " Anthology Of Poetry: Vol Two ",
+    "author": "Catherine Lean",
+    "description": "This is a collection of my poetry which I have written over a number of years. It covers many subjects and styles but Mostly rhyming.\r\n\r\nThis is a collection of my poetry which I have written over a number of years. It covers many subjects and styles but Mostly rhyming. My works are centred a lot around animals but there is something for everyone here. I hope you enjoy reading and find something useful to take away with you.\r\n\r\nWriting to me is a great joy. Nature inspires me with her diverse richness, but I can also see that same beauty in objects, and in these pages you will see that you can write about anything if you give your mind free reign.",
+    "image": "books/poetry-anthology2-lean.jpg",
+    "book_pdf": "pdfs/Anthology2-obooko-poetry0086.pdf",
+    "is_availible": true,
+    "is_premium": false,
+    "category": 16,
+    "liked_by": []
   }
 },
 {
-  "model": "library_app.category",
-  "pk": 17,
+  "model": "library_app.book",
+  "pk": 36,
   "fields": {
-    "name": "Literature",
-    "parent": null,
-    "show_in": "navbar"
+    "title": "Poetry Pieces of Europe, Vol. 1",
+    "author": " European Poetry Collective",
+    "description": "This book is a result of joint activities of people all across Europe who engaged themselves in its preparation, according to their own field of specialization. Free ebook.\r\n\r\nThis is an English language anthology that represents the new European poetic scene through authors, whose mother tongue is not initially English. This book is a result of joint activities of people all across Europe who engaged themselves in its preparation, according to their own field of specialization. Authors, designers, proof-readers and editors, all having English as a second or even a third language, have been brought together, led by one common idea - to spread the variety of European cultures in a literature product, presented in an international linguistic tool.\r\n\r\n",
+    "image": "books/poetry-pieces-of-europe-obooko-231c7f110bda6de5878996f9f162a5c3.jpg",
+    "book_pdf": "pdfs/poetry-pieces-of-europe-vol-1-obooko.pdf",
+    "is_availible": true,
+    "is_premium": false,
+    "category": 16,
+    "liked_by": []
   }
 },
 {
-  "model": "library_app.category",
-  "pk": 18,
+  "model": "library_app.book",
+  "pk": 37,
   "fields": {
-    "name": "Crime/Mystery",
-    "parent": null,
-    "show_in": "navbar"
+    "title": "Poetry for Modern Children ",
+    "author": "N.",
+    "description": "Poetry for modern children is a book written for today's children who face challenges such as peer pressure, fad diets and so on.\r\n\r\nPoetry for modern children is a book written for today's children who don't only face challenges such as peer pressure etc., but children who also come across stereotypes in our modern society and fad diets and so on.\r\n\r\nTo regain self esteem and be proud of who they are and where they come from has been my aim in writing. There are other playful poems that children at a more younger age can read.",
+    "image": "books/poetry-for-modern-children.jpg",
+    "book_pdf": "pdfs/Poetry-for-Modern-Children-obooko-poetry0153.pdf",
+    "is_availible": true,
+    "is_premium": false,
+    "category": 16,
+    "liked_by": []
   }
 },
 {
-  "model": "library_app.category",
-  "pk": 19,
+  "model": "library_app.book",
+  "pk": 38,
   "fields": {
-    "name": "Science-Fiction & Fantasy",
-    "parent": null,
-    "show_in": "navbar"
+    "title": "Aswito Darling ",
+    "author": " Brian Kibet",
+    "description": "Dear Aswito darling ... we love till we are tired of love! More wonderful poetry from Brian Kibet. Available for free download in PDF and ePub formats.\r\n\r\nBe aware, these words are naked. Be aware, these simple words are not written in ordinary ink but in tears and the sound of laughter. Be aware, these words are written in the throes of passion and in the bottoms of despair, that sometimes words was all I had. These words are sad and happy and sometimes both in equal measures.",
+    "image": "books/aswito-darling-brian-kibet-obooko-b6f1874bc0434b8dbd6c7ad0016606da.jpg",
+    "book_pdf": "pdfs/aswito-darling-obooko.pdf",
+    "is_availible": true,
+    "is_premium": true,
+    "category": 16,
+    "liked_by": []
   }
 },
 {
-  "model": "library_app.category",
-  "pk": 21,
+  "model": "library_app.book",
+  "pk": 39,
   "fields": {
-    "name": "Jump into Epic Adventures 🧭",
-    "parent": null,
-    "show_in": "home"
+    "title": "Essays on Art and Literature ",
+    "author": "John Xavier",
+    "description": "These essays focus on illuminating their subjects in a profound way so that the reader will be inspired to engage in a philosophical reflection of said works on their own. Free PDF.\r\n\r\nDiscussing various historical works of culture, as well as the broader context of human creativity, these essays focus on illuminating their subjects in a profound way so that the reader will be inspired to engage in a philosophical reflection of said works on their own.",
+    "image": "books/essays-on-art-and-literature-obooko-ff46d053bfed80338bc3cceca9f2aa77.jpg",
+    "book_pdf": "pdfs/essays-on-art-and-literature-xavier-obooko.pdf",
+    "is_availible": true,
+    "is_premium": true,
+    "category": 17,
+    "liked_by": []
   }
 },
 {
-  "model": "library_app.category",
-  "pk": 22,
+  "model": "library_app.book",
+  "pk": 40,
   "fields": {
-    "name": "Timeless Classics for New Reads ⏳",
-    "parent": null,
-    "show_in": "home"
+    "title": " Illuminating the Twilight ",
+    "author": " Carol L Rizzolo, PhD",
+    "description": "When those who lay dying tell their stories and speak their truths, those of us at the bedside are called to pay attention and to listen with our hearts.\r\n\r\nThis work is freely given and has particular value for those travelling through the end of life.\r\n\r\nA scan of four thousand years of extant literature reveals that the emotional experiences of dying individuals has always been and continues to be the poetic expression of the human body itself. This project showcases the wisdom literature found in the collective voices of our human ancestors.",
+    "image": "books/Illuminating-twilight-rizzolo.jpg",
+    "book_pdf": "pdfs/Illuminating-The-Twilight-obooko-mind0058.pdf",
+    "is_availible": true,
+    "is_premium": false,
+    "category": 17,
+    "liked_by": []
   }
 },
 {
-  "model": "library_app.category",
-  "pk": 23,
+  "model": "library_app.book",
+  "pk": 41,
   "fields": {
-    "name": "Featured Authors",
-    "parent": null,
-    "show_in": "home"
+    "title": " The Wild Goose ",
+    "author": "Mori Ogai",
+    "description": "The events of my story took place some time ago, the thirteenth year of the Meiji era, to be exact. I remember because at that time I was living in a boardinghouse called the Kamijo.\r\n\r\nA recreation of Tokyo in the 1880s by one of Japan’s most influential novelists.\r\n\r\nMori Ōgai (1862–1922), one of the giants of modern Japanese literature, wrote The Wild Goose at the turn of the century. Set in the early 1880s, it was, for contemporary readers, a nostalgic return to a time when the nation was embarking on an era of dramatic change. Ōgai’s narrator is a middle-aged man reminiscing about an unconsummated affair, dating to his student days, between his classmate and a young woman kept by a moneylender. At a time when writers tended to depict modern, alienated male intellectuals, the characters of The Wild Goose are diverse, including not only students preparing for a privileged intellectual life and members of the plebeian classes who provide services to them, but also a pair of highly developed female characters. ",
+    "image": "books/the-wild-goose-071b4c091781a2434d25537e5ed7fa4c.jpg",
+    "book_pdf": "pdfs/the-wild-goose-obooko.pdf",
+    "is_availible": true,
+    "is_premium": false,
+    "category": 17,
+    "liked_by": []
   }
 },
 {
-  "model": "library_app.category",
-  "pk": 24,
+  "model": "library_app.book",
+  "pk": 42,
   "fields": {
-    "name": "Nightmares from the Cosmos 🌌",
-    "parent": null,
-    "show_in": "home"
+    "title": " Pride and Prejudice",
+    "author": " Jane Austen",
+    "description": "The novel follows the character development of Elizabeth Bennet, the dynamic protagonist of the book who learns about the repercussions of hasty judgments.\r\n\r\nPride and Prejudice is a romantic novel of manners written by Jane Austen. Though this popular work of classic literature is known as a romance, it can also be considered a satirical book. The novel follows the character development of Elizabeth Bennet, the dynamic protagonist of the book who learns about the repercussions of hasty judgments and comes to appreciate the difference between superficial goodness and actual goodness.\r\n\r\n",
+    "image": "books/pride-and-prejudice-jane-austin-free-ebook-obooko-cc1b58e2cd1a2b9812331a6438d9fe91.jpg",
+    "book_pdf": "pdfs/pride-and-prejudice-jane-austen-obooko.pdf",
+    "is_availible": true,
+    "is_premium": true,
+    "category": 17,
+    "liked_by": []
+  }
+},
+{
+  "model": "library_app.book",
+  "pk": 43,
+  "fields": {
+    "title": "Tales of Murder, Mystery & Suspense Vol 1 ",
+    "author": " Will Lankstead",
+    "description": "A Collection of eight short stories about Murder, Mystery and Suspense. free ebook.\r\n\r\nA Collection of eight short stories about Murder, Mystery and Suspense. Such titles include: Small Talk, Little Jimmy Slater, Nice Work if you can get it!, Sara, the Underpass.",
+    "image": "books/tales-mystery-suspense-lankstead.jpg",
+    "book_pdf": "pdfs/TalesofMMS1-obooko-shortc0076.pdf",
+    "is_availible": true,
+    "is_premium": true,
+    "category": 18,
+    "liked_by": []
+  }
+},
+{
+  "model": "library_app.book",
+  "pk": 44,
+  "fields": {
+    "title": " Veil ",
+    "author": "Reginald Cook",
+    "description": "Thriller book: Bounty hunters on the trail of a vicious serial killer--wrestle a forty-year old conspiracy when Charlie Ivory, old and homeless, confronts them with a startling confession--He's a murderer.\r\n\r\nThis is Book One in the VEIL crime books series. Download Book Two, The Hammer of God.\r\n\r\nRobert Veil and Nikki Thorne, bounty hunters on the trail of a vicious serial killer--wrestle a forty-year old conspiracy when Charlie Ivory, old and homeless, confronts them with a startling confession--He's a murderer.\r\n\r\n",
+    "image": "books/veil-reginald-cook.jpg",
+    "book_pdf": "pdfs/Veil-obooko-thr0154.pdf",
+    "is_availible": true,
+    "is_premium": false,
+    "category": 18,
+    "liked_by": []
+  }
+},
+{
+  "model": "library_app.book",
+  "pk": 45,
+  "fields": {
+    "title": "Inspector Zhang Gets His Wish ",
+    "author": "Stephen Leather",
+    "description": "Detective inspector Zhang of the Singapore Police Force is called to investigate the death of an American businessman in a hotel suite. Follow Zhang as he uses his skills of deduction to unravel the clues and solve the crime.\r\n\r\nDetective inspector Zhang of the Singapore Police Force is called to investigate the death of an American businessman in a hotel suite. Follow Zhang as he uses his skills of deduction to unravel the clues and solve the crime. From the pen of Stephen Leather, one of the UKs best thriller books writers.",
+    "image": "books/inspector-zhang-gets-his-wish-stephen-leather.jpg",
+    "book_pdf": "pdfs/InspectorZhang-obooko-thr0129.pdf",
+    "is_availible": true,
+    "is_premium": false,
+    "category": 18,
+    "liked_by": []
+  }
+},
+{
+  "model": "library_app.book",
+  "pk": 46,
+  "fields": {
+    "title": " 200 Steps Down ",
+    "author": "Morris Kenyon",
+    "description": "When his crime boss in Odessa, Ukraine, decides to up his game by getting involved in people trafficking, Nicolae Caramarin must make a choice. Should he turn a blind eye to the horrors he witnesses?\r\n\r\nWhen his crime boss in Odessa, Ukraine, decides to up his game by getting involved in people trafficking, Nicolae Caramarin must make a choice. Should he turn a blind eye to the horrors he witnesses and carry on being a good soldier for the gang; or take his stand and bring them all down in the only way he knows how?\r\n\r\nA fast-paced, tense and exciting crime/noir thriller. Contains scenes of a sexual nature, graphic violence, strong language and drug abuse. It is not intended for the easily offended or persons under eighteen years. You have been warned, so if you read on, don't blame me.\r\n\r\nShort stories:\r\nBacharach's Bungalow\r\nLowriser Letdown",
+    "image": "books/200-steps-down-kenyon.jpg",
+    "book_pdf": "pdfs/200StepsDown-obooko-thr0182.pdf",
+    "is_availible": true,
+    "is_premium": false,
+    "category": 21,
+    "liked_by": []
+  }
+},
+{
+  "model": "library_app.book",
+  "pk": 47,
+  "fields": {
+    "title": "200 Steps Down ",
+    "author": "Morris Kenyon",
+    "description": "When his crime boss in Odessa, Ukraine, decides to up his game by getting involved in people trafficking, Nicolae Caramarin must make a choice. Should he turn a blind eye to the horrors he witnesses?\r\n\r\nWhen his crime boss in Odessa, Ukraine, decides to up his game by getting involved in people trafficking, Nicolae Caramarin must make a choice. Should he turn a blind eye to the horrors he witnesses and carry on being a good soldier for the gang; or take his stand and bring them all down in the only way he knows how?\r\n\r\nA fast-paced, tense and exciting crime/noir thriller. Contains scenes of a sexual nature, graphic violence, strong language and drug abuse. It is not intended for the easily offended or persons under eighteen years. You have been warned, so if you read on, don't blame me.\r\n\r\nShort stories:\r\nBacharach's Bungalow\r\nLowriser Letdown",
+    "image": "books/200-steps-down-kenyon_UHI3cRq.jpg",
+    "book_pdf": "pdfs/200StepsDown-obooko-thr0182_Ed0HOE5.pdf",
+    "is_availible": true,
+    "is_premium": false,
+    "category": 18,
+    "liked_by": []
+  }
+},
+{
+  "model": "library_app.book",
+  "pk": 48,
+  "fields": {
+    "title": " Eclipsed: Selected Writings of Fiction and Non-Fiction ",
+    "author": "Peter McMillan",
+    "description": "11 pieces of short fiction and 13 works of non-fiction, addressing themes sufficiently dystopian to get us to pay attention to some of the possible futures of our species.\r\n\r\nA brief collection of writings that blends 11 pieces of short fiction and 13 works of non-fiction. This volume is essentially a continuation of Writings Near the End of the Human Era, which addresses themes sufficiently dystopian to get us to pay attention to some of the possible futures of our species.\r\n\r\n",
+    "image": "books/eclipsed-selected-writings-of-fiction-and-non-fiction-mcmillan-896e3465ba9406fbcaf_YdsJDMv.jpg",
+    "book_pdf": "pdfs/eclipsed-selected-writings-of-fiction-and-non-fiction-obooko.pdf",
+    "is_availible": true,
+    "is_premium": true,
+    "category": 19,
+    "liked_by": []
+  }
+},
+{
+  "model": "library_app.book",
+  "pk": 49,
+  "fields": {
+    "title": "Considering: Science Fiction for Idealistic Minds ",
+    "author": "Deborah Loraine Kean",
+    "description": "Enter the exciting worlds of Deborah Loraine Kean's science fiction and speculative fiction short stories. Free ebook.\r\n\r\nEnter the exciting worlds of my science fiction and speculative fiction short stories.\r\n\r\nExcerpt Bad Penny:",
+    "image": "books/considering-kean.jpg",
+    "book_pdf": "pdfs/Considering-obooko-shortc0088.pdf",
+    "is_availible": true,
+    "is_premium": false,
+    "category": 19,
+    "liked_by": []
+  }
+},
+{
+  "model": "library_app.book",
+  "pk": 50,
+  "fields": {
+    "title": " Tensions Between Science and Spirituality with Philosophy and Logic as Referee ",
+    "author": " Dickson Olabiyi Adelusi",
+    "description": "A thought-provoking exploration where science and spirituality converge and diverge, revealing their intricate relationship in shaping human understanding\r\n\r\nDive into a thought-provoking exploration where science and spirituality converge and diverge, revealing their intricate relationship in shaping human understanding and existence. In \"Tensions Between Science and Spirituality with Philosophy and Logic as Referee,\" the author navigates these realms with nuance and depth, inviting readers to ponder the profound implications of their coexistence. At its core, the book challenges the notion of science and spirituality as opposing forces, illustrating instead their complementary roles in our quest for truth and meaning.",
+    "image": "books/tensions-between-science-and-spirituality-book-cover-469ed3ac18b8c7de49202974ee32eae7.jpg",
+    "book_pdf": "pdfs/tensions-between-science-and-spirituality-with-philosophy-and-logic-as-referee-obooko.pdf",
+    "is_availible": true,
+    "is_premium": false,
+    "category": 19,
+    "liked_by": []
+  }
+},
+{
+  "model": "library_app.book",
+  "pk": 51,
+  "fields": {
+    "title": " Settings and Atmosphere in Your Fiction ",
+    "author": " Paula Puddephatt",
+    "description": "Free book! Need tips on creating authentic fictional settings, particularly in realistic fiction? Or advice about how to build suspense and tension in your stories, and create a sense of atmosphere and mood?\r\n\r\nNeed tips on creating authentic fictional settings, particularly in realistic fiction? Or advice about how to build suspense and tension in your stories, and create a sense of atmosphere and mood? Ever heard of the term White Room Syndrome? In this short reference book, I discuss all of the above.",
+    "image": "books/settings-and-atmosphere-obooko.jpg",
+    "book_pdf": "pdfs/settings-and-atmosphere-in-your-fiction-obooko.pdf",
+    "is_availible": true,
+    "is_premium": true,
+    "category": 19,
+    "liked_by": []
   }
 }
 ]
