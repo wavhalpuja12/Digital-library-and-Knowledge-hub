@@ -1,15 +1,6 @@
 [
 {
   "model": "library_app.category",
-  "pk": 14,
-  "fields": {
-    "name": "Technical",
-    "parent": null,
-    "show_in": "home"
-  }
-},
-{
-  "model": "library_app.category",
   "pk": 16,
   "fields": {
     "name": "Poetry",
@@ -82,6 +73,21 @@
 },
 {
   "model": "library_app.book",
+  "pk": 1,
+  "fields": {
+    "title": "Don Quixote",
+    "author": "Miguel de Cervantes",
+    "description": "Don Quixote (1605, 1615) by Miguel de Cervantes is a seminal Spanish novel often cited as the first modern novel. It follows Alonso Quixano, a middle-aged nobleman who, maddened by chivalric romances, renames himself Don Quixote and sets out to revive knighthood. Along with his pragmatic squire, Sancho Panza, he battles imagined foes, blending satire, adventure, and existential philosophy",
+    "image": "books/download.jpg",
+    "book_pdf": "",
+    "is_availible": true,
+    "is_premium": false,
+    "category": null,
+    "liked_by": []
+  }
+},
+{
+  "model": "library_app.book",
   "pk": 19,
   "fields": {
     "title": "The Wizard From Vahan",
@@ -121,21 +127,6 @@
     "book_pdf": "pdfs/BeastsofNewYork-obooko-fan0118.pdf",
     "is_availible": true,
     "is_premium": false,
-    "category": 21,
-    "liked_by": []
-  }
-},
-{
-  "model": "library_app.book",
-  "pk": 22,
-  "fields": {
-    "title": " A Pirate's Wife",
-    "author": " Lynelle Clark",
-    "description": "Abducted from her parents’ castle in Portugal, Rosa Lee became the Falcon’s ransom―a brutal pirate king on the island of Madagascar―in exchange for her younger brother Pedro’s life.\r\n\r\nGrowing up sheltered, Rosa Lee Almaida lived a carefree life after both she and her mother experienced a horrific ordeal on the seas, and in the middle of Africa, when she was only four years. Meeting her adoptive father was the only joyful and good experience as a result thereof; the man honored by all sailors on land and sea for his bravery and unconditional love. He was her hero, and a model for her future husband-to-be. Now, twenty years later, she is forced to return to the seas that claimed the lives of many, including her birth father.",
-    "image": "books/pirates-wife-lynelle-clark.jpg",
-    "book_pdf": "pdfs/free-romance-ebook-pirates-wife-clark-obooko.pdf",
-    "is_availible": true,
-    "is_premium": true,
     "category": 21,
     "liked_by": []
   }
@@ -332,7 +323,9 @@
     "is_availible": true,
     "is_premium": false,
     "category": 16,
-    "liked_by": []
+    "liked_by": [
+      1
+    ]
   }
 },
 {
@@ -347,7 +340,9 @@
     "is_availible": true,
     "is_premium": false,
     "category": 16,
-    "liked_by": []
+    "liked_by": [
+      1
+    ]
   }
 },
 {
@@ -362,7 +357,9 @@
     "is_availible": true,
     "is_premium": false,
     "category": 16,
-    "liked_by": []
+    "liked_by": [
+      1
+    ]
   }
 },
 {
@@ -557,7 +554,9 @@
     "is_availible": true,
     "is_premium": false,
     "category": 19,
-    "liked_by": []
+    "liked_by": [
+      1
+    ]
   }
 },
 {
@@ -573,6 +572,68 @@
     "is_premium": true,
     "category": 19,
     "liked_by": []
+  }
+},
+{
+  "model": "library_app.newslettersubscriber",
+  "pk": 1,
+  "fields": {
+    "email": "pranjalih253@gmail.com",
+    "subscribed_at": "2026-02-24T07:03:16.102Z"
+  }
+},
+{
+  "model": "library_app.newslettersubscriber",
+  "pk": 2,
+  "fields": {
+    "email": "huparepranjali@gmail.com",
+    "subscribed_at": "2026-02-24T07:09:49.903Z"
+  }
+},
+{
+  "model": "library_app.newslettersubscriber",
+  "pk": 3,
+  "fields": {
+    "email": "pranhupare123@gmail.com",
+    "subscribed_at": "2026-02-24T07:13:28.614Z"
+  }
+},
+{
+  "model": "library_app.newslettersubscriber",
+  "pk": 4,
+  "fields": {
+    "email": "poojawavhal2012@gmail.com",
+    "subscribed_at": "2026-02-24T07:33:08.670Z"
+  }
+},
+{
+  "model": "library_app.bookhistory",
+  "pk": 5,
+  "fields": {
+    "user": 1,
+    "book": 19,
+    "viewed_at": "2026-02-24T09:21:45.538Z",
+    "reading_time": 0
+  }
+},
+{
+  "model": "library_app.bookhistory",
+  "pk": 6,
+  "fields": {
+    "user": 1,
+    "book": 20,
+    "viewed_at": "2026-02-24T09:03:44.576Z",
+    "reading_time": 0
+  }
+},
+{
+  "model": "library_app.bookhistory",
+  "pk": 7,
+  "fields": {
+    "user": 1,
+    "book": 21,
+    "viewed_at": "2026-02-24T09:21:15.384Z",
+    "reading_time": 0
   }
 }
 ]

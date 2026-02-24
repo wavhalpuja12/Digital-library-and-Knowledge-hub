@@ -1,45 +1,126 @@
-{% extends 'base.html' %} {% load static %} {% block content %}
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+/* ================= PAGE HEADER ================= */
+.category-header {
+  margin-top: 40px;
+  margin-bottom: 30px;
+}
+
+.category-header h2 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 40px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+/* ================= BOOK GRID ================= */
+.book-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 25px;
+}
+
+/* ================= BOOK CARD ================= */
+.book-card {
+  border-radius: 14px;
+  overflow: hidden;
+  transition: 0.3s ease;
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.book-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+}
+
+/* IMAGE */
+.book-image-wrapper {
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f3f4f6;
+}
+
+.book-img {
+  max-height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+/* BODY */
+.book-body {
+  padding: 15px;
+}
+
+.book-title {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.book-author {
+  font-size: 14px;
+  color: #64748b;
+}
+
+/* BUTTONS */
+.book-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+</style>
 
 <div class="container mt-4">
-  <h2 class="mb-4">❤️ Liked Books</h2>
 
-  <div class="row">
+  <div class="category-header">
+    <h2>❤️ Liked Books</h2>
+  </div>
+
+  {% if books %}
+  <div class="book-grid">
+
     {% for book in books %}
+    <div class="book-card">
 
-    <div class="col-md-3 mb-4">
-      <div class="card h-100 shadow-sm">
+      <div class="book-image-wrapper">
         {% if book.image %}
-        <img src="{{ book.image.url }}" class="card-img-top" />
+          <img src="{{ book.image.url }}" class="book-img">
         {% else %}
-        <img src="{% static 'images/1.jpeg' %}" class="card-img-top" />
+          <img src="{% static 'images/1.jpeg' %}" class="book-img">
         {% endif %}
+      </div>
 
-        <div class="card-body">
-          <h6>{{ book.title }}</h6>
+      <div class="book-body">
+        <div class="book-title">{{ book.title }}</div>
+        <div class="book-author">{{ book.author }}</div>
 
-          <p class="text-muted">{{ book.author }}</p>
-
-          <a
-            href="{% url 'book_detail' book.id %}"
-            class="btn btn-primary btn-sm"
-          >
-            View Details
+        <div class="book-buttons">
+          <a href="{% url 'book_detail' book.id %}" class="btn btn-primary btn-sm">
+            View
           </a>
+
           <a href="{% url 'like_book' book.id %}" class="btn btn-danger btn-sm">
-            💔 Remove
+            💔
           </a>
         </div>
       </div>
+
     </div>
-
-    {% empty %}
-
-    <div class="col-12">
-      <p>No liked books yet.</p>
-    </div>
-
     {% endfor %}
+
   </div>
+
+  {% else %}
+    <p>No liked books yet.</p>
+  {% endif %}
+
 </div>
 
 {% endblock %}

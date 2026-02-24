@@ -1,572 +1,571 @@
 {% load static %}
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Open Chapter</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-    />
-    <style>
-      /* GLOBAL */
-      /* GLOBAL */
-      body {
-        margin: 0;
-        font-family: "Segoe UI", sans-serif;
-        background: #f4f6fb;
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        padding-top: 70px;
-        /* ADD THIS */
-      }
 
-      /* NAVBAR */
-      .navbar {
-        background: #ffffff;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-        padding: 12px 20px;
-        z-index: 1000;
-        position: fixed;
-        /* ADD THIS */
-        top: 0;
-        /* ADD THIS */
-        left: 0;
-        /* ADD THIS */
-        width: 100%;
-        /* ADD THIS */
-      }
+<head>
+  <meta charset="UTF-8" />
+  <title>Open Chapter</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    /* GLOBAL */
+    /* GLOBAL */
+    body {
+      margin: 0;
+      font-family: "Segoe UI", sans-serif;
+      background: #f4f6fb;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding-top: 70px;
+      /* ADD THIS */
+    }
 
-      .navbar-brand img {
-        height: 40px;
-      }
+    /* NAVBAR */
+    .navbar {
+      background: #ffffff;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      padding: 12px 20px;
+      z-index: 1000;
+      position: fixed;
+      /* ADD THIS */
+      top: 0;
+      /* ADD THIS */
+      left: 0;
+      /* ADD THIS */
+      width: 100%;
+      /* ADD THIS */
+    }
 
-      .nav-link {
-        font-weight: 500;
-        color: #333 !important;
-      }
+    .navbar-brand img {
+      height: 40px;
+    }
 
-      .nav-link:hover {
-        color: #6c63ff !important;
-      }
+    .nav-link {
+      font-weight: 500;
+      color: #333 !important;
+    }
 
-      /* SEARCH */
+    .nav-link:hover {
+      color: #6c63ff !important;
+    }
+
+    /* SEARCH */
+    .nav-search {
+      width: 260px;
+    }
+
+    /* LAYOUT WRAPPER */
+    .layout-wrapper {
+      flex: 1;
+      display: flex;
+      min-height: calc(100vh - 70px);
+    }
+
+    /* SIDEBAR */
+    .sidebar {
+      width: 260px;
+      background: linear-gradient(180deg, #6c63ff, #5a54e8);
+      padding: 30px 20px;
+      color: white;
+      position: fixed;
+      top: 70px;
+      /* CHANGE FROM 0 TO 70px */
+      left: 0;
+      height: calc(100vh - 70px);
+      /* CHANGE THIS */
+      overflow-y: auto;
+      transition: 0.3s ease;
+      z-index: 999;
+    }
+
+    .sidebar h5 {
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    .sidebar h6 {
+      font-size: 13px;
+      text-transform: uppercase;
+      margin-top: 25px;
+      margin-bottom: 10px;
+      opacity: 0.7;
+    }
+
+    .sidebar a {
+      display: flex;
+      align-items: center;
+      padding: 12px;
+      margin-bottom: 6px;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: 16px;
+      transition: 0.3s;
+    }
+
+    .sidebar a:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .sidebar i {
+      font-size: 18px;
+      width: 22px;
+    }
+
+    /* MAIN CONTENT */
+    .main-content {
+      flex: 1;
+      margin-left: 260px;
+      padding: 20px;
+      transition: 0.3s;
+      width: 100%;
+    }
+
+    /* TOGGLE BUTTON */
+    .sidebar-toggle {
+      background: #6c63ff;
+      border: none;
+      color: white;
+      padding: 8px 12px;
+      border-radius: 5px;
+    }
+
+    /* OVERLAY */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      display: none;
+      z-index: 998;
+    }
+
+    .overlay.show {
+      display: block;
+    }
+
+    /* MOBILE */
+    @media (max-width: 992px) {
       .nav-search {
-        width: 260px;
+        width: 100%;
       }
 
-      /* LAYOUT WRAPPER */
-      .layout-wrapper {
-        flex: 1;
-        display: flex;
-        min-height: calc(100vh - 70px);
-      }
-
-      /* SIDEBAR */
       .sidebar {
-        width: 260px;
-        background: linear-gradient(180deg, #6c63ff, #5a54e8);
-        padding: 30px 20px;
-        color: white;
-        position: fixed;
-        top: 70px;
-        /* CHANGE FROM 0 TO 70px */
+        left: -260px;
+      }
+
+      .sidebar.active {
         left: 0;
-        height: calc(100vh - 70px);
-        /* CHANGE THIS */
-        overflow-y: auto;
-        transition: 0.3s ease;
-        z-index: 999;
       }
 
-      .sidebar h5 {
-        font-weight: 700;
-        margin-bottom: 20px;
+      .main-content {
+        margin-left: 0;
+        padding: 15px;
       }
 
-      .sidebar h6 {
-        font-size: 13px;
-        text-transform: uppercase;
-        margin-top: 25px;
-        margin-bottom: 10px;
-        opacity: 0.7;
+      body.sidebar-open {
+        overflow: hidden;
+      }
+    }
+
+    /* DESKTOP */
+    @media (min-width: 992px) {
+      .sidebar-toggle {
+        display: none;
+      }
+    }
+
+    /* FOOTER */
+    .footer-section {
+      background: #111827;
+      color: #d1d5db;
+      padding: 60px 0 25px;
+    }
+.footer-links a:hover {
+  color: #a5b4fc;
+  padding-left: 5px;
+}
+    .footer-title {
+      font-weight: 600;
+      margin-bottom: 15px;
+      color: #ffffff;
+    }
+
+    .footer-text {
+      color: #9ca3af;
+      line-height: 1.6;
+    }
+
+    .footer-text-small {
+      font-size: 14px;
+      color: #9ca3af;
+    }
+
+    .footer-links {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-links li {
+      margin-bottom: 8px;
+    }
+
+    .footer-links a {
+      color: #9ca3af;
+      text-decoration: none;
+      transition: 0.3s ease;
+    }
+
+    .footer-links a:hover {
+      color: #6c63ff;
+    }
+
+    .newsletter-box {
+      display: flex;
+      background: #1f2937;
+      border-radius: 6px;
+      overflow: hidden;
+      margin-top: 10px;
+    }
+
+    .newsletter-box input {
+      flex: 1;
+      padding: 12px;
+      border: none;
+      background: transparent;
+      color: white;
+      outline: none;
+    }
+
+    .newsletter-box button {
+      background: linear-gradient(135deg, #6c63ff, #5a54e8);
+      border: none;
+      color: white;
+      padding: 0 20px;
+    }
+
+    .footer-divider {
+      border-color: #374151;
+      margin: 40px 0 20px;
+    }
+
+    .footer-bottom-links a {
+      color: #9ca3af;
+      margin-left: 20px;
+      text-decoration: none;
+    }
+
+    /* FIX FOOTER OVERLAP WITH SIDEBAR */
+    @media (min-width: 992px) {
+      .footer-section {
+        margin-left: 260px;
+        width: calc(100% - 260px);
+      }
+    }
+
+    /* MOBILE SEARCH CENTER ONLY */
+    .mobile-search {
+      display: none;
+    }
+
+    @media (max-width: 992px) {
+
+      /* Show search in center */
+      .mobile-search {
+        display: block;
+        flex: 1;
+        margin: 0 10px;
       }
 
-      .sidebar a {
+      .mobile-search input {
+        width: 100%;
+        border-radius: 20px;
+        padding: 6px 12px;
+        font-size: 14px;
+      }
+
+      /* Hide desktop search */
+      .nav-search {
+        display: none;
+      }
+
+      /* Hide navbar toggler */
+      .navbar-toggler {
+        display: none;
+      }
+
+      /* Hide menu links and login */
+      .navbar-collapse {
+        display: none !important;
+      }
+
+      /* Proper alignment */
+      .navbar .container-fluid {
         display: flex;
         align-items: center;
-        padding: 12px;
-        margin-bottom: 6px;
-        color: white;
-        text-decoration: none;
-        border-radius: 8px;
-        font-size: 16px;
-        transition: 0.3s;
       }
 
-      .sidebar a:hover {
-        background: rgba(255, 255, 255, 0.15);
+      /* Logo size mobile */
+      .navbar-brand img {
+        height: 32px;
       }
+    }
 
-      .sidebar i {
-        font-size: 18px;
-        width: 22px;
-      }
+    /* MOBILE LOGIN ICON */
+    .mobile-login-icon {
+      display: none;
+    }
 
-      /* MAIN CONTENT */
-      .main-content {
-        flex: 1;
-        margin-left: 260px;
-        padding: 20px;
-        transition: 0.3s;
-        width: 100%;
-      }
-
-      /* TOGGLE BUTTON */
-      .sidebar-toggle {
-        background: #6c63ff;
-        border: none;
-        color: white;
-        padding: 8px 12px;
-        border-radius: 5px;
-      }
-
-      /* OVERLAY */
-      .overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        height: 100%;
-        width: 100%;
-        background: rgba(0, 0, 0, 0.4);
-        display: none;
-        z-index: 998;
-      }
-
-      .overlay.show {
+    @media (max-width: 992px) {
+      .mobile-login-icon {
         display: block;
+        font-size: 22px;
+        color: #333;
+        margin-left: 10px;
       }
 
-      /* MOBILE */
-      @media (max-width: 992px) {
-        .nav-search {
-          width: 100%;
-        }
-
-        .sidebar {
-          left: -260px;
-        }
-
-        .sidebar.active {
-          left: 0;
-        }
-
-        .main-content {
-          margin-left: 0;
-          padding: 15px;
-        }
-
-        body.sidebar-open {
-          overflow: hidden;
-        }
+      /* Hide desktop login text */
+      .desktop-login {
+        display: none;
       }
+    }
 
-      /* DESKTOP */
-      @media (min-width: 992px) {
-        .sidebar-toggle {
-          display: none;
-        }
-      }
+    /* MOBILE NAVBAR FIX */
+    .mobile-search {
+      display: none;
+    }
 
-      /* FOOTER */
-      .footer-section {
-        background: #111827;
-        color: #d1d5db;
-        padding: 60px 0 25px;
-      }
+    .mobile-login-icon {
+      display: none;
+    }
 
-      .footer-title {
-        font-weight: 600;
-        margin-bottom: 15px;
-        color: #ffffff;
-      }
+    @media (max-width: 992px) {
 
-      .footer-text {
-        color: #9ca3af;
-        line-height: 1.6;
-      }
-
-      .footer-text-small {
-        font-size: 14px;
-        color: #9ca3af;
-      }
-
-      .footer-links {
-        list-style: none;
-        padding: 0;
-      }
-
-      .footer-links li {
-        margin-bottom: 8px;
-      }
-
-      .footer-links a {
-        color: #9ca3af;
-        text-decoration: none;
-        transition: 0.3s ease;
-      }
-
-      .footer-links a:hover {
-        color: #6c63ff;
-      }
-
-      .newsletter-box {
-        display: flex;
-        background: #1f2937;
-        border-radius: 6px;
-        overflow: hidden;
-        margin-top: 10px;
-      }
-
-      .newsletter-box input {
+      /* show mobile search */
+      .mobile-search {
+        display: block;
         flex: 1;
-        padding: 12px;
-        border: none;
-        background: transparent;
-        color: white;
-        outline: none;
+        margin: 0 10px;
       }
 
-      .newsletter-box button {
-        background: linear-gradient(135deg, #6c63ff, #5a54e8);
-        border: none;
-        color: white;
-        padding: 0 20px;
+      .mobile-search input {
+        width: 100%;
+        border-radius: 20px;
+        padding: 6px 12px;
       }
 
-      .footer-divider {
-        border-color: #374151;
-        margin: 40px 0 20px;
-      }
-
-      .footer-bottom-links a {
-        color: #9ca3af;
-        margin-left: 20px;
-        text-decoration: none;
-      }
-
-      /* FIX FOOTER OVERLAP WITH SIDEBAR */
-      @media (min-width: 992px) {
-        .footer-section {
-          margin-left: 260px;
-          width: calc(100% - 260px);
-        }
-      }
-
-      /* MOBILE SEARCH CENTER ONLY */
-      .mobile-search {
-        display: none;
-      }
-
-      @media (max-width: 992px) {
-        /* Show search in center */
-        .mobile-search {
-          display: block;
-          flex: 1;
-          margin: 0 10px;
-        }
-
-        .mobile-search input {
-          width: 100%;
-          border-radius: 20px;
-          padding: 6px 12px;
-          font-size: 14px;
-        }
-
-        /* Hide desktop search */
-        .nav-search {
-          display: none;
-        }
-
-        /* Hide navbar toggler */
-        .navbar-toggler {
-          display: none;
-        }
-
-        /* Hide menu links and login */
-        .navbar-collapse {
-          display: none !important;
-        }
-
-        /* Proper alignment */
-        .navbar .container-fluid {
-          display: flex;
-          align-items: center;
-        }
-
-        /* Logo size mobile */
-        .navbar-brand img {
-          height: 32px;
-        }
-      }
-
-      /* MOBILE LOGIN ICON */
+      /* show login icon */
       .mobile-login-icon {
+        display: block;
+        font-size: 22px;
+        color: #333;
+      }
+
+      /* hide desktop login text */
+      .desktop-login {
         display: none;
       }
 
-      @media (max-width: 992px) {
-        .mobile-login-icon {
-          display: block;
-          font-size: 22px;
-          color: #333;
-          margin-left: 10px;
-        }
-
-        /* Hide desktop login text */
-        .desktop-login {
-          display: none;
-        }
-      }
-
-      /* MOBILE NAVBAR FIX */
-      .mobile-search {
+      /* hide desktop search */
+      .desktop-search {
         display: none;
       }
+    }
+  </style>
+</head>
 
-      .mobile-login-icon {
-        display: none;
-      }
+<body>
+  <!-- OVERLAY -->
+  <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
 
-      @media (max-width: 992px) {
-        /* show mobile search */
-        .mobile-search {
-          display: block;
-          flex: 1;
-          margin: 0 10px;
-        }
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid d-flex align-items-center">
+      <!-- LEFT SIDEBAR BUTTON -->
+      <button class="sidebar-toggle me-2" onclick="toggleSidebar()">
+        <i class="fa fa-bars"></i>
+      </button>
 
-        .mobile-search input {
-          width: 100%;
-          border-radius: 20px;
-          padding: 6px 12px;
-        }
+      <!-- MOBILE SEARCH -->
+      <div class="mobile-search">
+        <form method="GET" action="{% url 'search_books' %}">
+          <input type="search" name="q" class="form-control" placeholder="Search Books" required />
+        </form>
+      </div>
 
-        /* show login icon */
-        .mobile-login-icon {
-          display: block;
-          font-size: 22px;
-          color: #333;
-        }
+      <!-- LOGO -->
+      <a class="navbar-brand" href="{% url 'user_home' %}">
+        <img src="https://openchapter.io/public/images/logo_black.png" />
+      </a>
 
-        /* hide desktop login text */
-        .desktop-login {
-          display: none;
-        }
+      <!-- MOBILE LOGIN ICON -->
+      <a href="{% url 'login' %}" class="mobile-login-icon me-2">
+        <i class="fa-regular fa-circle-user"></i>
+      </a>
 
-        /* hide desktop search */
-        .desktop-search {
-          display: none;
-        }
-      }
-    </style>
-  </head>
+      <!-- NAV CONTENT -->
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <!-- DESKTOP SEARCH -->
+        <form method="GET" action="{% url 'search_books' %}" class="d-flex ms-lg-3 my-2 desktop-search">
+          <input class="form-control nav-search" type="search" name="q" placeholder="Search Books" required />
+        </form>
 
-  <body>
-    <!-- OVERLAY -->
-    <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+{% if messages %}
+<div class="toast-container position-fixed top-0 end-0 p-3">
+  {% for message in messages %}
+  <div class="toast align-items-center text-white bg-danger border-0 show mb-2 shadow" role="alert">
+    <div class="d-flex">
+      <div class="toast-body">
+        {{ message }}
+      </div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
+        <!-- MENU -->
 
-    <!-- NAVBAR -->
-    <nav class="navbar navbar-expand-lg">
-      <div class="container-fluid d-flex align-items-center">
-        <!-- LEFT SIDEBAR BUTTON -->
-        <button class="sidebar-toggle me-2" onclick="toggleSidebar()">
-          <i class="fa fa-bars"></i>
-        </button>
+        <ul class="navbar-nav mx-auto text-center">
+          {% for category in navbar_categories %}
 
-        <!-- MOBILE SEARCH -->
-        <div class="mobile-search">
-          <input
-            type="search"
-            class="form-control"
-            placeholder="Search Books"
-          />
-        </div>
-
-        <!-- LOGO -->
-        <a class="navbar-brand" href="{% url 'user_home' %}">
-          <img src="https://openchapter.io/public/images/logo_black.png" />
-        </a>
-
-        <!-- MOBILE LOGIN ICON -->
-        <a href="{% url 'login' %}" class="mobile-login-icon me-2">
-          <i class="fa-regular fa-circle-user"></i>
-        </a>
-
-        <!-- NAV CONTENT -->
-        <div class="collapse navbar-collapse" id="navbarContent">
-          <!-- DESKTOP SEARCH -->
-          <form class="d-flex ms-lg-3 my-2 desktop-search">
-            <input
-              class="form-control nav-search"
-              type="search"
-              placeholder="Search Books"
-            />
-          </form>
-
-          <!-- MENU -->
-
-          <ul class="navbar-nav mx-auto text-center">
-            {% for category in navbar_categories %}
-
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'category_books' category.id %}">
-                {{ category.name }}
-              </a>
-            </li>
-
-            {% endfor %}
-          </ul>
-
-          <!-- AUTH -->
-          <div class="d-flex align-items-center desktop-login">
-            <i class="fa-regular fa-circle-user me-2"></i>
-
-            {% if user.is_authenticated %}
-            <span class="me-3">Welcome, {{ user.username }}</span>
-            <a href="{% url 'logout' %}" class="text-dark text-decoration-none"
-              >Logout</a
-            >
-            {% else %}
-            <a
-              href="{% url 'login' %}"
-              class="text-dark me-3 text-decoration-none"
-              >Login</a
-            >
-            <span>/</span>
-            <a
-              href="{% url 'signup' %}"
-              class="text-dark ms-3 text-decoration-none"
-              >Signup</a
-            >
-            {% endif %} {% if user.is_superuser %}
-            <a
-              href="{% url 'admin_dashboard' %}"
-              style="color: red; margin-left: 15px"
-            >
-              Admin Dashboard
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'category_books' category.id %}">
+              {{ category.name }}
             </a>
-            {% endif %}
-          </div>
+          </li>
+
+          {% endfor %}
+        </ul>
+
+        <!-- AUTH -->
+        <div class="d-flex align-items-center desktop-login">
+          <i class="fa-regular fa-circle-user me-2"></i>
+
+          {% if user.is_authenticated %}
+          <span class="me-3">Welcome, {{ user.username }}</span>
+          <a href="{% url 'logout' %}" class="text-dark text-decoration-none">Logout</a>
+          {% else %}
+          <a href="{% url 'login' %}" class="text-dark me-3 text-decoration-none">Login</a>
+          <span>/</span>
+          <a href="{% url 'signup' %}" class="text-dark ms-3 text-decoration-none">Signup</a>
+          {% endif %} {% if user.is_superuser %}
+          <a href="{% url 'admin_dashboard' %}" style="color: red; margin-left: 15px">
+            Admin Dashboard
+          </a>
+          {% endif %}
         </div>
       </div>
-    </nav>
+    </div>
+  </nav>
 
-    <!-- SIDEBAR -->
-    <div class="layout-wrapper">
-      <div class="sidebar" id="sidebar">
-        <h5 class="mb-4 fw-bold">Dashboard</h5>
+  <!-- SIDEBAR -->
+  <div class="layout-wrapper">
+    <div class="sidebar" id="sidebar">
+      <h5 class="mb-4 fw-bold">Dashboard</h5>
 
-        <h6>Quick Links</h6>
+      <h6>Quick Links</h6>
 
-        <a href="{% url 'categories' %}">
-          <i class="fa-solid fa-table-cells-large me-2"></i> Categories
+      <a href="{% url 'categories' %}">
+        <i class="fa-solid fa-table-cells-large me-2"></i> Categories
+      </a>
+      <h4 class="text-white mb-3">
+        <a href="{% url 'premium_books' %}" class="text-white text-decoration-none">
+          ✨ Premium Books
         </a>
-        <h4 class="text-white mb-3">
-          <a
-            href="{% url 'premium_books' %}"
-            class="text-white text-decoration-none"
-          >
-            ✨ Premium Books
-          </a>
-        </h4>
-        <a href="#"><i class="fa-solid fa-book me-2"></i> New Books</a>
+      </h4>
+      
 
-        <h6 class="mt-4">Your Books</h6>
-        <a href="{% url 'liked_books' %}"
-          ><i class="fa-regular fa-heart me-2"></i> Liked Books</a
-        >
-        <a href="#"
-          ><i class="fa-solid fa-clock-rotate-left me-2"></i> History</a
-        >
+      <h6 class="mt-4">Your Books</h6>
+      <a href="{% url 'liked_books' %}"><i class="fa-regular fa-heart me-2"></i> Liked Books</a>
+      <a href="{% url 'history' %}">
+  <i class="fa-solid fa-clock-rotate-left me-2"></i> History
+</a>
 
-        <h6 class="mt-4">Bookshelves</h6>
-        <a href="#"><i class="fa-regular fa-folder me-2"></i> Create Shelf</a>
-      </div>
-
-      <!-- MAIN CONTENT -->
-      <div class="main-content">{% block content %}{% endblock %}</div>
+      <h6 class="mt-4">Bookshelves</h6>
+      <a href="#"><i class="fa-regular fa-folder me-2"></i> FaQ's</a>
     </div>
 
-    <!-- FOOTER -->
-    <footer class="footer-section">
-      <div class="container">
-        <div class="row gy-4">
-          <div class="col-lg-4">
-            <div class="d-flex align-items-center mb-3">
-              <img
-                src="https://openchapter.io/public/images/logo_black.png"
-                height="35"
-                class="me-2"
-              />
-              <h5 class="mb-0 fw-bold">OPEN CHAPTER</h5>
-            </div>
-            <p class="footer-text">
-              Your Gateway to Unlimited Reading – Discover an extensive library
-              of free eBooks.
-            </p>
-          </div>
+    <!-- MAIN CONTENT -->
+    <div class="main-content">{% block content %}{% endblock %}</div>
+  </div>
 
-          <div class="col-lg-3">
-            <h6 class="footer-title">Quick Links</h6>
-            <ul class="footer-links">
-              <li><a href="{% url 'user_home' %}">Home</a></li>
-              <li><a href="{% url 'categories' %}">Categories</a></li>
-              <li><a href="#">Top Books</a></li>
-              <li><a href="{% url 'contact' %}">Contact</a></li>
-            </ul>
+  <!-- FOOTER -->
+  <footer class="footer-section">
+    <div class="container">
+      <div class="row gy-4">
+        <div class="col-lg-4">
+          <div class="d-flex align-items-center mb-3">
+            <img src="https://openchapter.io/public/images/logo_black.png" height="35" class="me-2" />
+            <h5 class="mb-0 fw-bold">OPEN CHAPTER</h5>
           </div>
-
-          <div class="col-lg-5">
-            <h6 class="footer-title">Newsletter</h6>
-            <p class="footer-text-small">
-              Sign up to receive latest book updates.
-            </p>
-            <div class="newsletter-box">
-              <input type="email" placeholder="Your email address" />
-              <button>Subscribe</button>
-            </div>
-          </div>
+          <p class="footer-text">
+            Your Gateway to Unlimited Reading – Discover an extensive library
+            of free eBooks.
+          </p>
         </div>
 
-        <hr class="footer-divider" />
+        <div class="col-lg-3">
+          <h6 class="footer-title">Quick Links</h6>
+          <ul class="footer-links">
+            <li><a href="{% url 'user_home' %}">Home</a></li>
+            <li><a href="{% url 'categories' %}">Categories</a></li>
+            <li><a href="#">Top Books</a></li>
+            <li><a href="{% url 'contact' %}">Feedback</a></li>
+          </ul>
+        </div>
 
-        <div
-          class="d-flex flex-column flex-md-row justify-content-between align-items-center"
-        >
-          <p>© 2026 OpenChapter. All Rights Reserved.</p>
-          <div class="footer-bottom-links">
-            <a href="#">Terms</a>
-            <a href="#">Privacy</a>
-            <a href="#">Cookies</a>
-          </div>
+<div class="col-lg-5">
+  <h6 class="footer-title">Newsletter</h6>
+  <p class="footer-text-small">
+    Sign up to receive latest book updates.
+  </p>
+
+  <form method="POST" action="{% url 'subscribe' %}" class="newsletter-box">
+    {% csrf_token %}
+    <input type="email" name="email" placeholder="Your email address" required />
+    <button type="submit">Subscribe</button>
+  </form>
+</div>
+
+      <hr class="footer-divider" />
+
+      <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
+        <p>© 2026 OpenChapter. All Rights Reserved.</p>
+        <div class="footer-bottom-links">
+          <a href="#">Terms</a>
+          <a href="#">Privacy</a>
+          <a href="#">Cookies</a>
         </div>
       </div>
-    </footer>
+    </div>
+  </footer>
 
-    <!-- SCRIPTS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-      function toggleSidebar() {
-        document.getElementById("sidebar").classList.toggle("active");
-        document.getElementById("overlay").classList.toggle("show");
-      }
-    </script>
-  </body>
+  <!-- SCRIPTS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    function toggleSidebar() {
+      document.getElementById("sidebar").classList.toggle("active");
+      document.getElementById("overlay").classList.toggle("show");
+    }
+  </script>
+ <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const toastElList = document.querySelectorAll('.toast');
+
+    toastElList.forEach(function (toastEl) {
+      const toast = new bootstrap.Toast(toastEl, {
+        delay: 3000   // 3 sec
+      });
+      toast.show();
+    });
+  });
+</script>
+</script>
+</body>
+
 </html>

@@ -13,6 +13,8 @@
 .category-hero {
   background: #f1f2f4;
   padding: 80px 60px;
+  opacity: 0;
+  animation: fadeIn 1s ease forwards;
 }
 
 .hero-content {
@@ -27,13 +29,19 @@
 .hero-text {
   flex: 1;
   max-width: 600px;
+  opacity: 0;
+  transform: translateY(40px);
+  animation: slideUp 1s ease forwards;
+  animation-delay: 0.3s;
 }
 
 .hero-line {
-  width: 70px;
+  width: 0;
   height: 4px;
   background: #4f46e5;
   margin-bottom: 25px;
+  animation: expandLine 1s ease forwards;
+  animation-delay: 0.8s;
 }
 
 .hero-text h1 {
@@ -52,12 +60,21 @@
 
 .hero-image {
   flex: 1;
+  opacity: 0;
+  transform: translateX(60px);
+  animation: slideRight 1s ease forwards;
+  animation-delay: 0.6s;
 }
 
 .hero-image img {
   width: 100%;
   height: 420px;
   object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.hero-image img:hover {
+  transform: scale(1.03);
 }
 
 /* ================= MAIN CONTAINER ================= */
@@ -80,6 +97,22 @@
   box-shadow: 0 6px 18px rgba(0,0,0,0.08);
   margin-bottom: 40px;
   flex-wrap: wrap;
+
+  opacity: 0;
+  transform: translateY(40px);
+  animation: fadeUp 0.8s ease forwards;
+}
+
+/* Stagger effect */
+.category-row:nth-child(1) { animation-delay: 0.2s; }
+.category-row:nth-child(2) { animation-delay: 0.4s; }
+.category-row:nth-child(3) { animation-delay: 0.6s; }
+.category-row:nth-child(4) { animation-delay: 0.8s; }
+
+/* Hover effect */
+.category-row:hover {
+  transform: translateY(-5px) scale(1.01);
+  transition: 0.3s;
 }
 
 .category-left {
@@ -110,12 +143,14 @@
   gap: 15px;
 }
 
+/* ================= BOOK BOX ================= */
+
 .box {
   background: #f1f3f6;
   padding: 8px;
   border-radius: 12px;
   text-align: center;
-  transition: transform 0.3s, box-shadow 0.3s;
+  transition: all 0.3s ease;
 }
 
 .box img {
@@ -123,11 +158,16 @@
   height: 220px;
   object-fit: cover;
   border-radius: 10px;
+  transition: transform 0.4s ease;
+}
+
+.box:hover img {
+  transform: scale(1.1);
 }
 
 .box:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+  transform: translateY(-6px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
   background: #ffffff;
 }
 
@@ -147,19 +187,36 @@
   color: #888;
 }
 
-.show-more {
-  text-align: center;
-  margin: 60px 0;
+/* ================= KEYFRAMES ================= */
+
+@keyframes fadeIn {
+  to { opacity: 1; }
 }
 
-.show-more button {
-  padding: 12px 30px;
-  font-size: 16px;
-  background: #111;
-  color: #fff;
-  border: none;
-  border-radius: 25px;
-  cursor: pointer;
+@keyframes slideUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideRight {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes expandLine {
+  from { width: 0; }
+  to { width: 70px; }
+}
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* ================= RESPONSIVE ================= */
@@ -217,10 +274,6 @@
   .box img {
     height: 200px;
   }
-
-  .show-more button {
-    width: 100%;
-  }
 }
 </style>
 
@@ -262,37 +315,7 @@
           </p>
         </div>
 
-        <div class="category-right">
-          <div class="box">
-            <img
-              src="https://m.media-amazon.com/images/I/718j7m7yOIL._AC_UF1000,1000_QL80_.jpg"
-            />
-            <div class="book-title">
-              The Declaration of IndependencePerspectives in Indian History :
-              From the Origins to AD 1857
-            </div>
-            <div class="book-author">By M. Jankiraman Ph.D.</div>
-            <div class="book-rating">(100)</div>
-          </div>
-
-          <div class="box">
-            <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPKh92ZngiOu37jTsoIZS1_mOrNDQjHMVw4a6rWFNj2g&s"
-            />
-            <div class="book-title">Books That Changed History</div>
-            <div class="book-author">by DK (Author), James Naughtie</div>
-            <div class="book-rating">(87)</div>
-          </div>
-
-          <div class="box">
-            <img
-              src="https://m.media-amazon.com/images/I/71eCLdAkkFL._AC_UF1000,1000_QL80_.jpg"
-            />
-            <div class="book-title">WILLUSTRATED HISTORY OF INDIA</div>
-            <div class="book-author">by Wilco Books</div>
-            <div class="book-rating">(92)</div>
-          </div>
-        </div>
+       
       </div>
 
       <!-- CATEGORY ROW -->
@@ -308,35 +331,6 @@
             these books offer valuable insights into the ideas, leaders, and
             systems that shape Indian politics today.
           </p>
-        </div>
-
-        <div class="category-right">
-          <div class="box">
-            <img
-              src="https://m.media-amazon.com/images/I/81xTpWHBCkL._AC_UF1000,1000_QL80_.jpg"
-            />
-            <div class="book-title">Indian Politics</div>
-            <div class="book-author">by Ramdas Rupavath</div>
-            <div class="book-rating">(100)</div>
-          </div>
-
-          <div class="box">
-            <img src="https://m.media-amazon.com/images/I/51b4yO3njmL.jpg" />
-            <div class="book-title">The Future of Indian Politics</div>
-            <div class="book-author">by M N Roy</div>
-            <div class="book-rating">(87)</div>
-          </div>
-
-          <div class="box">
-            <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsuhIKYu4h-I5mMFrx9xFO8GFnCwj0U0hZ_Q&s"
-            />
-            <div class="book-title">
-              The-oxford-handbook-of-indian-foreign-policy
-            </div>
-            <div class="book-author">By Edgar Allan Poe</div>
-            <div class="book-rating">(92)</div>
-          </div>
         </div>
       </div>
 
@@ -355,39 +349,6 @@
             behind crime and punishment.
           </p>
         </div>
-
-        <div class="category-right">
-          <div class="box">
-            <img
-              src="https://m.media-amazon.com/images/I/41ONShWtQKL._AC_SX148_SY213_QL70_.jpg"
-            />
-            <div class="book-title">Problems & Solutions On Criminal Law</div>
-            <div class="book-author">By Thomas Jefferson</div>
-            <div class="book-rating">(100)</div>
-          </div>
-
-          <div class="box">
-            <img
-              src="https://m.media-amazon.com/images/I/71YLOpdWbjL._SL1382_.jpg"
-            />
-            <div class="book-title">
-              Professional'S New Criminal Laws/ Criminal Manual
-            </div>
-            <div class="book-author">By Bharatiya Nyaya</div>
-            <div class="book-rating">(87)</div>
-          </div>
-
-          <div class="box">
-            <img
-              src="https://m.media-amazon.com/images/I/7147QNI5V4L._AC_UY218_.jpg"
-            />
-            <div class="book-title">
-              Ill Health Among Tribal Communities in India
-            </div>
-            <div class="book-author">By T. K. Sundari Ravindran</div>
-            <div class="book-rating">(92)</div>
-          </div>
-        </div>
       </div>
 
       <!-- CATEGORY ROW -->
@@ -405,44 +366,7 @@
             down your spine.
           </p>
         </div>
-
-        <div class="category-right">
-          <div class="box">
-            <img
-              src="https://cdn.a2-host.cloud/Nz2pukNpV1THvQ9Iho7GW3WWPliLRAmxeU-LSp_NmeM/rs:fill:760:1100:0/g:ce/aHR0cHM6Ly9zcC1hc3NldHMuczMudXMtd2VzdC0wMDQuYmFja2JsYXplYjIuY29tL2Jvb2svMTAwMDcvQ2FybWlsbGFfY292ZXIuanBn.webp"
-            />
-            <div class="book-title">Carmilla</div>
-            <div class="book-author">By Thomas Jefferson</div>
-            <div class="book-rating">(100)</div>
-          </div>
-
-          <div class="box">
-            <img
-              src="https://cdn.a2-host.cloud/kVyrr2Ir4R6Jn1xciwZikQnQHOxeDlMTaGFvWOndyaw/rs:fill:760:1100:0/g:ce/aHR0cHM6Ly9zcC1hc3NldHMuczMudXMtd2VzdC0wMDQuYmFja2JsYXplYjIuY29tL2Jvb2svMzI2OC9UaGVfTXlzdGVyaWVzX29mX1Vkb2xwaG9fY292ZXIuanBn.webp"
-            />
-            <div class="book-title">The Mysteries of Udolpho</div>
-            <div class="book-author">By John Muir</div>
-            <div class="book-rating">(87)</div>
-          </div>
-
-          <div class="box">
-            <img
-              src="https://cdn.a2-host.cloud/JdCAoq8o8O3XrODgUZ-1AVXVlfMCV1E1BcPbrACrAxA/rs:fill:760:1100:0/g:ce/aHR0cHM6Ly9zcC1hc3NldHMuczMudXMtd2VzdC0wMDQuYmFja2JsYXplYjIuY29tL2Jvb2svNjQyMTgvQV9Kb3VybmV5X01hZGVfaW5fdGhlX1N1bW1lcl9vZl8xNzk0X3Rocm91Z2hfSG9sbGFuZF9hbmRfdGhlX1dlc3Rlcm5fRnJvbnRpZXJfb2ZfR2VybWFueV93aXRoX2FfUmV0dXJuX0Rvd25fdGhlX1JoaW5lX1ZvbF8yX29mXzJfVG9fV2hpY2hfQXJlX0FkZGVkX09ic2VydmF0aW9uc19kdXJpbmdfYV9Ub3VyX3RvX3RoZV9MYWtlc19vZl9MYW5jYXNoaXJlX1dlc3Rtb3JlbGFuZF9hbmRfQ3VtYmVybGFuZF9TZWNvbmRfRWRpdGlvbl9jb3Zlci5qcGc.webp"
-            />
-            <div class="book-title">
-              A Journey Made in the Summer of 1794, through Holland and the
-              Western Frontier of Germany
-            </div>
-            <div class="book-author">By Edgar Allan Poe</div>
-            <div class="book-rating">(92)</div>
-          </div>
-        </div>
       </div>
-
-     
-
-  
-
   {{ block.super }}
 
 </div>

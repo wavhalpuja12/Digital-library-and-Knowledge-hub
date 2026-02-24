@@ -3,99 +3,136 @@
 
 {% block content %}
 
-<div class="container mt-5">
+<style>
+.book-container {
+    max-width: 1100px;
+    margin: auto;
+}
 
-    <div class="row">
+/* Card Layout */
+.book-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 25px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
 
-        <!-- Book Image -->
-        <div class="col-md-5">
+/* Image */
+.book-img {
+    width: 100%;
+    height: 420px;
+    object-fit: contain;
+    background: #f8fafc;
+    border-radius: 12px;
+    padding: 10px;
+}
 
-            {% if book.image %}
+/* Title */
+.book-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #0f172a;
+}
 
-                <img src="{{ book.image.url }}"
-                     class="img-fluid rounded shadow-sm">
+/* Author */
+.book-author {
+    font-size: 18px;
+    color: #64748b;
+}
 
-            {% else %}
+/* Description */
+.book-desc {
+    color: #475569;
+    line-height: 1.6;
+}
 
-                <img src="{% static 'images/1.jpeg' %}"
-                     class="img-fluid rounded shadow-sm">
+/* Buttons */
+.book-btn {
+    border-radius: 30px;
+    padding: 10px 20px;
+    font-weight: 500;
+    transition: 0.3s ease;
+}
 
-            {% endif %}
+.book-btn:hover {
+    transform: translateY(-2px);
+}
 
-        </div>
+/* Badge */
+.status-badge {
+    font-size: 13px;
+    padding: 6px 12px;
+    border-radius: 20px;
+}
 
+/* Responsive */
+@media (max-width: 768px) {
+    .book-img {
+        height: 300px;
+    }
+}
+</style>
 
-        <!-- Book Info -->
-        <div class="col-md-7">
+<div class="container mt-5 book-container">
 
-            <h2>{{ book.title }}</h2>
+    <div class="book-card">
 
-            <h4 class="text-muted">
-                {{ book.author }}
-            </h4>
+        <div class="row g-4">
 
+            <!-- Image -->
+            <div class="col-md-5 text-center">
 
-            {% if book.is_availible %}
-
-                <span class="badge bg-success">
-                    Available
-                </span>
-
-            {% else %}
-
-                <span class="badge bg-danger">
-                    Borrowed
-                </span>
-
-            {% endif %}
-
-
-            <p class="mt-3">
-
-                {{ book.description|default:"No description available." }}
-
-            </p>
-
-
-            <!-- PDF Options -->
-            <div class="mt-4">
-
-                {% if book.book_pdf %}
-
-                    <!-- Read Online -->
-
-                    <a href="{{ book.book_pdf.url }}"
-                       target="_blank"
-                       class="btn btn-primary">
-
-                        <i class="fas fa-book-open"></i>
-
-                        Read Online
-
-                    </a>
-
-
-                    <!-- Download -->
-
-                    <a href="{{ book.book_pdf.url }}"
-                       download
-                       class="btn btn-success">
-
-                        <i class="fas fa-download"></i>
-
-                        Download PDF
-
-                    </a>
-
+                {% if book.image %}
+                    <img src="{{ book.image.url }}" class="book-img">
                 {% else %}
-
-                    <p class="text-muted">
-
-                        No PDF available
-
-                    </p>
-
+                    <img src="{% static 'images/1.jpeg' %}" class="book-img">
                 {% endif %}
+
+            </div>
+
+            <!-- Info -->
+            <div class="col-md-7 d-flex flex-column justify-content-center">
+
+                <h2 class="book-title">{{ book.title }}</h2>
+
+                <p class="book-author">by {{ book.author }}</p>
+
+                <!-- Status -->
+                {% if book.is_availible %}
+                    <span class="badge bg-success status-badge mb-2">
+                        ✅ Available
+                    </span>
+                {% else %}
+                    <span class="badge bg-danger status-badge mb-2">
+                        ❌ Borrowed
+                    </span>
+                {% endif %}
+
+                <!-- Description -->
+                <p class="book-desc mt-3">
+                    {{ book.description|default:"No description available." }}
+                </p>
+
+                <!-- Buttons -->
+                <div class="mt-4 d-flex flex-wrap gap-3">
+
+                    {% if book.book_pdf %}
+
+                        <a href="{{ book.book_pdf.url }}" target="_blank"
+                           class="btn btn-primary book-btn">
+                            📖 Read Online
+                        </a>
+
+                        <a href="{{ book.book_pdf.url }}" download
+                           class="btn btn-success book-btn">
+                            ⬇ Download
+                        </a>
+
+                    {% else %}
+                        <p class="text-muted">No PDF available</p>
+                    {% endif %}
+
+                </div>
 
             </div>
 
@@ -104,5 +141,19 @@
     </div>
 
 </div>
+
+<!-- ⏱ Reading Time Tracker -->
+<script>
+let startTime = Date.now();
+
+window.addEventListener("beforeunload", function () {
+    let endTime = Date.now();
+    let timeSpent = Math.floor((endTime - startTime) / 1000);
+
+    navigator.sendBeacon("{% url 'update_reading_time' book.id %}",
+        new URLSearchParams({ time: timeSpent })
+    );
+});
+</script>
 
 {% endblock %}

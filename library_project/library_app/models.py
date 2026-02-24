@@ -80,3 +80,32 @@ class Premium(models.Model):
 
     def is_valid(self):
         return self.expiry_date >= timezone.now().date()
+
+class NewsletterSubscriber(models.Model):
+    email = models.EmailField(unique=True)
+    subscribed_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.email
+    
+# class Subscriber(models.Model):
+#     email = models.EmailField(unique=True)
+#     subscribed_at = models.DateTimeField(auto_now_add=True)
+
+#     def __str__(self):
+#         return self.email
+    
+class Subscriber(models.Model):
+    email = models.EmailField(unique=True)
+    is_active = models.BooleanField(default=True)
+
+class BookHistory(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    viewed_at = models.DateTimeField(auto_now=True)
+    reading_time = models.IntegerField(default=0)  # in seconds
+
+    def __str__(self):
+        return f"{self.user} - {self.book}"
+
+        

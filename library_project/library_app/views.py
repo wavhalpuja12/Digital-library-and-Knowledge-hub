@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib import messages
-from .models import Book, BorrowRecord, Premium , Category
+from .models import Book, BookHistory, BorrowRecord, Premium , Category
 from django.db.models import Count
 from django.db.models import Q
 import razorpay
@@ -13,7 +13,6 @@ from django.core.mail import send_mail
     
 from datetime import timedelta
 from django.utils import timezone
-from django.core.mail import send_mail
 from django.shortcuts import redirect
 from .models import Premium
 
@@ -22,6 +21,11 @@ from django.shortcuts import redirect
 from django.http import HttpResponse
 import razorpay
 from django.conf import settings
+
+from .models import NewsletterSubscriber
+from .models import Subscriber
+
+
 
 # ---------- HOME (SHOW ALL BOOKS WITHOUT LOGIN) ----------
 
@@ -268,15 +272,14 @@ def delete_book(request, book_id):
 # ---------- BOOK DETAIL ----------
 
 def book_detail(request, id):
-
     book = get_object_or_404(Book, id=id)
 
     # 🔥 Allow admin to access all books
     if request.user.is_superuser:
         return render(request, "book_detail.html", {"book": book})
 
+    # 🔐 Premium check
     if book.is_premium:
-
         if not request.user.is_authenticated:
             return redirect("login")
 
@@ -289,26 +292,41 @@ def book_detail(request, id):
         except Premium.DoesNotExist:
             return redirect("upgrade_premium")
 
+    # ✅ SAVE HISTORY (FOR ALL BOOKS)
+    if request.user.is_authenticated:
+        BookHistory.objects.update_or_create(
+            user=request.user,
+            book=book
+        )
+
     return render(request, "book_detail.html", {"book": book})
+def history(request):
+    if not request.user.is_authenticated:
+        return redirect('login')
 
-# def book_detail(request, id):
-#     book = Book.objects.get(id=id)
+    history = BookHistory.objects.filter(user=request.user).order_by('-viewed_at')
 
-#     if book.is_premium:
-#         try:
-#             premium = Premium.objects.get(user=request.user)
-#             if premium.expiry_date < timezone.now().date():
-#                 return redirect("premium_required")
-#         except Premium.DoesNotExist:
-#             return redirect("premium_required")
+    # Convert seconds → minutes
+    for item in history:
+        item.minutes = item.reading_time // 60
 
-#     return render(request, "book_detail.html", {"book": book})
+    # Continue reading (latest book)
+    continue_book = history.first().book if history else None
 
+    return render(request, 'history.html', {
+        'history': history,
+        'continue_book': continue_book
+    })
 
+def clear_history(request):
+    if request.user.is_authenticated:
+        BookHistory.objects.filter(user=request.user).delete()
+    return redirect('history')
 
-# def book_detail(request, id):
-#     book = get_object_or_404(Book, id=id)
-#     return render(request, 'books/book_detail.html', {'book': book})
+def remove_history(request, id):
+    if request.user.is_authenticated:
+        BookHistory.objects.filter(user=request.user, id=id).delete()
+    return redirect('history')
 
 def like_book(request, id):
     book = get_object_or_404(Book, id=id)
@@ -361,17 +379,7 @@ def categories(request):
     return render(request, 'categories.html')
 
 # -------------------Delete main Categories ---------------
-# @login_required(login_url='login')
-# def delete_category(request, id):
 
-#     if not request.user.is_superuser:
-#         return redirect('user_home')
-
-#     category = get_object_or_404(Category, id=id)
-#     category.delete()
-
-#     messages.success(request, "Category deleted successfully!")
-#     return redirect('manage_categories')
 
 @login_required(login_url='login')
 def delete_category(request, cat_id):
@@ -400,17 +408,6 @@ def delete_subcategory(request,sub_id):
 def contact(request):
     return render(request, 'contact.html')
 
-def literature(request):
-    return render(request, 'Literature.html')
-
-def poetry(request):
-    return render(request, 'poetry.html')
-
-def crime_mystery(request):
-    return render(request, 'crime_mystery.html')
-
-def Sci_fiction(request):
-    return render(request, 'Science-Fiction & Fantasy.html')
 
 def category_books(request, id):
     category = Category.objects.get(id=id)
@@ -540,3 +537,110 @@ Happy Reading!
             return HttpResponse(f"Payment verification failed: {str(e)}")
 
     return HttpResponse("Invalid request")
+
+
+
+def search_books(request):
+    query = request.GET.get('q')
+
+    if not query:
+        return redirect('user_home')
+
+    book = Book.objects.filter(
+        Q(title__icontains=query) | Q(author__icontains=query)
+    ).first()
+
+    if book:
+        return redirect('book_detail', id=book.id)
+    else:
+        messages.error(request, f'❌ "{query}" book is not available')
+        return redirect('user_home')
+
+
+
+def contact(request):
+    if request.method == "POST":
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        message = request.POST.get('message')
+
+        full_message = f"""
+        New Contact Message
+
+        Name: {name}
+        Email: {email}
+
+        Message:
+        {message}
+        """
+
+        try:
+            send_mail(
+                subject=f"New Contact Message from {name}",
+                message=full_message,
+                from_email=settings.EMAIL_HOST_USER,
+                recipient_list=[settings.EMAIL_HOST_USER],  # 👈 admin email
+                fail_silently=False,
+            )
+
+            messages.success(request, "✅ Message sent successfully!")
+        except Exception as e:
+            messages.error(request, "❌ Failed to send message")
+
+    return render(request, 'contact.html')
+
+
+
+def subscribe_newsletter(request):
+    if request.method == "POST":
+        email = request.POST.get('email')
+
+        if NewsletterSubscriber.objects.filter(email=email).exists():
+            messages.warning(request, "⚠️ Email already subscribed!")
+        else:
+            NewsletterSubscriber.objects.create(email=email)
+            messages.success(request, "✅ Subscribed successfully!")
+
+    return redirect(request.META.get('HTTP_REFERER', 'user_home'))
+
+
+def subscribe(request):
+    if request.method == "POST":
+        email = request.POST.get('email')
+
+        if not Subscriber.objects.filter(email=email).exists():
+            Subscriber.objects.create(email=email)
+
+            # Send welcome email
+            send_mail(
+                'Subscription Successful',
+                'Thank you for subscribing to our book updates!',
+                settings.EMAIL_HOST_USER,
+                [email],
+                fail_silently=False,
+            )
+
+        return redirect('user_home')
+    
+def unsubscribe(request, email):
+    try:
+        user = Subscriber.objects.get(email=email)
+        user.is_active = False
+        user.save()
+        messages.success(request, "You have been unsubscribed successfully.")
+    except Subscriber.DoesNotExist:
+        messages.error(request, "Email not found.")
+
+    return redirect('user_home')   # redirect to homepage
+
+def update_reading_time(request, book_id):
+    if request.method == "POST" and request.user.is_authenticated:
+        time_spent = int(request.POST.get("time", 0))
+
+        history = BookHistory.objects.filter(user=request.user, book_id=book_id).first()
+
+        if history:
+            history.reading_time += time_spent
+            history.save()
+
+    return HttpResponse(status=204)

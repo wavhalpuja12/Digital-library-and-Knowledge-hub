@@ -4,43 +4,68 @@
 {% block content %}
 
 <style>
+/* ===== BACKGROUND ===== */
 .contact-wrapper {
-    background: #f5f5f7;
+    background: linear-gradient(135deg, #eef2ff, #f8fafc);
     padding: 60px 20px;
 }
 
+/* ===== CONTAINER ===== */
 .contact-container {
-    max-width: 1100px;
+    max-width: 900px;
     margin: auto;
 }
 
+/* ===== CARD ===== */
+.contact-card {
+    background: white;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+/* ===== TEXT ===== */
 .contact-title {
-    font-size: clamp(28px, 5vw, 48px);
+    font-size: clamp(28px, 5vw, 42px);
     font-weight: 700;
     color: #0f172a;
 }
 
 .contact-subtitle {
-    color: #475569;
-    margin-bottom: 40px;
+    color: #64748b;
+    margin-bottom: 25px;
 }
 
+/* ===== INPUT ===== */
 .form-control {
-    border-radius: 8px;
+    border-radius: 10px;
     padding: 14px;
     border: 1px solid #e2e8f0;
+    transition: 0.3s;
 }
 
 .form-control:focus {
-    box-shadow: none;
     border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99,102,241,0.1);
 }
 
-textarea.form-control {
-    min-height: 160px;
-    resize: vertical;
+/* ===== BUTTON ===== */
+.send-btn {
+    background: linear-gradient(135deg, #6366f1, #4f46e5);
+    color: white;
+    padding: 12px 28px;
+    border-radius: 10px;
+    border: none;
+    font-weight: 500;
+    transition: 0.3s ease;
 }
 
+.send-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+/* ===== FOOTER TEXT ===== */
 .contact-footer {
     font-size: 14px;
     color: #64748b;
@@ -51,66 +76,112 @@ textarea.form-control {
     text-decoration: underline;
 }
 
-.send-btn {
-    background: linear-gradient(135deg, #6366f1, #4f46e5);
-    color: white;
-    padding: 10px 28px;
-    border-radius: 8px;
-    border: none;
-    font-weight: 500;
-    transition: 0.3s ease;
+/* ===== ANIMATIONS ===== */
+.top-hero {
+  opacity: 0;
+  animation: fadeInHero 1s ease forwards;
 }
 
-.send-btn:hover {
-    opacity: 0.9;
+.hero-left {
+  opacity: 0;
+  transform: translateY(40px);
+  animation: slideUp 1s ease forwards;
+  animation-delay: 0.3s;
 }
 
+.hero-right {
+  opacity: 0;
+  transform: translateX(60px);
+  animation: slideRight 1s ease forwards;
+  animation-delay: 0.6s;
+}
+
+.hero-line {
+  width: 0;
+  height: 3px;
+  background: #6366f1;
+  margin: 10px 0 20px;
+  animation: expandLine 1s ease forwards;
+  animation-delay: 0.8s;
+}
+
+/* ===== KEYFRAMES ===== */
+@keyframes fadeInHero {
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideRight {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes expandLine {
+  from { width: 0; }
+  to { width: 70px; }
+}
+
+/* ===== MOBILE ===== */
 @media (max-width: 768px) {
-    .contact-wrapper {
-        padding: 40px 15px;
+    .contact-card {
+        padding: 25px;
     }
 }
 </style>
 
-<div class="contact-wrapper">
+<div class="contact-wrapper top-hero">
     <div class="contact-container">
 
-        <h1 class="contact-title">Contact</h1>
-        <p class="contact-subtitle">
-            Send us a message and we'll get back to you as soon as possible.
-        </p>
+        <div class="contact-card hero-left">
 
-        <form method="POST">
-            {% csrf_token %}
+            <h1 class="contact-title">💬 Feedback</h1>
+            <div class="hero-line"></div>
 
-            <div class="mb-4">
-                <label class="form-label">Name</label>
-                <input type="text" name="name" class="form-control" placeholder="Your name">
-            </div>
+            <p class="contact-subtitle">
+                We'd love to hear from you. Send us your thoughts or issues.
+            </p>
 
-            <div class="mb-4">
-                <label class="form-label">Email</label>
-                <input type="email" name="email" class="form-control" placeholder="Your email">
-            </div>
+            <form method="POST" class="hero-right">
+                {% csrf_token %}
 
-            <div class="mb-4">
-                <label class="form-label">Message</label>
-                <textarea name="message" class="form-control" placeholder="Your message"></textarea>
-            </div>
+                <div class="mb-3">
+                    <label class="form-label">Name</label>
+                    <input type="text" name="name" class="form-control" placeholder="Your name" required>
+                </div>
 
-            <div class="d-flex justify-content-between align-items-center flex-column flex-md-row gap-3">
-                <p class="contact-footer mb-0">
-                    By submitting this form, you agree to our
-                    <a href="#">Privacy Policy</a> and
-                    <a href="#">Terms of Service</a>
-                </p>
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input type="email" name="email" class="form-control" placeholder="Your email" required>
+                </div>
 
-                <button type="submit" class="send-btn">
-                    Send
-                </button>
-            </div>
+                <div class="mb-4">
+                    <label class="form-label">Message</label>
+                    <textarea name="message" class="form-control" placeholder="Your message" required></textarea>
+                </div>
 
-        </form>
+                <div class="d-flex justify-content-between align-items-center flex-column flex-md-row gap-3">
+                    <p class="contact-footer mb-0">
+                        By submitting this form, you agree to our
+                        <a href="#">Privacy Policy</a> and
+                        <a href="#">Terms of Service</a>
+                    </p>
+
+                    <button type="submit" class="send-btn">
+                        Send Message 🚀
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
 
     </div>
 </div>

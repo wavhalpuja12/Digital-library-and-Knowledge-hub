@@ -1,0 +1,223 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+
+/* HEADER */
+.page-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 25px;
+}
+
+/* CONTINUE READING */
+.continue-card {
+  border-radius: 14px;
+  padding: 20px;
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
+  color: #fff;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.continue-card h5 {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.continue-btn {
+  background: #fff;
+  color: #4f46e5;
+  border-radius: 8px;
+  padding: 8px 18px;
+  font-weight: 500;
+  border: none;
+}
+
+.continue-btn:hover {
+  opacity: 0.9;
+}
+
+/* GRID */
+.history-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+/* CARD */
+.history-card {
+  border-radius: 12px;
+  padding: 18px;
+  background: #fff;
+  transition: 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.history-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 20px rgba(0,0,0,0.12);
+}
+
+.book-title {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.book-author {
+  color: #64748b;
+  font-size: 14px;
+}
+
+/* TIME BADGE */
+.time-badge {
+  background: #eef2ff;
+  color: #4f46e5;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  display: inline-block;
+  margin-top: 8px;
+}
+
+/* BUTTONS */
+.action-buttons {
+  margin-top: 12px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn-open {
+  background: #6366f1;
+  color: white;
+  border-radius: 6px;
+  padding: 5px 12px;
+  font-size: 13px;
+}
+
+.btn-remove {
+  background: #ef4444;
+  color: white;
+  border-radius: 6px;
+  padding: 5px 12px;
+  font-size: 13px;
+}
+
+/* CLEAR BUTTON */
+.clear-btn {
+  position: fixed;
+  bottom: 80px;   /* 👈 increase space from bottom */
+  right: 20px;
+  background: #ef4444;
+  color: white;
+  padding: 12px 18px;
+  border-radius: 30px;
+  text-decoration: none;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+  z-index: 999;
+}
+
+.clear-btn:hover {
+  background: #dc2626;
+}
+
+.clear-btn.show {
+  bottom: 20px;   /* slide up */
+}
+
+
+/* EMPTY */
+.empty-box {
+  text-align: center;
+  margin-top: 60px;
+  color: #64748b;
+}
+
+</style>
+
+<div class="container mt-4">
+
+  <div class="page-title">📚 Recently Viewed Books</div>
+
+  <!-- Continue Reading -->
+  {% if continue_book %}
+  <div class="continue-card mb-4">
+    <h4>📖 Continue Reading</h4>
+    <h5>{{ continue_book.title }}</h5>
+    <p>{{ continue_book.author }}</p>
+
+    <a href="{% url 'book_detail' continue_book.id %}" class="continue-btn">
+      Continue
+    </a>
+  </div>
+  {% endif %}
+
+  <!-- History -->
+  {% if history %}
+  <div class="history-grid">
+
+    {% for item in history %}
+    <div class="history-card">
+
+      <div class="book-title">{{ item.book.title }}</div>
+      <div class="book-author">{{ item.book.author }}</div>
+
+      <div class="time-badge">
+        ⏱ {{ item.minutes }} min read
+      </div>
+
+      <div class="action-buttons">
+        <a href="{% url 'book_detail' item.book.id %}" class="btn-open">
+          Open
+        </a>
+
+        <a href="{% url 'remove_history' item.id %}" 
+           class="btn-remove"
+           onclick="return confirm('Remove this book from history?');">
+           ❌
+        </a>
+      </div>
+
+    </div>
+    {% endfor %}
+
+  </div>
+
+  <!-- Clear -->
+ <a href="{% url 'clear_history' %}" 
+   class="clear-btn"
+   onclick="return confirm('Are you sure you want to clear history?');">
+   🗑 Clear History
+</a>
+
+  {% else %}
+
+  <!-- Empty -->
+  <div class="empty-box">
+    <h5>No reading history yet 📭</h5>
+    <p>Start reading books and they will appear here.</p>
+  </div>
+
+  {% endif %}
+
+</div>
+<script>
+window.addEventListener("scroll", function () {
+  const btn = document.querySelector(".clear-btn");
+  const footer = document.querySelector("footer");
+
+  const footerRect = footer.getBoundingClientRect();
+  const windowHeight = window.innerHeight;
+
+  if (footerRect.top < windowHeight) {
+    btn.style.bottom = (windowHeight - footerRect.top + 20) + "px";
+  } else {
+    btn.style.bottom = "20px";
+  }
+});
+</script>
+
+{% endblock %}

@@ -1,9 +1,7 @@
 {% extends 'base.html' %} {% load static %} {% block content %}
 
 <style>
-  /* {% comment %} .main-wrapper {
-  padding: 40px 20px;
-} {% endcomment %} */
+ 
 
   /* ================= HERO SECTION ================= */
 
@@ -73,8 +71,88 @@
     width: 100%;
     height: 520px;
     object-fit: cover;
-    /* {% comment %} border-radius: 12px; {% endcomment %} */
+
   }
+  /* ================= TOP HERO ANIMATIONS ONLY ================= */
+
+/* Fade in entire hero */
+.top-hero {
+  opacity: 0;
+  animation: fadeInHero 1s ease forwards;
+}
+
+/* Left side slides up */
+.hero-left {
+  opacity: 0;
+  transform: translateY(40px);
+  animation: slideUp 1s ease forwards;
+  animation-delay: 0.3s;
+}
+
+/* Right side slides from right */
+.hero-right {
+  opacity: 0;
+  transform: translateX(60px);
+  animation: slideRight 1s ease forwards;
+  animation-delay: 0.6s;
+}
+
+/* Smooth floating image */
+.hero-right img {
+  animation: floatImage 4s ease-in-out infinite;
+  transition: transform 0.4s ease;
+}
+
+.hero-right img:hover {
+  transform: scale(1.03);
+}
+
+/* Animated underline line */
+.hero-line {
+  width: 0;
+  animation: expandLine 1s ease forwards;
+  animation-delay: 0.8s;
+}
+
+/* Button hover lift */
+.hero-btn {
+  transition: all 0.3s ease;
+}
+
+.hero-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+/* ================= KEYFRAMES ================= */
+
+@keyframes fadeInHero {
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideRight {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes floatImage {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes expandLine {
+  from { width: 0; }
+  to { width: 70px; }
+}
 
   /* ================= BOOK GRID ================= */
 
@@ -93,19 +171,73 @@
 
   /* ================= SECOND HERO ================= */
 
+  /* ================= SECOND HERO - PREMIUM STYLE ================= */
+
   .hero {
     margin-top: 60px;
-    height: 50vh;
-    background: url("https://images.unsplash.com/photo-1512820790803-83ca734da794")
-      center/cover;
-    border-radius: 12px;
+    height: 55vh;
+    border-radius: 14px;
+    overflow: hidden;
+    position: relative;
     display: flex;
     align-items: center;
+    padding: 40px;
     color: white;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   }
 
+  /* Background image layer */
+  .hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url("https://images.unsplash.com/photo-1512820790803-83ca734da794")
+      center/cover no-repeat;
+    transition: transform 0.6s ease;
+    z-index: 1;
+  }
+
+  /* Dark overlay */
+  .hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to right,
+      rgba(15, 23, 42, 0.8),
+      rgba(15, 23, 42, 0.4)
+    );
+    z-index: 2;
+  }
+
+  /* Hover animation */
+  .hero:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+  }
+
+  .hero:hover::before {
+    transform: scale(1.08);
+  }
+
+  /* Content */
   .hero-content {
-    padding: 40px;
+    position: relative;
+    z-index: 3;
+    max-width: 600px;
+  }
+
+  .hero-content h1 {
+    font-size: 42px;
+    font-weight: 600;
+    margin-bottom: 15px;
+  }
+
+  .hero-content p {
+    font-size: 18px;
+    opacity: 0.9;
   }
 
   /* ================= BLOG GRID ================= */
@@ -115,6 +247,33 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 20px;
+  }
+  /* ================= BLOG HOVER EFFECT ================= */
+
+  .blog-grid .card {
+    border: none;
+    border-radius: 14px;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  }
+
+  /* Lift + Shadow */
+  .blog-grid .card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Smooth Image Zoom */
+  .blog-grid .card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  .blog-grid .card:hover img {
+    transform: scale(1.08);
   }
 
   /* ================= RESPONSIVE ================= */
@@ -155,6 +314,101 @@
       height: 280px;
     }
   }
+  /* ================= BOOK CARD STYLING ================= */
+
+  .book-card {
+    border: none;
+    border-radius: 14px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    height: 100%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    background: #fff;
+  }
+
+  .book-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+  }
+
+  /* ===== SHOW FULL BOOK COVER ===== */
+
+  .book-image-wrapper {
+    width: 100%;
+    height: 320px; /* Fixed container height */
+    background: #ffffff; /* Clean white background */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    overflow: hidden;
+  }
+
+  .book-img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; /* IMPORTANT: show full image */
+    transition: transform 0.4s ease;
+  }
+
+  .book-card:hover .book-img {
+    transform: scale(1.05);
+  }
+  .book-body {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 180px;
+  }
+
+  .book-title {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    min-height: 40px;
+  }
+
+  .book-author {
+    font-size: 14px;
+    color: #64748b;
+    margin-bottom: 10px;
+  }
+
+  .book-buttons {
+    margin-top: auto;
+    display: flex;
+    justify-content: space-between;
+  }
+  .book-image-wrapper {
+    width: 100%;
+    background: #f3f4f6;
+    overflow: hidden;
+  }
+  /* ===== PREMIUM SPECIAL STYLE ===== */
+
+  .premium-card {
+   position: relative;
+  }
+
+  .premium-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    
+  }
+
+  /* Premium Badge */
+  .premium-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: linear-gradient(90deg,  #f59e0b);
+    color: #000;
+    font-size: 12px;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-weight: 600;
+    z-index: 10;
+  }
 </style>
 
 <div class="main-wrapper">
@@ -170,7 +424,6 @@
           organize your favorites, and dive into endless reading
           possibilities—all at no cost!
         </p>
-        
       </div>
 
       <div class="hero-right">
@@ -181,82 +434,70 @@
       </div>
     </div>
   </section>
-  {% if home_categories %}
+  {% if home_categories %} {% for category in home_categories %}
 
-    {% for category in home_categories %}
+  <h3 class="mt-4">{{ category.name }}</h3>
 
-        <h3 class="mt-4">{{ category.name }}</h3>
+  <div class="row">
+    {% for book in category.books.all %}
 
-        <div class="row">
-
-            {% for book in category.books.all %}
-
-                <div class="col-md-3">
-
-                    <div class="card mb-3">
-
-                        {% if book.image %}
-                            <img src="{{ book.image.url }}" class="card-img-top">
-                        {% endif %}
-
-                        <div class="card-body">
-
-                            <h6>{{ book.title }}</h6>
-
-                            <p>{{ book.author }}</p>
-
-                            <a href="{% url 'book_detail' book.id %}"
-                               class="btn btn-primary btn-sm">
-
-                                View Details
-
-                            </a>
-
-
-                            {% if user in book.liked_by.all %}
-
-                                <a href="{% url 'like_book' book.id %}"
-                                   class="btn btn-danger btn-sm">
-
-                                   💔 Unlike
-
-                                </a>
-
-                            {% else %}
-
-                                <a href="{% url 'like_book' book.id %}"
-                                   class="btn btn-outline-danger btn-sm">
-
-                                   ❤️ Like
-
-                                </a>
-
-                            {% endif %}
-
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            {% empty %}
-
-                <p>No books available in this category.</p>
-
-            {% endfor %}
-
+    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+      <div
+        class="card book-card {% if book.is_premium %}premium-card{% endif %}"
+      >
+        {% if book.is_premium %}
+        <div class="premium-badge">🔒 PREMIUM</div>
+        {% endif %} {% if book.image %}
+        <div class="book-image-wrapper">
+          <img src="{{ book.image.url }}" class="book-img" />
         </div>
+        {% endif %}
 
+        <div class="book-body">
+          <div>
+            <div class="book-title">{{ book.title }}</div>
+            <div class="book-author">{{ book.author }}</div>
+          </div>
+
+          <div class="book-buttons">
+            <a
+              href="{% url 'book_detail' book.id %}"
+              class="btn {% if book.is_premium %}btn-warning{% else %}btn-primary{% endif %} btn-sm"
+            >
+              {% if book.is_premium %}Unlock{% else %}View{% endif %}
+            </a>
+
+            {% if user in book.liked_by.all %}
+            <a
+              href="{% url 'like_book' book.id %}"
+              class="btn btn-danger btn-sm"
+            >
+              💔 Unlike
+            </a>
+            {% else %}
+            <a
+              href="{% url 'like_book' book.id %}"
+              class="btn btn-outline-danger btn-sm"
+            >
+              ❤️ Like
+            </a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {% empty %}
+    <p>No books available in this category.</p>
     {% endfor %}
+  </div>
 
-{% endif %}
+  {% endfor %} {% endif %}
 
   <!-- SECOND HERO -->
   <div class="hero">
     <div class="hero-content">
       <h1>Don't know where to start?</h1>
-      
     </div>
   </div>
 

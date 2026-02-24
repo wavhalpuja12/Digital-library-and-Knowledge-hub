@@ -4,10 +4,6 @@ from . import views
 urlpatterns = [
     path('', views.user_home, name='user_home'),
     path('contact/', views.contact, name='contact'),
-    path('literature/', views.literature, name='literature'),
-    path('poetry/', views.poetry, name='poetry'),
-    path('crime-mystery/', views.crime_mystery, name='crime_mystery'),
-    path('Sci_fiction/', views.Sci_fiction, name='Sci_fiction'),
 
 
     # -------- USER URLs --------
@@ -37,9 +33,14 @@ urlpatterns = [
     path('premium-books/', views.premium_books_page, name='premium_books'),
     # path('activate-premium/', views.activate_premium, name='activate_premium'),
     path('payment-success/', views.payment_success, name='payment_success'),
+    path('search/', views.search_books, name='search_books'),
+    path('subscribe/', views.subscribe_newsletter, name='subscribe_newsletter'),
+    path('subscribe/', views.subscribe, name='subscribe'),
+    path('history/', views.history, name='history'),
+    path('clear-history/', views.clear_history, name='clear_history'),
+    path('remove-history/<int:id>/', views.remove_history, name='remove_history'),
+    path('update-reading-time/<int:book_id>/', views.update_reading_time, name='update_reading_time'),
     
-
     # path('delete-category/<int:id>/', views.delete_category, name='delete_category')
-
 
 ]
