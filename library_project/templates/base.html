@@ -398,7 +398,7 @@
     /* Chat Body */
     .chat-body {
       flex: 1;
-      padding: 14px;
+      padding: 10px;
       overflow-y: auto;
       background: linear-gradient(180deg, #f4f6ff, #ffffff);
       display: flex;
@@ -438,6 +438,34 @@
       color: #fff;
       align-self: flex-end;
       border-bottom-right-radius: 4px;
+    }
+
+    .suggestion-bar {
+      display: flex;
+      gap: 8px;
+      padding: 8px;
+      border-top: 1px solid #ddd;
+      background: #f9fafb;
+      overflow-x: auto;
+    }
+
+    .suggestion-bar::-webkit-scrollbar {
+      height: 5px;
+    }
+
+    .suggestion-bar button {
+      white-space: nowrap;
+      border: none;
+      background: #eef2ff;
+      color: #3730a3;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    .suggestion-bar button:hover {
+      background: #c7d2fe;
     }
 
     /* Suggestions */
@@ -797,6 +825,9 @@
 
         <div id="chat-body" class="chat-body"></div>
 
+        <div id="suggestion-bar" class="suggestion-bar"></div>
+
+
         <div class="chat-input">
           <input type="text" id="user-input" placeholder="Ask me something..." />
           <button onclick="sendMessage()">Send</button>
@@ -825,40 +856,82 @@
       });
     });
   </script>
+
   <script>
     const responses = {
-      "hi": "Hello 👋 How can I help you?",
-      "free books": "Free books are available to all registered users.",
-      "premium books": "Premium books are available for premium members only.",
-      "how to download": "Open the book and click on the Download PDF button.",
-      "login": "You need to log in to access books.",
-      "register": "Click on Register to create an account.",
-      "admin": "Only admins can add or manage books."
+      "what is know vault":
+        "Know Vault is a Digital Library Management System where you can explore, read, and download books online 📚.",
+      "search for books":
+        "You can search books using the search bar at the top by entering the book title, author, or keyword.",
+      "free books":
+        "Free books are available to all registered users and can be read or downloaded without any cost 😊.",
+      "premium books":
+        "Premium books are special books available only to premium members and offer exclusive content.",
+      "download":
+        "To download a book, open the book details page and click on the 'Download PDF' button.",
+      "login":
+        "Yes, you need to log in to access books, download PDFs, and save your reading history.",
+      "create a new account":
+        "Click on the Signup option and fill in your details to create a new account.",
+      "premium account":
+        "A premium account gives you access to exclusive books and additional features.",
+      "read books without downloading":
+        "Yes, you can read books online directly without downloading the PDF.",
+      "like or save":
+        "You can like a book by clicking the heart icon. Liked books appear in your profile.",
+      "reading history":
+        "Your reading history is available in the History section.",
+      "admin":
+        "Only admin users can add, update, or delete books and manage categories.",
+      "categories":
+        "Books are organized using categories and subcategories to make browsing easier.",
+      "contact support":
+        "You can contact support using the Feedback option in the footer.",
+      "account data safe":
+        "Yes, your account information is secure.",
+      "pdf does not open":
+        "If a PDF does not open, please check your internet connection or try again."
     };
 
+    // 🔹 Limit suggestions (better UI)
     const suggestions = [
-      "Free books",
-      "Premium books",
-      "How to download",
-      "Login",
-      "Register"
+      "What is Know Vault?",
+      "How can I search for books?",
+      "Are there free books available?",
+      "What are premium books?",
+      "How do I download a book PDF?",
+      "Do I need to login to read books?",
+      "How can I create a new account?",
+      "What is the benefit of a premium account?"
     ];
 
+    // Toggle chatbot
     function toggleChat() {
       const bot = document.getElementById("chatbot");
       bot.style.display = bot.style.display === "flex" ? "none" : "flex";
     }
-
     document.getElementById("chatbot-btn").onclick = toggleChat;
 
+    // ✅ MAIN SEND MESSAGE FUNCTION
     function sendMessage(message = null) {
       const input = document.getElementById("user-input");
-      const msg = message ? message.toLowerCase() : input.value.toLowerCase().trim();
+      const chatBody = document.getElementById("chat-body");
+
+      const msg = message
+        ? message.toLowerCase()
+        : input.value.toLowerCase().trim();
+
       if (!msg) return;
 
+      // ❌ Remove suggestions immediately
+      removeSuggestions();
+
+      // ✅ Add user message
       addMessage(message || input.value, "user");
 
-      let reply = "Sorry 😕 I didn't understand. Please choose a question below.";
+      let reply =
+        "Sorry 😕 I didn't understand. Please choose a question below.";
+
       for (let key in responses) {
         if (msg.includes(key)) {
           reply = responses[key];
@@ -866,6 +939,7 @@
         }
       }
 
+      // ✅ Bot reply + suggestions
       setTimeout(() => {
         addMessage(reply, "bot");
         showSuggestions();
@@ -874,23 +948,30 @@
       input.value = "";
     }
 
+    // Add message to chat
     function addMessage(text, sender) {
       const chatBody = document.getElementById("chat-body");
       const div = document.createElement("div");
       div.className = "msg " + sender;
       div.innerText = text;
       chatBody.appendChild(div);
+
+      // 🔥 ALWAYS SCROLL TO BOTTOM
       chatBody.scrollTop = chatBody.scrollHeight;
     }
 
-    // ✅ Suggested Questions
+    // Remove old suggestions
+    function removeSuggestions() {
+      const chatBody = document.getElementById("chat-body");
+      const old = chatBody.querySelector(".suggestions");
+      if (old) old.remove();
+    }
 
+    // Show suggestions at bottom
     function showSuggestions() {
       const chatBody = document.getElementById("chat-body");
 
-      // Remove existing suggestions
-      const old = document.querySelector(".suggestions");
-      if (old) old.remove();
+      removeSuggestions();
 
       const container = document.createElement("div");
       container.className = "suggestions";
@@ -903,12 +984,14 @@
       });
 
       chatBody.appendChild(container);
-      chatBody.scrollTop = chatBody.scrollHeight;
+
+      // 🔥 Force scroll again
+      setTimeout(() => {
+        chatBody.scrollTop = chatBody.scrollHeight;
+      }, 50);
     }
 
-
-
-    // ✅ ENTER KEY SUPPORT
+    // ENTER KEY SUPPORT
     document.getElementById("user-input").addEventListener("keydown", function (e) {
       if (e.key === "Enter") {
         e.preventDefault();
@@ -916,9 +999,10 @@
       }
     });
 
-    // Show suggestions on start
+    // Show suggestions initially
     showSuggestions();
   </script>
+
 
 </body>
 
