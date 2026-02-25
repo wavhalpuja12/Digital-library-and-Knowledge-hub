@@ -39,7 +39,11 @@
     }
 
     .navbar-brand img {
-      height: 40px;
+      width: 70px;
+      height:60px;
+      margin: 0;
+      padding: 0;
+      
     }
 
     .nav-link {
@@ -399,7 +403,7 @@
 
       <!-- LOGO -->
       <a class="navbar-brand" href="{% url 'user_home' %}">
-        <img src="https://openchapter.io/public/images/logo_black.png" />
+        <img src="{% static 'images/imglogo.jpeg' %}" />
       </a>
 
       <!-- MOBILE LOGIN ICON -->
@@ -500,8 +504,8 @@
       <div class="row gy-4">
         <div class="col-lg-4">
           <div class="d-flex align-items-center mb-3">
-            <img src="https://openchapter.io/public/images/logo_black.png" height="35" class="me-2" />
-            <h5 class="mb-0 fw-bold">OPEN CHAPTER</h5>
+            <img src="{% static 'images/imglogo.jpeg' %}" height="75px" width="100px" style="border-radius: 8px;" class="me-2" />
+            <h5 class="mb-0 fw-bold" style="margin-left: 10PX;">KNOW VAULT</h5>
           </div>
           <p class="footer-text">
             Your Gateway to Unlimited Reading – Discover an extensive library
