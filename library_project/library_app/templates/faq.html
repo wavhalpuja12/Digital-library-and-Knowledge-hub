@@ -1,0 +1,183 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    /* ================= FAQ PAGE ================= */
+
+    .faq-container {
+        max-width: 900px;
+        margin: 40px auto;
+        padding: 0 20px;
+    }
+
+    .faq-title {
+        text-align: center;
+        margin-bottom: 35px;
+    }
+
+    .faq-title h1 {
+        font-size: 32px;
+        color: #2c3e50;
+    }
+
+    .faq-title p {
+        color: #6b7280;
+        margin-top: 8px;
+    }
+
+    /* FAQ Card */
+    .faq-item {
+        background: #ffffff;
+        border-radius: 10px;
+        margin-bottom: 15px;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+        overflow: hidden;
+    }
+
+    /* Question */
+    .faq-question {
+        padding: 18px 20px;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-weight: 600;
+        color: #1f2937;
+    }
+
+    .faq-question:hover {
+        background: #f9fafb;
+    }
+
+    /* Icon */
+    .faq-question span {
+        font-size: 18px;
+        transition: transform 0.3s ease;
+    }
+
+    /* Answer */
+    .faq-answer {
+        max-height: 0;
+        overflow: hidden;
+        padding: 0 20px;
+        color: #4b5563;
+        transition: max-height 0.3s ease;
+    }
+
+    .faq-answer p {
+        padding-bottom: 18px;
+    }
+
+    /* Checkbox trick */
+    .faq-toggle {
+        display: none;
+    }
+
+    .faq-toggle:checked~.faq-answer {
+        max-height: 300px;
+    }
+
+    .faq-toggle:checked~.faq-question span {
+        transform: rotate(90deg);
+    }
+</style>
+<div class="faq-container">
+
+    <div class="faq-title">
+        <h1>📖 Frequently Asked Questions</h1>
+        <p>Find answers about using the Digital Library & Knowledge Hub</p>
+    </div>
+
+    <!-- FAQ 1 -->
+    <div class="faq-item">
+        <input type="checkbox" id="faq1" class="faq-toggle">
+        <label for="faq1" class="faq-question">
+            What is this Digital Library Management System?
+            <span>▶</span>
+        </label>
+        <div class="faq-answer">
+            <p>
+                This platform allows users to explore, read, and download books online.
+                It includes free and premium books, category-wise browsing, and user-friendly access.
+            </p>
+        </div>
+    </div>
+
+    <!-- FAQ 2 -->
+    <div class="faq-item">
+        <input type="checkbox" id="faq2" class="faq-toggle">
+        <label for="faq2" class="faq-question">
+            Do I need an account to access books?
+            <span>▶</span>
+        </label>
+        <div class="faq-answer">
+            <p>
+                Yes. You must register and log in to access books, manage your profile,
+                and track your reading activity.
+            </p>
+        </div>
+    </div>
+
+    <!-- FAQ 3 -->
+    <div class="faq-item">
+        <input type="checkbox" id="faq3" class="faq-toggle">
+        <label for="faq3" class="faq-question">
+            What is the difference between free and premium books?
+            <span>▶</span>
+        </label>
+        <div class="faq-answer">
+            <p>
+                Free books are accessible to all users.
+                Premium books are available only to premium members who have an active subscription.
+            </p>
+        </div>
+    </div>
+
+    <!-- FAQ 4 -->
+    <div class="faq-item">
+        <input type="checkbox" id="faq4" class="faq-toggle">
+        <label for="faq4" class="faq-question">
+            How can I become a premium member?
+            <span>▶</span>
+        </label>
+        <div class="faq-answer">
+            <p>
+                You can upgrade to premium from your account dashboard.
+                Once upgraded, you’ll get access to exclusive premium content.
+            </p>
+        </div>
+    </div>
+
+    <!-- FAQ 5 -->
+    <div class="faq-item">
+        <input type="checkbox" id="faq5" class="faq-toggle">
+        <label for="faq5" class="faq-question">
+            Can I download books as PDF?
+            <span>▶</span>
+        </label>
+        <div class="faq-answer">
+            <p>
+                Yes. If the book allows downloads, you can download it in PDF format
+                directly from the book details page.
+            </p>
+        </div>
+    </div>
+
+    <!-- FAQ 6 -->
+    <div class="faq-item">
+        <input type="checkbox" id="faq6" class="faq-toggle">
+        <label for="faq6" class="faq-question">
+            Who can add or manage books?
+            <span>▶</span>
+        </label>
+        <div class="faq-answer">
+            <p>
+                Only administrators can add, update, or delete books and categories
+                through the admin dashboard.
+            </p>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

@@ -6,6 +6,7 @@
   <meta charset="UTF-8" />
   <title>Open Chapter</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="{% static 'user_home/css/style.css' %}">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
@@ -40,10 +41,10 @@
 
     .navbar-brand img {
       width: 70px;
-      height:60px;
+      height: 60px;
       margin: 0;
       padding: 0;
-      
+
     }
 
     .nav-link {
@@ -152,6 +153,106 @@
       display: block;
     }
 
+    /* ================= CHATBOT ================= */
+
+    #chatbot-btn {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      background: #4f46e5;
+      color: white;
+      font-size: 22px;
+      padding: 15px;
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+    }
+
+    #chatbot {
+      position: fixed;
+      bottom: 90px;
+      right: 25px;
+      width: 320px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+      display: none;
+      flex-direction: column;
+    }
+
+    .chatbot-header {
+      background: #4f46e5;
+      color: white;
+      padding: 14px;
+      display: flex;
+      justify-content: space-between;
+      font-weight: bold;
+      border-radius: 12px 12px 0 0;
+    }
+
+    #chat-body {
+      height: 260px;
+      padding: 12px;
+      overflow-y: auto;
+      font-size: 14px;
+    }
+
+    .chat-input {
+      display: flex;
+      border-top: 1px solid #e5e7eb;
+    }
+
+    .chat-input input {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      outline: none;
+    }
+
+    .chat-input button {
+      background: #4f46e5;
+      color: white;
+      border: none;
+      padding: 0 15px;
+      cursor: pointer;
+    }
+
+    /* Messages */
+    .msg {
+      margin-bottom: 10px;
+    }
+
+    .user {
+      text-align: right;
+      color: #1f2937;
+    }
+
+    .bot {
+      color: #4f46e5;
+    }
+
+    .suggestions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .suggestions button {
+      background: #4f46e5;
+      color: #fff;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    .suggestions button:hover {
+      background: #4338ca;
+    }
+
+
     /* MOBILE */
     @media (max-width: 992px) {
       .nav-search {
@@ -189,10 +290,12 @@
       color: #d1d5db;
       padding: 60px 0 25px;
     }
-.footer-links a:hover {
-  color: #a5b4fc;
-  padding-left: 5px;
-}
+
+    .footer-links a:hover {
+      color: #a5b4fc;
+      padding-left: 5px;
+    }
+
     .footer-title {
       font-weight: 600;
       margin-bottom: 15px;
@@ -262,6 +365,139 @@
       margin-left: 20px;
       text-decoration: none;
     }
+
+    /* -------------------chatbot Body--------- */
+
+    /* Chatbot Container */
+    #chatbot {
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      width: 320px;
+      height: 460px;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+      z-index: 9999;
+    }
+
+    /* Header */
+    .chatbot-header {
+      background: #4f46e5;
+      color: #fff;
+      padding: 12px 16px;
+      font-weight: 600;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* Chat Body */
+    .chat-body {
+      flex: 1;
+      padding: 14px;
+      overflow-y: auto;
+      background: linear-gradient(180deg, #f4f6ff, #ffffff);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    /* Scrollbar */
+    .chat-body::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .chat-body::-webkit-scrollbar-thumb {
+      background: #c7c9ff;
+      border-radius: 10px;
+    }
+
+    /* Messages */
+    .msg {
+      max-width: 75%;
+      padding: 10px 14px;
+      font-size: 14px;
+      line-height: 1.4;
+      border-radius: 16px;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .msg.bot {
+      background: #eef0ff;
+      color: #333;
+      align-self: flex-start;
+      border-bottom-left-radius: 4px;
+    }
+
+    .msg.user {
+      background: #4f46e5;
+      color: #fff;
+      align-self: flex-end;
+      border-bottom-right-radius: 4px;
+    }
+
+    /* Suggestions */
+    .suggestions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .suggestions button {
+      background: #fff;
+      border: 1px solid #4f46e5;
+      color: #4f46e5;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .suggestions button:hover {
+      background: #4f46e5;
+      color: #fff;
+    }
+
+    /* Input */
+    .chat-input {
+      display: flex;
+      border-top: 1px solid #ddd;
+    }
+
+    .chat-input input {
+      flex: 1;
+      border: none;
+      padding: 12px;
+      outline: none;
+    }
+
+    .chat-input button {
+      background: #4f46e5;
+      color: #fff;
+      border: none;
+      padding: 0 18px;
+    }
+
+    /* Animation */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+
 
     /* FIX FOOTER OVERLAP WITH SIDEBAR */
     @media (min-width: 992px) {
@@ -418,20 +654,20 @@
           <input class="form-control nav-search" type="search" name="q" placeholder="Search Books" required />
         </form>
 
-{% if messages %}
-<div class="toast-container position-fixed top-0 end-0 p-3">
-  {% for message in messages %}
-  <div class="toast align-items-center text-white bg-danger border-0 show mb-2 shadow" role="alert">
-    <div class="d-flex">
-      <div class="toast-body">
-        {{ message }}
-      </div>
-      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
-    </div>
-  </div>
-  {% endfor %}
-</div>
-{% endif %}
+        {% if messages %}
+        <div class="toast-container position-fixed top-0 end-0 p-3">
+          {% for message in messages %}
+          <div class="toast align-items-center text-white bg-danger border-0 show mb-2 shadow" role="alert">
+            <div class="d-flex">
+              <div class="toast-body">
+                {{ message }}
+              </div>
+              <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        {% endif %}
         <!-- MENU -->
 
         <ul class="navbar-nav mx-auto text-center">
@@ -482,16 +718,16 @@
           ✨ Premium Books
         </a>
       </h4>
-      
+
 
       <h6 class="mt-4">Your Books</h6>
       <a href="{% url 'liked_books' %}"><i class="fa-regular fa-heart me-2"></i> Liked Books</a>
       <a href="{% url 'history' %}">
-  <i class="fa-solid fa-clock-rotate-left me-2"></i> History
-</a>
+        <i class="fa-solid fa-clock-rotate-left me-2"></i> History
+      </a>
 
       <h6 class="mt-4">Bookshelves</h6>
-      <a href="#"><i class="fa-regular fa-folder me-2"></i> FaQ's</a>
+      <a href="{% url 'faq' %}"><i class="fa-regular fa-folder me-2"></i> FaQ's</a>
     </div>
 
     <!-- MAIN CONTENT -->
@@ -504,7 +740,8 @@
       <div class="row gy-4">
         <div class="col-lg-4">
           <div class="d-flex align-items-center mb-3">
-            <img src="{% static 'images/imglogo.jpeg' %}" height="75px" width="100px" style="border-radius: 8px;" class="me-2" />
+            <img src="{% static 'images/imglogo.jpeg' %}" height="75px" width="100px" style="border-radius: 8px;"
+              class="me-2" />
             <h5 class="mb-0 fw-bold" style="margin-left: 10PX;">KNOW VAULT</h5>
           </div>
           <p class="footer-text">
@@ -523,30 +760,49 @@
           </ul>
         </div>
 
-<div class="col-lg-5">
-  <h6 class="footer-title">Newsletter</h6>
-  <p class="footer-text-small">
-    Sign up to receive latest book updates.
-  </p>
+        <div class="col-lg-5">
+          <h6 class="footer-title">Newsletter</h6>
+          <p class="footer-text-small">
+            Sign up to receive latest book updates.
+          </p>
 
-  <form method="POST" action="{% url 'subscribe' %}" class="newsletter-box">
-    {% csrf_token %}
-    <input type="email" name="email" placeholder="Your email address" required />
-    <button type="submit">Subscribe</button>
-  </form>
-</div>
+          <form method="POST" action="{% url 'subscribe' %}" class="newsletter-box">
+            {% csrf_token %}
+            <input type="email" name="email" placeholder="Your email address" required />
+            <button type="submit">Subscribe</button>
+          </form>
+        </div>
 
-      <hr class="footer-divider" />
+        <hr class="footer-divider" />
 
-      <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
-        <p>© 2026 OpenChapter. All Rights Reserved.</p>
-        <div class="footer-bottom-links">
-          <a href="#">Terms</a>
-          <a href="#">Privacy</a>
-          <a href="#">Cookies</a>
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
+          <p>© 2026 OpenChapter. All Rights Reserved.</p>
+          <div class="footer-bottom-links">
+            <a href="#">Terms</a>
+            <a href="#">Privacy</a>
+            <a href="#">Cookies</a>
+          </div>
         </div>
       </div>
-    </div>
+
+      <!-- Chatbot Button -->
+      <div id="chatbot-btn">💬</div>
+
+      <!-- Chatbot Window -->
+      <div id="chatbot">
+        <div class="chatbot-header">
+          📚 Library Assistant
+          <span onclick="toggleChat()">✖</span>
+        </div>
+
+        <div id="chat-body" class="chat-body"></div>
+
+        <div class="chat-input">
+          <input type="text" id="user-input" placeholder="Ask me something..." />
+          <button onclick="sendMessage()">Send</button>
+        </div>
+      </div>
+
   </footer>
 
   <!-- SCRIPTS -->
@@ -557,19 +813,113 @@
       document.getElementById("overlay").classList.toggle("show");
     }
   </script>
- <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const toastElList = document.querySelectorAll('.toast');
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const toastElList = document.querySelectorAll('.toast');
 
-    toastElList.forEach(function (toastEl) {
-      const toast = new bootstrap.Toast(toastEl, {
-        delay: 3000   // 3 sec
+      toastElList.forEach(function (toastEl) {
+        const toast = new bootstrap.Toast(toastEl, {
+          delay: 3000   // 3 sec
+        });
+        toast.show();
       });
-      toast.show();
     });
-  });
-</script>
-</script>
+  </script>
+  <script>
+    const responses = {
+      "hi": "Hello 👋 How can I help you?",
+      "free books": "Free books are available to all registered users.",
+      "premium books": "Premium books are available for premium members only.",
+      "how to download": "Open the book and click on the Download PDF button.",
+      "login": "You need to log in to access books.",
+      "register": "Click on Register to create an account.",
+      "admin": "Only admins can add or manage books."
+    };
+
+    const suggestions = [
+      "Free books",
+      "Premium books",
+      "How to download",
+      "Login",
+      "Register"
+    ];
+
+    function toggleChat() {
+      const bot = document.getElementById("chatbot");
+      bot.style.display = bot.style.display === "flex" ? "none" : "flex";
+    }
+
+    document.getElementById("chatbot-btn").onclick = toggleChat;
+
+    function sendMessage(message = null) {
+      const input = document.getElementById("user-input");
+      const msg = message ? message.toLowerCase() : input.value.toLowerCase().trim();
+      if (!msg) return;
+
+      addMessage(message || input.value, "user");
+
+      let reply = "Sorry 😕 I didn't understand. Please choose a question below.";
+      for (let key in responses) {
+        if (msg.includes(key)) {
+          reply = responses[key];
+          break;
+        }
+      }
+
+      setTimeout(() => {
+        addMessage(reply, "bot");
+        showSuggestions();
+      }, 500);
+
+      input.value = "";
+    }
+
+    function addMessage(text, sender) {
+      const chatBody = document.getElementById("chat-body");
+      const div = document.createElement("div");
+      div.className = "msg " + sender;
+      div.innerText = text;
+      chatBody.appendChild(div);
+      chatBody.scrollTop = chatBody.scrollHeight;
+    }
+
+    // ✅ Suggested Questions
+
+    function showSuggestions() {
+      const chatBody = document.getElementById("chat-body");
+
+      // Remove existing suggestions
+      const old = document.querySelector(".suggestions");
+      if (old) old.remove();
+
+      const container = document.createElement("div");
+      container.className = "suggestions";
+
+      suggestions.forEach(q => {
+        const btn = document.createElement("button");
+        btn.innerText = q;
+        btn.onclick = () => sendMessage(q);
+        container.appendChild(btn);
+      });
+
+      chatBody.appendChild(container);
+      chatBody.scrollTop = chatBody.scrollHeight;
+    }
+
+
+
+    // ✅ ENTER KEY SUPPORT
+    document.getElementById("user-input").addEventListener("keydown", function (e) {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        sendMessage();
+      }
+    });
+
+    // Show suggestions on start
+    showSuggestions();
+  </script>
+
 </body>
 
 </html>

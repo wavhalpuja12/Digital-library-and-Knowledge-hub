@@ -644,8 +644,13 @@ def update_reading_time(request, book_id):
             history.save()
 
     return HttpResponse(status=204)
+
 def blog_contend(request):
     return render(request,'blog.html')
 
 def blog_galaxy(request):
     return render(request,'blog2.html')
+
+def faq(request):
+    return render(request,'faq.html')
+

@@ -44,7 +44,11 @@ urlpatterns = [
     # path('delete-category/<int:id>/', views.delete_category, name='delete_category')
 
     #blog pages
-    path('blog_contend',views.blog_contend,name='blog_contend'),
-    path('blog_galaxy',views.blog_galaxy,name='blog_galaxy')
+    path('blog_contend/',views.blog_contend,name='blog_contend'),
+    path('blog_galaxy/',views.blog_galaxy,name='blog_galaxy'),
+
+    #FAQ's Page
+
+    path('faq/',views.faq,name='faq')
 
 ]
