@@ -4,277 +4,295 @@
 {% block content %}
 
 <style>
-* {
-  box-sizing: border-box;
-}
-
-/* ================= HERO SECTION ================= */
-
-.category-hero {
-  background: #f1f2f4;
-  padding: 80px 60px;
-  opacity: 0;
-  animation: fadeIn 1s ease forwards;
-}
-
-.hero-content {
-  max-width: 1300px;
-  margin: auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 60px;
-}
-
-.hero-text {
-  flex: 1;
-  max-width: 600px;
-  opacity: 0;
-  transform: translateY(40px);
-  animation: slideUp 1s ease forwards;
-  animation-delay: 0.3s;
-}
-
-.hero-line {
-  width: 0;
-  height: 4px;
-  background: #4f46e5;
-  margin-bottom: 25px;
-  animation: expandLine 1s ease forwards;
-  animation-delay: 0.8s;
-}
-
-.hero-text h1 {
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 48px;
-  font-weight: 600;
-  margin-bottom: 20px;
-  color: #111827;
-}
-
-.hero-text p {
-  font-size: 18px;
-  line-height: 1.8;
-  color: #374151;
-}
-
-.hero-image {
-  flex: 1;
-  opacity: 0;
-  transform: translateX(60px);
-  animation: slideRight 1s ease forwards;
-  animation-delay: 0.6s;
-}
-
-.hero-image img {
-  width: 100%;
-  height: 420px;
-  object-fit: cover;
-  transition: transform 0.4s ease;
-}
-
-.hero-image img:hover {
-  transform: scale(1.03);
-}
-
-/* ================= MAIN CONTAINER ================= */
-
-.container {
-  width: 100%;
-  max-width: 1200px;
-  margin: auto;
-  padding: 60px 20px;
-}
-
-/* ================= CATEGORY ROW ================= */
-
-.category-row {
-  display: flex;
-  gap: 30px;
-  background: #ffffff;
-  padding: 30px;
-  border-radius: 14px;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
-  margin-bottom: 40px;
-  flex-wrap: wrap;
-
-  opacity: 0;
-  transform: translateY(40px);
-  animation: fadeUp 0.8s ease forwards;
-}
-
-/* Stagger effect */
-.category-row:nth-child(1) { animation-delay: 0.2s; }
-.category-row:nth-child(2) { animation-delay: 0.4s; }
-.category-row:nth-child(3) { animation-delay: 0.6s; }
-.category-row:nth-child(4) { animation-delay: 0.8s; }
-
-/* Hover effect */
-.category-row:hover {
-  transform: translateY(-5px) scale(1.01);
-  transition: 0.3s;
-}
-
-.category-left {
-  flex: 1 1 350px;
-}
-
-.category-left h2 {
-  margin: 0 0 8px;
-  font-size: 26px;
-}
-
-.book-count {
-  font-size: 14px;
-  color: #777;
-  margin-bottom: 14px;
-}
-
-.category-desc {
-  font-size: 15px;
-  line-height: 1.6;
-  color: #444;
-}
-
-.category-right {
-  flex: 1 1 500px;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 15px;
-}
-
-/* ================= BOOK BOX ================= */
-
-.box {
-  background: #f1f3f6;
-  padding: 8px;
-  border-radius: 12px;
-  text-align: center;
-  transition: all 0.3s ease;
-}
-
-.box img {
-  width: 100%;
-  height: 220px;
-  object-fit: cover;
-  border-radius: 10px;
-  transition: transform 0.4s ease;
-}
-
-.box:hover img {
-  transform: scale(1.1);
-}
-
-.box:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-  background: #ffffff;
-}
-
-.book-title {
-  font-size: 14px;
-  font-weight: 600;
-  margin: 8px 0 4px;
-}
-
-.book-author {
-  font-size: 13px;
-  color: #555;
-}
-
-.book-rating {
-  font-size: 13px;
-  color: #888;
-}
-
-/* ================= KEYFRAMES ================= */
-
-@keyframes fadeIn {
-  to { opacity: 1; }
-}
-
-@keyframes slideUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
+  * {
+    box-sizing: border-box;
   }
-}
 
-@keyframes slideRight {
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes expandLine {
-  from { width: 0; }
-  to { width: 70px; }
-}
-
-@keyframes fadeUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* ================= RESPONSIVE ================= */
-
-@media (max-width: 992px) {
+  /* ================= HERO SECTION ================= */
 
   .category-hero {
-    padding: 60px 30px;
+    background: #f1f2f4;
+    padding: 80px 60px;
+    opacity: 0;
+    animation: fadeIn 1s ease forwards;
   }
 
   .hero-content {
-    flex-direction: column;
-    text-align: center;
+    max-width: 1300px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 60px;
+  }
+
+  .hero-text {
+    flex: 1;
+    max-width: 600px;
+    opacity: 0;
+    transform: translateY(40px);
+    animation: slideUp 1s ease forwards;
+    animation-delay: 0.3s;
   }
 
   .hero-line {
-    margin: 0 auto 20px;
+    width: 0;
+    height: 4px;
+    background: #4f46e5;
+    margin-bottom: 25px;
+    animation: expandLine 1s ease forwards;
+    animation-delay: 0.8s;
   }
-
-  .hero-image img {
-    height: 350px;
-  }
-
-  .category-row {
-    flex-direction: column;
-  }
-
-  .category-right {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 576px) {
 
   .hero-text h1 {
-    font-size: 32px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 48px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #111827;
   }
 
   .hero-text p {
-    font-size: 16px;
+    font-size: 18px;
+    line-height: 1.8;
+    color: #374151;
+  }
+
+  .hero-image {
+    flex: 1;
+    opacity: 0;
+    transform: translateX(60px);
+    animation: slideRight 1s ease forwards;
+    animation-delay: 0.6s;
   }
 
   .hero-image img {
-    height: 250px;
+    width: 100%;
+    height: 420px;
+    object-fit: cover;
+    transition: transform 0.4s ease;
   }
 
+  .hero-image img:hover {
+    transform: scale(1.03);
+  }
+
+  /* ================= MAIN CONTAINER ================= */
+
   .container {
-    padding: 40px 15px;
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+    padding: 60px 20px;
+  }
+
+  /* ================= CATEGORY ROW ================= */
+
+  .category-row {
+    display: flex;
+    gap: 30px;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 14px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+
+    opacity: 0;
+    transform: translateY(40px);
+    animation: fadeUp 0.8s ease forwards;
+  }
+
+  /* Stagger effect */
+  .category-row:nth-child(1) {
+    animation-delay: 0.2s;
+  }
+
+  .category-row:nth-child(2) {
+    animation-delay: 0.4s;
+  }
+
+  .category-row:nth-child(3) {
+    animation-delay: 0.6s;
+  }
+
+  .category-row:nth-child(4) {
+    animation-delay: 0.8s;
+  }
+
+  /* Hover effect */
+  .category-row:hover {
+    transform: translateY(-5px) scale(1.01);
+    transition: 0.3s;
+  }
+
+  .category-left {
+    flex: 1 1 350px;
+  }
+
+  .category-left h2 {
+    margin: 0 0 8px;
+    font-size: 26px;
+  }
+
+  .book-count {
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 14px;
+  }
+
+  .category-desc {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #444;
   }
 
   .category-right {
-    grid-template-columns: 1fr;
+    flex: 1 1 500px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+  }
+
+  /* ================= BOOK BOX ================= */
+
+  .box {
+    background: #f1f3f6;
+    padding: 8px;
+    border-radius: 12px;
+    text-align: center;
+    transition: all 0.3s ease;
   }
 
   .box img {
-    height: 200px;
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 10px;
+    transition: transform 0.4s ease;
   }
-}
+
+  .box:hover img {
+    transform: scale(1.1);
+  }
+
+  .box:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    background: #ffffff;
+  }
+
+  .book-title {
+    font-size: 14px;
+    font-weight: 600;
+    margin: 8px 0 4px;
+  }
+
+  .book-author {
+    font-size: 13px;
+    color: #555;
+  }
+
+  .book-rating {
+    font-size: 13px;
+    color: #888;
+  }
+
+  /* ================= KEYFRAMES ================= */
+
+  @keyframes fadeIn {
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slideRight {
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes expandLine {
+    from {
+      width: 0;
+    }
+
+    to {
+      width: 70px;
+    }
+  }
+
+  @keyframes fadeUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* ================= RESPONSIVE ================= */
+
+  @media (max-width: 992px) {
+
+    .category-hero {
+      padding: 60px 30px;
+    }
+
+    .hero-content {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .hero-line {
+      margin: 0 auto 20px;
+    }
+
+    .hero-image img {
+      height: 350px;
+    }
+
+    .category-row {
+      flex-direction: column;
+    }
+
+    .category-right {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 576px) {
+
+    .hero-text h1 {
+      font-size: 32px;
+    }
+
+    .hero-text p {
+      font-size: 16px;
+    }
+
+    .hero-image img {
+      height: 250px;
+    }
+
+    .container {
+      padding: 40px 15px;
+    }
+
+    .category-right {
+      grid-template-columns: 1fr;
+    }
+
+    .box img {
+      height: 200px;
+    }
+  }
 </style>
 
 
@@ -285,11 +303,14 @@
       <div class="hero-line"></div>
       <h1>All Categories</h1>
       <p>
-        Browse all book categories in one convenient page, making it easy to explore our entire collection of free classic literature. Discover diverse genres, from timeless fiction and historical works to poetry and philosophy, and find your next read by exploring every category available on the site.
+        Browse all book categories in one convenient page, making it easy to explore our entire collection of free
+        classic literature. Discover diverse genres, from timeless fiction and historical works to poetry and
+        philosophy, and find your next read by exploring every category available on the site.
       </p>
     </div>
     <div class="hero-image">
-      <img src="https://cdn.a2-host.cloud/MzPhGbSiW59oQyWjPUTYIO5NR5QbHpRdviVCvf5dDTs/rs:fill:700:500:0/g:ce/aHR0cHM6Ly9pbWFnZXMucGV4ZWxzLmNvbS9waG90b3MvMzk1MjA3MS9wZXhlbHMtcGhvdG8tMzk1MjA3MS5qcGVnP2F1dG89Y29tcHJlc3MmY3M9dGlueXNyZ2Imdz0xMjYwJmg9NzUwJmRwcj0x.webp">
+      <img
+        src="https://cdn.a2-host.cloud/MzPhGbSiW59oQyWjPUTYIO5NR5QbHpRdviVCvf5dDTs/rs:fill:700:500:0/g:ce/aHR0cHM6Ly9pbWFnZXMucGV4ZWxzLmNvbS9waG90b3MvMzk1MjA3MS9wZXhlbHMtcGhvdG8tMzk1MjA3MS5qcGVnP2F1dG89Y29tcHJlc3MmY3M9dGlueXNyZ2Imdz0xMjYwJmg9NzUwJmRwcj0x.webp">
     </div>
   </div>
 </section>
@@ -301,72 +322,107 @@
   <!-- (No content changed from your original) -->
 
   <!-- Your category rows here exactly as you already wrote --><!-- CATEGORY ROW -->
-      <div class="category-row">
-        <div class="category-left">
-          <h2>History – India</h2>
-          <div class="book-count">5062 books in category</div>
-          <p class="category-desc">
-            Discover a vast and fascinating collection of texts that explore the
-            rich and diverse history of India. From the ancient Indus Valley
-            Civilization and the Vedic age to the Mughal Empire and the struggle
-            for independence, these books bring to life the people, cultures,
-            and events that shaped the Indian subcontinent over thousands of
-            years.
-          </p>
-        </div>
+  <div class="category-row">
+    <div class="category-left">
+      <h2>Literature</h2>
+      <div class="book-count">5062 books in category</div>
+      <p class="category-desc">
+        Literature is a form of written or spoken expression that uses language creatively to present ideas, emotions,
+        experiences, and stories. It includes various forms such as poetry, prose, drama, and essays. Literature
+        reflects human life, culture, thoughts, and imagination, and helps readers understand different perspectives and
+        values. It is not only used for entertainment but also for education and expressing feelings and ideas in an
+        artistic way. Through literature, writers communicate their thoughts and readers gain knowledge, inspiration,
+        and emotional connection. It is considered an important part of human culture and intellectual development.
+      </p>
+    </div>
 
-       
-      </div>
 
-      <!-- CATEGORY ROW -->
-      <div class="category-row">
-        <div class="category-left">
-          <h2>Indian-Politics</h2>
-          <div class="book-count">5062 books in category</div>
-          <p class="category-desc">
-            Explore an in-depth collection of works that examine the political
-            evolution of India. From the foundations of ancient governance and
-            colonial administration to the Constitution of India, democratic
-            institutions, political movements, and contemporary policy debates,
-            these books offer valuable insights into the ideas, leaders, and
-            systems that shape Indian politics today.
-          </p>
-        </div>
-      </div>
+  </div>
 
-      <!-- CATEGORY ROW -->
-      <div class="category-row">
-        <div class="category-left">
-          <h2>Law & Criminology</h2>
-          <div class="book-count">5062 books in category</div>
-          <p class="category-desc">
-            Explore a comprehensive collection of works focused on legal
-            systems, criminal justice, and the study of crime. From
-            constitutional law, human rights, and judicial processes to
-            criminological theories, forensic science, and landmark case
-            studies, this category offers valuable insights into how laws are
-            formed, enforced, and interpreted, as well as the social factors
-            behind crime and punishment.
-          </p>
-        </div>
-      </div>
+  <!-- CATEGORY ROW -->
+  <div class="category-row">
+    <div class="category-left">
+      <h2>Poetry</h2>
+      <div class="book-count">5062 books in category</div>
+      <p class="category-desc">
+        Poetry is a form in which a writer expresses emotions, ideas, experiences, or imagination through
+        creative and rhythmic use of language. It is different from normal writing because it focuses more on feelings,
+        beauty, and artistic expression rather than just providing information. Poetry often uses rhyme, rhythm, and
+        figures of speech such as simile, metaphor, and personification to make the writing more expressive and
+        meaningful. It helps the reader to imagine scenes, feel emotions, and understand the deeper meaning behind the
+        words. Poetry can describe nature, love, life, happiness, sadness, or any human experience in a creative and
+        powerful way. It is considered one of the oldest and most beautiful forms of literary expression.
+      </p>
+    </div>
+  </div>
 
-      <!-- CATEGORY ROW -->
-      <div class="category-row">
-        <div class="category-left">
-          <h2>Horror</h2>
-          <div class="book-count">5062 books in category</div>
-          <p class="category-desc">
-            Explore a chilling collection of horror stories that promise to keep
-            you on the edge of your seat. This category features timeless tales
-            from classic authors that explore the depths of fear and the
-            unknown. Each story holds a unique spin on horror, from ghostly
-            encounters to thrilling mysteries. Perfect for late-night reading,
-            these narratives will captivate your imagination and send shivers
-            down your spine.
-          </p>
-        </div>
-      </div>
+  <!-- CATEGORY ROW -->
+  <div class="category-row">
+    <div class="category-left">
+      <h2>Crime and mystery</h2>
+      <div class="book-count">5062 books in category</div>
+      <p class="category-desc">
+        Crime and mystery is a genre of literature that focuses on crimes, investigations, and the process of
+        discovering the truth behind a mysterious event. It usually involves a crime such as murder, theft, or
+        kidnapping, and a main character like a detective, police officer, or investigator who tries to solve the case.
+        The story creates suspense, tension, and curiosity, making the reader interested in finding out what happened
+        and who is responsible. Mystery literature often includes clues, secrets, and unexpected twists that keep the
+        reader engaged until the final solution is revealed. This genre not only entertains readers but also challenges
+        their thinking and reasoning skills as they try to solve the mystery along with the investigator.
+      </p>
+    </div>
+  </div>
+
+  <!-- CATEGORY ROW -->
+  <div class="category-row">
+    <div class="category-left">
+      <h2>Science fiction and fantasy</h2>
+      <div class="book-count">5062 books in category</div>
+      <p class="category-desc">
+        Science fiction and fantasy are genres of literature that deal with imaginative and unreal elements, but they
+        are different in their focus and themes. Science fiction is based on advanced science, technology, space travel,
+        time travel, robots, and futuristic concepts. It explores how science and technology may affect human life in
+        the future. These stories often include spaceships, aliens, and scientific inventions, such as in The Time
+        Machine. On the other hand, fantasy is based on magical and supernatural elements that do not exist in real
+        life. It includes magic, witches, dragons, and imaginary worlds. Fantasy stories take readers into a magical
+        world full of adventure and imagination, such as Harry Potter. Both science fiction and fantasy help readers
+        escape from reality and explore creative and imaginative possibilities beyond the real world.
+      </p>
+    </div>
+  </div>
+
+  <div class="category-row">
+    <div class="category-left">
+      <h2>Adventures</h2>
+      <div class="book-count">5062 books in category</div>
+      <p class="category-desc">
+        Adventure is a genre of literature that focuses on exciting journeys, dangerous situations, and exploration of
+        new places. It usually involves a brave main character who faces challenges, risks, and unexpected events while
+        traveling or trying to achieve a goal. Adventure stories often include elements such as treasure hunts, survival
+        in difficult conditions, sea voyages, or exploration of unknown lands. These stories create excitement and
+        curiosity, keeping the reader interested in what will happen next. Adventure literature also teaches courage,
+        confidence, and problem-solving skills. Famous adventure stories include Treasure Island and Robinson Crusoe,
+        which show the experiences of characters facing thrilling and challenging situations.
+      </p>
+    </div>
+  </div>
+
+  <div class="category-row">
+    <div class="category-left">
+      <h2>Classics</h2>
+      <div class="book-count">5062 books in category</div>
+      <p class="category-desc">
+        Classic literature refers to books and literary works that are considered important, valuable, and timeless.
+        These works are called classics because they remain popular and meaningful even after many years and
+        generations. Classic literature usually presents universal themes such as love, life, society, human nature, and
+        moral values, which are relevant in every period. These stories help readers understand culture, history, and
+        human behavior. The language and writing style in classic literature are often rich and artistic. Famous
+        examples of classic literature include Pride and Prejudice and Great Expectations, which are still widely read
+        and appreciated today. Classic literature plays an important role in improving knowledge, thinking, and
+        understanding of life.
+      </p>
+    </div>
+  </div>
   {{ block.super }}
 
 </div>

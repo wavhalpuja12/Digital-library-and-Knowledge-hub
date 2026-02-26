@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import include, path
 from . import views
 
 urlpatterns = [
@@ -49,6 +49,7 @@ urlpatterns = [
 
     #FAQ's Page
 
-    path('faq/',views.faq,name='faq')
+    path('faq/',views.faq,name='faq'),
+   
 
 ]

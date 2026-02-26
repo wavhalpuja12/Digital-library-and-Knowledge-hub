@@ -165,18 +165,18 @@
       <div class="book-title">{{ item.book.title }}</div>
       <div class="book-author">{{ item.book.author }}</div>
 
-      <div class="time-badge">
-        ⏱ {{ item.minutes }} min read
-      </div>
+      <!-- <div class="time-badge">
+        ⏱ {{ item.seconds }} min read
+      </div> -->
 
       <div class="action-buttons">
-        <a href="{% url 'book_detail' item.book.id %}" class="btn-open">
+        <a href="{% url 'book_detail' item.book.id %}" class="btn-open" style="text-decoration: none;">
           Open
         </a>
 
         <a href="{% url 'remove_history' item.id %}" 
            class="btn-remove"
-           onclick="return confirm('Remove this book from history?');">
+           onclick="return confirm('Remove this book from history?');" style="background-color: white;">
            ❌
         </a>
       </div>

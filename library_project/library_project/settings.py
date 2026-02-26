@@ -161,6 +161,6 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'wavhalpuja053@gmail.com'
 EMAIL_HOST_PASSWORD = 'tndfwboyhbnpjswn'
 
-RAZORPAY_KEY_ID = "rzp_test_xxxxxx"   
+RAZORPAY_KEY_ID = "rzp_test_SFcLvZi7J7Wuel"   
 
-RAZORPAY_KEY_SECRET = "xxxxxxxx" 
+RAZORPAY_KEY_SECRET = "UkiC4PnQC2SDrjtTRwExChpD" 

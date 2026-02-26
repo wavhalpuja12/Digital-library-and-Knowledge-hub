@@ -329,6 +329,11 @@
           {% endfor %} {% endif %}
 
           <form method="POST" enctype="multipart/form-data" id="addBookForm">
+            <label for="title" class="form-label">
+                <i class="fa-thin fa-list"></i>
+                Select Category
+                <span class="required-badge">*</span>
+              </label>
             {% csrf_token %}
             <select name="category" class="form-control" required>
               <option value="">Select Category</option>
