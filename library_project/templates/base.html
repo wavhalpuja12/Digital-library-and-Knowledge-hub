@@ -720,7 +720,7 @@
           <i class="fa-regular fa-circle-user me-2"></i>
 
           {% if user.is_authenticated %}
-          <span class="me-3">Welcome, {{ user.username }}</span>
+          <span class="me-3"> Welcome,<strong class="text-primary" style="margin-left: 10px;">{{ user.username }}</strong></span>
           {% if user.is_superuser %}
           <a href="{% url 'admin_dashboard' %}" style="color: red; margin-right: 15px ; text-decoration: none;">
             Admin Dashboard
