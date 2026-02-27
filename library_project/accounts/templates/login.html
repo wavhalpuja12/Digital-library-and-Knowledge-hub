@@ -6,7 +6,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>login page</title>
+    <title> Know Voult</title>
+    <link rel="icon" type="image/x-icon" href="{% static 'images/imglogo.jpeg' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
         integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -173,8 +174,8 @@
                         placeholder="Enter password" required>
 
                     <!-- Eye Icon -->
-                    <i class="bi bi-eye-slash position-absolute top-50 end-0 translate-middle-y "
-                        id="togglePassword" style="cursor: pointer; margin-right: 30px; margin-top: 17px; "></i>
+                    <i class="bi bi-eye-slash position-absolute top-50 end-0 translate-middle-y " id="togglePassword"
+                        style="cursor: pointer; margin-right: 30px; margin-top: 17px; "></i>
                 </div>
             </div>
 
@@ -188,20 +189,20 @@
                     <a href="{% url 'signup' %}">Sign up here</a>
                 </p>
             </div>
-            
+
         </form>
     </div>
     <script>
-    const password = document.getElementById("pass");
-    const toggle = document.getElementById("togglePassword");
+        const password = document.getElementById("pass");
+        const toggle = document.getElementById("togglePassword");
 
-    toggle.addEventListener("click", function () {
-        const type = password.getAttribute("type") === "password" ? "text" : "password";
-        password.setAttribute("type", type);
+        toggle.addEventListener("click", function () {
+            const type = password.getAttribute("type") === "password" ? "text" : "password";
+            password.setAttribute("type", type);
 
-        this.classList.toggle("bi-eye");
-        this.classList.toggle("bi-eye-slash");
-    });
+            this.classList.toggle("bi-eye");
+            this.classList.toggle("bi-eye-slash");
+        });
     </script>
 </body>
 

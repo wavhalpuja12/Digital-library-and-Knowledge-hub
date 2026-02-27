@@ -4,7 +4,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Signup Page</title>
+    <title> Know Voult</title>
+    <link rel="icon" type="image/x-icon" href="{% static 'images/imglogo.jpeg' %}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -140,60 +141,60 @@
 </head>
 
 <body>
-    
+
 
 
     <div class="signup-card">
-    <h1>Sign Up</h1>
-    <p>Create your account</p>
-    <form method="POST">
-    {% csrf_token %}
+        <h1>Sign Up</h1>
+        <p>Create your account</p>
+        <form method="POST">
+            {% csrf_token %}
 
-    <div class="input-group">
-        <input type="text" name="username" placeholder="Username" required>
+            <div class="input-group">
+                <input type="text" name="username" placeholder="Username" required>
+            </div>
+
+            <div class="input-group">
+                <input type="email" name="email" placeholder="Email" required>
+            </div>
+
+            <div class="input-group">
+                <input type="password" id="pass" name="password" placeholder="Password" required>
+                <i class="bi bi-eye-slash position-absolute top-50 end-0 translate-middle-y " id="togglePassword"
+                    style="cursor: pointer; margin-right: 30px;  "></i>
+
+            </div>
+
+            <div class="input-group">
+                <input type="password" id="cpass" name="password2" placeholder="Confirm Password" required>
+                <i class="bi bi-eye-slash position-absolute top-50 end-0 translate-middle-y " id="togglePassword2"
+                    style="cursor: pointer; margin-right: 30px;  "></i>
+            </div>
+
+            <button type="submit" class="btn">Sign Up</button>
+        </form>
     </div>
+    <script>
+        const password = document.getElementById("pass");
+        const toggle = document.getElementById("togglePassword");
 
-    <div class="input-group">
-        <input type="email" name="email" placeholder="Email" required>
-    </div>
+        toggle.addEventListener("click", function () {
+            const type = password.getAttribute("type") === "password" ? "text" : "password";
+            password.setAttribute("type", type);
 
-    <div class="input-group">
-        <input type="password" id="pass" name="password" placeholder="Password" required>
-        <i class="bi bi-eye-slash position-absolute top-50 end-0 translate-middle-y "
-            id="togglePassword" style="cursor: pointer; margin-right: 30px;  "></i>
-        
-    </div>
+            this.classList.toggle("bi-eye");
+            this.classList.toggle("bi-eye-slash");
+        });
+        const password2 = document.getElementById("cpass");
+        const toggle2 = document.getElementById("togglePassword2");
 
-    <div class="input-group">
-        <input type="password" id="cpass" name="password2" placeholder="Confirm Password" required>
-        <i class="bi bi-eye-slash position-absolute top-50 end-0 translate-middle-y "
-            id="togglePassword2" style="cursor: pointer; margin-right: 30px;  "></i>
-    </div>
+        toggle2.addEventListener("click", function () {
+            const type = password2.getAttribute("type") === "password" ? "text" : "password";
+            password2.setAttribute("type", type);
 
-    <button type="submit" class="btn">Sign Up</button>
-</form>
-</div>
-<script>
-    const password = document.getElementById("pass");
-    const toggle = document.getElementById("togglePassword");
-
-    toggle.addEventListener("click", function () {
-        const type = password.getAttribute("type") === "password" ? "text" : "password";
-        password.setAttribute("type", type);
-
-        this.classList.toggle("bi-eye");
-        this.classList.toggle("bi-eye-slash");
-    });
-    const password2 = document.getElementById("cpass");
-    const toggle2 = document.getElementById("togglePassword2");
-
-    toggle2.addEventListener("click", function () {
-        const type = password2.getAttribute("type") === "password" ? "text" : "password";
-        password2.setAttribute("type", type);
-
-        this.classList.toggle("bi-eye");
-        this.classList.toggle("bi-eye-slash");
-    });
+            this.classList.toggle("bi-eye");
+            this.classList.toggle("bi-eye-slash");
+        });
     </script>
 
 </body>
